@@ -26,7 +26,7 @@ public class StartRoom : MonoBehaviour
         flamebowl.GetComponent<FlameBowl>().startLit = true;
         flamebowl.GetComponent<FlameBowl>().Light();
 
-        GameObject bowPickup = Instantiate(Resources.Load("BowPickup"), bowPickupTile.transform.position, Quaternion.identity) as GameObject;
+        GameObject bowPickup = Instantiate(Resources.Load(@"ChestSpawnables\BowPickup"), bowPickupTile.transform.position, Quaternion.identity) as GameObject;
 
 
         GameObject player = Instantiate(Resources.Load("Player Variant 1"), gameObject.transform.position, Quaternion.identity) as GameObject;

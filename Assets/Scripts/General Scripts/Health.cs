@@ -11,7 +11,6 @@ public class Health : MonoBehaviour
     // public HealthBar healthBar;
     public SpriteRenderer sr;
     public GameObject lastHitBy;
-    public GameObject currentRoom;
     public GameObject player;
 
     public bool isBoss = false;
@@ -259,13 +258,11 @@ public class Health : MonoBehaviour
         if (TryGetComponent(out Ghost ghost)) isImmuneToProjectileDamage = ghost.Phasing();
         if (TryGetComponent(out Human human)) isImmuneToAllDamage = human.isPlayerDashing();
 
-
         // If the host is phasing and the damage is a projectile, return
         // If the host is immune to melee, return
         if (isImmuneToMeleeDamage || damageType == "melee") return;
         // If the host is immune to all damage, return
         if (isImmuneToAllDamage) return;
-
 
         ////////////////
         //Hit connects//
@@ -274,7 +271,6 @@ public class Health : MonoBehaviour
         {
             cameraShaker.Shake(.3f, 3.0f);
             gameManager.SetPlayerHit(isCrit);
-
         }
         // Log attacker
         lastHitBy = attacker;
@@ -352,14 +348,14 @@ public class Health : MonoBehaviour
         if (gameObject.tag == "GhostBoss")
         {
             // Take player to game over screen for the time being
-            currentRoom.GetComponent<SimpleRoom>().SpawnExitTile();
+            transform.parent.GetComponent<SimpleRoom>().SpawnExitTile();
             // gameManager.TemporaryGameComplete();
 
         }
 
         if (isBoss && gameObject.tag == "MiniBoss")
         {
-            currentRoom.GetComponent<SimpleRoom>().UnlockExitTile();
+            transform.parent.GetComponent<SimpleRoom>().UnlockExitTile();
             gameManager.miniBossKilled = true;
         }
 
@@ -433,18 +429,11 @@ public class Health : MonoBehaviour
         if (isBoss)
         {
             sr.color = new Color(156, 21, 21, 255);
-            // currentRoom = transform.parent.gameObject;
-        }
-        if (gameObject.tag == "MiniBoss")
-        {
-            sr.color = new Color(156, 21, 21, 255);
-            currentRoom = transform.parent.gameObject;
         }
 
         if (isUsingNonDefaultColor)
         {
             GetComponent<SpriteRenderer>().color = nonDefaultColor;
         }
-
     }
 }

@@ -144,7 +144,6 @@ public class Map : MonoBehaviour
 
         if (room.RoomType == "Trap2")
         {
-            doorController.OpenByMobDeath = true;
             room.gameObject.AddComponent<WallOfDeathRoom>();
         }
 

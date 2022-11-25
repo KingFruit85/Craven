@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class WallOfDeathRoom : MonoBehaviour
 {
-    public enum CardinalDirections
-    {
-        North,
-        East,
-        South,
-        West
-    }
     public GameObject[] floorTiles;
+    public DoorController doorController;
+
     public List<List<GameObject>> VerticalRows;
     public List<List<GameObject>> HorizontalRows;
     public int currentRow = 0;
@@ -22,7 +17,8 @@ public class WallOfDeathRoom : MonoBehaviour
 
     void Start()
     {
-
+        doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
+        doorController.openCondition = DoorController.OpenCondition.MobDeath;
         safeTile = UnityEngine.Random.Range(1, 8);
         ogSafeTile = safeTile;
         floorTiles = GetComponent<SimpleRoom>().floorTiles;

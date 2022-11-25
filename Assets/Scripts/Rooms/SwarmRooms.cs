@@ -37,7 +37,7 @@ public class SwarmRooms : MonoBehaviour
         enemyLayer = LayerMask.GetMask("enemies");
         playerLayer = LayerMask.GetMask("Player");
 
-        doorController.OpenByMobDeath = true;
+        doorController.openCondition = DoorController.OpenCondition.MobDeath;
 
         // Populate the enemy list
         enemies = enemySpawner.GetEnemies(enemyLimit);

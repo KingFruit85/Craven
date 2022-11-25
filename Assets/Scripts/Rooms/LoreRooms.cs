@@ -15,7 +15,7 @@ public class LoreRooms : MonoBehaviour
 
         doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
 
-        doorController.OpenByMobDeath = true;
+        doorController.openCondition = DoorController.OpenCondition.MobDeath;
         var spawnLocations = gameObject.transform.GetComponent<SimpleRoom>().SpawnableFloorTiles;
         var r = UnityEngine.Random.Range(0, spawnLocations.Length);
 

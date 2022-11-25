@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec21c8fced5cc54ba60ebf23037fc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameSeed: god
+  GameSeed: testing
   CurrentSeed: 0
 --- !u!1 &1441469709
 GameObject:

@@ -13,8 +13,12 @@ public class DoorController : MonoBehaviour
     public GameObject topLeft;
     public GameObject bottomRight;
     public GameObject camAnchor;
-    public bool OpenByMobDeath = false;
-    public bool OpenByPuzzleComplete = false;
+    public enum OpenCondition
+    {
+        MobDeath,
+        PuzzleComplete
+    }
+    public OpenCondition openCondition;
     public bool roomComplete = false;
 
     void Awake()
@@ -23,7 +27,6 @@ public class DoorController : MonoBehaviour
         bottomRight = transform.Find("BottomRight").gameObject;
         GameObject.Find("CameraBox").transform.position = camAnchor.transform.position;
         // enemySpawner = transform.parent.Find("EnemySpawner").GetComponent<EnemySpawner>();
-
     }
 
     void Start()
@@ -36,8 +39,6 @@ public class DoorController : MonoBehaviour
         if (_doors.GetChild(1).gameObject.activeSelf) doors.Add(_doors.GetChild(1).gameObject);
         if (_doors.GetChild(2).gameObject.activeSelf) doors.Add(_doors.GetChild(2).gameObject);
         if (_doors.GetChild(3).gameObject.activeSelf) doors.Add(_doors.GetChild(3).gameObject);
-
-
     }
 
     public void closeThisRoomsDoors()
@@ -110,36 +111,9 @@ public class DoorController : MonoBehaviour
             }
         }
 
-
-        // If doors open on puzzle solve
-        if (OpenByPuzzleComplete)
-        {
-
-        }
-
-        // If doors are opened on all mobs killed
-        if (OpenByMobDeath)
-        {
-            if (enemies.Length <= 0)
-            {
-                roomComplete = true;
-            }
-        }
-
-        if (roomComplete)
+        if (openCondition == OpenCondition.MobDeath && enemies.Length <= 0)
         {
             Invoke("openThisRoomsDoors", 1f);
         }
-
-        // Doors open on other trigger?
-
-        if (enemies.Length > 0)
-        {
-            foreach (var enemy in enemies)
-            {
-                enemy.GetComponent<Health>().currentRoom = transform.parent.gameObject;
-            }
-        }
-
     }
 }

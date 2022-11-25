@@ -238,7 +238,6 @@ public class Human : MonoBehaviour
                     isCrit = true;
                 }
 
-
                 enemy.GetComponent<Health>().TakeDamage(dammageToApply, transform.gameObject, "PlayerSword", isCrit);
 
                 string[] swordHits = new string[] { "SwordHit", "SwordHit1", "SwordHit2", "SwordHit3", "SwordHit4", "SwordHit5", "SwordHit6" };

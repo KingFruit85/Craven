@@ -19,7 +19,7 @@ public class StandardRoom : MonoBehaviour
 
         doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
 
-        doorController.OpenByMobDeath = true;
+        doorController.openCondition = DoorController.OpenCondition.MobDeath;
         // Get the floor tiles we can spawn objects on
         var floorTiles = room.SpawnableFloorTiles;
         // And a random number of walls we're going to spawn

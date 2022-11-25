@@ -12,44 +12,39 @@ public class PuzzleRooms : MonoBehaviour
         gameObject.AddComponent<EnemySpawner>();
         enemySpawner = GetComponent<EnemySpawner>();
         enemySpawner.SetEnemyCount(UnityEngine.Random.Range(0, 3));
-
         room = GetComponent<SimpleRoom>();
         doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
-        var _newRoom = gameObject.transform;
 
-        doorController.OpenByMobDeath = false;
-        doorController.OpenByPuzzleComplete = true;
+        doorController.openCondition = DoorController.OpenCondition.PuzzleComplete;
 
         var runeTiles = room.runeTiles;
         var pillarTiles = room.pillarTiles;
         var chestTile = room.puzzleChestSpawnLocation;
-        // Just one type of puzzle room right now
 
-        // Spawn puzzle pieces
         // -Chest
         var adjustedChestPosition = new Vector3((0.5f + chestTile.transform.position.x), (-0.5f + chestTile.transform.position.y), 0);
-        GameObject chest = Instantiate(Resources.Load("chest") as GameObject, adjustedChestPosition, Quaternion.identity);
-        chest.transform.parent = _newRoom.transform.Find("Tiles");
+        GameObject chest = Instantiate(Resources.Load("newChest") as GameObject, adjustedChestPosition, Quaternion.identity);
+        chest.transform.parent = transform.Find("Tiles");
 
         // Barrier
-        GameObject barrier = Instantiate(Resources.Load("verticalBars") as GameObject, adjustedChestPosition, Quaternion.identity);
-        barrier.transform.parent = _newRoom.transform.Find("Tiles");
+        GameObject barrier = Instantiate(Resources.Load("chestBarrier") as GameObject, adjustedChestPosition, Quaternion.identity);
+        barrier.transform.parent = transform.Find("Tiles");
         barrier.GetComponent<Barrier>().SetBarrierUnlockMethod(1);
 
         // Pillars
         foreach (var tile in pillarTiles)
         {
             GameObject wall = Instantiate(Resources.Load("Wall") as GameObject, tile.transform.position, Quaternion.identity) as GameObject;
-            wall.transform.parent = _newRoom.transform.Find("Tiles");
+            wall.transform.parent = transform.Find("Tiles");
             // Flame bowls and arrow traps
             GameObject flameBowl = Instantiate(Resources.Load("FlameBowl") as GameObject, tile.transform.position, Quaternion.identity) as GameObject;
-            flameBowl.transform.parent = _newRoom.transform.Find("Tiles");
+            flameBowl.transform.parent = transform.Find("Tiles");
 
             if (flameBowl.transform.localPosition == new Vector3(-0.25f, 0.25f, 0))
             {
                 flameBowl.name = "flameBowl1";
-                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, _newRoom.GetComponent<SimpleRoom>().arrowTrap1Position.transform.position, Quaternion.identity) as GameObject;
-                arrowTrap.transform.parent = _newRoom.transform.Find("Tiles");
+                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, GetComponent<SimpleRoom>().arrowTrap1Position.transform.position, Quaternion.identity) as GameObject;
+                arrowTrap.transform.parent = transform.Find("Tiles");
                 arrowTrap.name = "arrowTrap1";
                 arrowTrap.GetComponent<ArrowTrap>().shootRight = true;
 
@@ -61,8 +56,8 @@ public class PuzzleRooms : MonoBehaviour
             if (flameBowl.transform.localPosition == new Vector3(0.25f, 0.25f, 0))
             {
                 flameBowl.name = "flameBowl2";
-                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, _newRoom.GetComponent<SimpleRoom>().arrowTrap2Position.transform.position, Quaternion.identity) as GameObject;
-                arrowTrap.transform.parent = _newRoom.transform.Find("Tiles");
+                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, GetComponent<SimpleRoom>().arrowTrap2Position.transform.position, Quaternion.identity) as GameObject;
+                arrowTrap.transform.parent = transform.Find("Tiles");
                 arrowTrap.name = "arrowTrap2";
                 arrowTrap.GetComponent<ArrowTrap>().shootLeft = true;
 
@@ -73,8 +68,8 @@ public class PuzzleRooms : MonoBehaviour
             if (flameBowl.transform.localPosition == new Vector3(-0.25f, -0.15f, 0))
             {
                 flameBowl.name = "flameBowl3";
-                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, _newRoom.GetComponent<SimpleRoom>().arrowTrap3Position.transform.position, Quaternion.identity) as GameObject;
-                arrowTrap.transform.parent = _newRoom.transform.Find("Tiles");
+                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, GetComponent<SimpleRoom>().arrowTrap3Position.transform.position, Quaternion.identity) as GameObject;
+                arrowTrap.transform.parent = transform.Find("Tiles");
                 arrowTrap.name = "arrowTrap3";
                 arrowTrap.GetComponent<ArrowTrap>().shootRight = true;
 
@@ -86,8 +81,8 @@ public class PuzzleRooms : MonoBehaviour
             if (flameBowl.transform.localPosition == new Vector3(0.25f, -0.15f, 0))
             {
                 flameBowl.name = "flameBowl4";
-                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, _newRoom.GetComponent<SimpleRoom>().arrowTrap4Position.transform.position, Quaternion.identity) as GameObject;
-                arrowTrap.transform.parent = _newRoom.transform.Find("Tiles");
+                GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap") as GameObject, GetComponent<SimpleRoom>().arrowTrap4Position.transform.position, Quaternion.identity) as GameObject;
+                arrowTrap.transform.parent = transform.Find("Tiles");
                 arrowTrap.name = "arrowTrap4";
                 arrowTrap.GetComponent<ArrowTrap>().shootLeft = true;
 
@@ -116,11 +111,10 @@ public class PuzzleRooms : MonoBehaviour
             var randomRune = runes[r];
             GameObject _rune = Instantiate(randomRune, rune.transform.position, Quaternion.identity) as GameObject;
             _rune.GetComponent<Rune>().myUnlock = barrier;
-            _rune.transform.parent = _newRoom.transform.Find("Tiles");
+            _rune.transform.parent = transform.Find("Tiles");
             room.AddItemToRoomContents(rune.transform.localPosition, 'R');
             runes.RemoveAt(r);
 
-            // How to link the runes to the flamebowls????
             if (_rune.transform.localPosition == new Vector3(-0.25f, 0.15f, 0))
             {
                 _rune.GetComponent<Rune>().flameBowl = _rune.transform.parent.Find("flameBowl1").GetComponent<FlameBowl>();
@@ -148,10 +142,10 @@ public class PuzzleRooms : MonoBehaviour
         }
 
 
-        barrier.GetComponent<Barrier>().redRune = _newRoom.transform.Find("Tiles").Find("RedTile(Clone)").gameObject;
-        barrier.GetComponent<Barrier>().blueRune = _newRoom.transform.Find("Tiles").Find("BlueTile(Clone)").gameObject;
-        barrier.GetComponent<Barrier>().greenRune = _newRoom.transform.Find("Tiles").Find("GreenTile(Clone)").gameObject;
-        barrier.GetComponent<Barrier>().tealRune = _newRoom.transform.Find("Tiles").Find("TealTile(Clone)").gameObject;
+        barrier.GetComponent<Barrier>().redRune = transform.Find("Tiles").Find("RedTile(Clone)").gameObject;
+        barrier.GetComponent<Barrier>().blueRune = transform.Find("Tiles").Find("BlueTile(Clone)").gameObject;
+        barrier.GetComponent<Barrier>().greenRune = transform.Find("Tiles").Find("GreenTile(Clone)").gameObject;
+        barrier.GetComponent<Barrier>().tealRune = transform.Find("Tiles").Find("TealTile(Clone)").gameObject;
 
     }
 

@@ -59,13 +59,9 @@ public class BowPickup : MonoBehaviour
                 player.transform);
 
             a.name = "BowAim";
-            //Updates the gameobject variable in <Human>
             playerHuman.bowAim = a;
             playerHuman.bow = a.transform.Find("Bow").gameObject;
-            //Resets the scale, for some reason it spawns tiny on the player without this. Probably just need to change the scale on teh sprite but I'm being lazy
-            playerHuman.bowAim.transform.localScale = new Vector3(1.2f, 1.2f, 0);
             playerHuman.SetRangedAsActiveWeapon();
-            //Removes the pickup sprite from the level
             Destroy(this.gameObject);
 
 

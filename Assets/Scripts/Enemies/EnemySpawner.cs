@@ -25,8 +25,7 @@ public class EnemySpawner : MonoBehaviour
         {
             var posA = spawnPoints[Random.Range(0, (spawnPoints.Count - 1))];
             var mobToSpawn = enemies[Random.Range(0, (enemies.Count))];
-            GameObject mob = Instantiate(Resources.Load<GameObject>(mobToSpawn), posA, Quaternion.identity);
-            mob.transform.parent = transform.Find("Tiles").transform;
+            GameObject mob = Instantiate(Resources.Load<GameObject>(mobToSpawn), posA, Quaternion.identity, transform);
             mob.transform.localPosition = posA;
         }
     }

@@ -16,7 +16,7 @@ public class TrapRoom : MonoBehaviour
 
         doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
 
-        doorController.OpenByMobDeath = true;
+        doorController.openCondition = DoorController.OpenCondition.MobDeath;
         var spawnLocations = room.SpawnableFloorTiles;
         var r = UnityEngine.Random.Range(0, spawnLocations.Length); // Get number of traps to place
         var trapLocations = new List<int>();
