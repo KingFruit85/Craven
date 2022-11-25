@@ -17,10 +17,10 @@ public class SwarmToken : MonoBehaviour
         {
             // GameObject.Find("GameManager").GetComponent<GameManager>().AddArrows(arrowCount);
             flameBowls = myRoom.GetComponentsInChildren<FlameBowl>();
-            
+
             foreach (var fb in flameBowls)
             {
-                fb.UnLight();
+                fb.Extinguish();
             }
 
             Destroy(gameObject);

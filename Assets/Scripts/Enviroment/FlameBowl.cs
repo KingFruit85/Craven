@@ -3,17 +3,22 @@
 public class FlameBowl : MonoBehaviour
 {
     public Animator anim;
-    public SpriteRenderer sr;
     public bool startLit;
-    public Sprite unlit;
     void Awake()
     {
         anim = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+    }
 
+    void Start()
+    {
         if (!startLit)
         {
-            UnLight();
+            Extinguish();
+        }
+
+        if (startLit)
+        {
+            Light();
         }
     }
 
@@ -22,17 +27,10 @@ public class FlameBowl : MonoBehaviour
         anim.SetBool("isLit", true);
     }
 
-    public void UnLight()
+    public void Extinguish()
     {
         startLit = false;
         anim.SetBool("isLit", false);
     }
 
-    void Update()
-    {
-        if (startLit)
-        {
-            Light();
-        }
-    }
 }
