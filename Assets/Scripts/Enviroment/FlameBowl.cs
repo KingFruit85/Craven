@@ -19,14 +19,13 @@ public class FlameBowl : MonoBehaviour
 
     public void Light()
     {
-        anim.Play("lit");
+        anim.SetBool("isLit", true);
     }
 
     public void UnLight()
     {
-        anim.StopPlayback();
         startLit = false;
-        sr.sprite = unlit;
+        anim.SetBool("isLit", false);
     }
 
     void Update()

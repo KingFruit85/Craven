@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwarmToken : MonoBehaviour
 {
     public Transform myRoom;
+    public FlameBowl[] flameBowls;
 
     void Start()
     {
@@ -15,12 +16,14 @@ public class SwarmToken : MonoBehaviour
         if (other.tag == "Player")
         {
             // GameObject.Find("GameManager").GetComponent<GameManager>().AddArrows(arrowCount);
-            Destroy(gameObject);
-            var fbs = myRoom.GetComponentsInChildren<FlameBowl>();
-            foreach (var fb in fbs)
+            flameBowls = myRoom.GetComponentsInChildren<FlameBowl>();
+            
+            foreach (var fb in flameBowls)
             {
                 fb.UnLight();
             }
+
+            Destroy(gameObject);
         }
     }
 }
