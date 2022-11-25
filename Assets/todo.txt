@@ -1,0 +1,35 @@
+
+
+
+SAVE LEVELS, PLAY SHOULD RESUME FROM LAST LEVEL LOADED
+
+sound
+-randomise sounds
+
+R1 is clipping into other rooms, probably need to add a destroyer to it
+
+
+
+if player killed on one shot you cannot jump host, enemy that killed you has to be of an equivalant level
+
+what changes when the level changes
+
+if killed by boss exit should still spawn
+
+
+Ghosts
+
+- Should knock you back to keep you at range
+
+---------------------------------------------
+Ghost boss
+
+teleports away if the player gets too close
+must be stunned with arrows then attacked
+
+at 50% health gets faster
+
+at 25% gets faster (and maybe splits?)
+
+arrows will spawn at random in the boss room
+---------------------------------------------

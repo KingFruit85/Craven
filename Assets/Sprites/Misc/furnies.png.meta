@@ -1,0 +1,2523 @@
+fileFormatVersion: 2
+guid: 05da83771c98f064297e45c3677d7a36
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1885035449562354714
+    second: furnies_0
+  - first:
+      213: -8508088922659507135
+    second: furnies_1
+  - first:
+      213: -6690319915226634203
+    second: furnies_2
+  - first:
+      213: 7398513528988199351
+    second: furnies_3
+  - first:
+      213: 6203247055764658576
+    second: furnies_4
+  - first:
+      213: 8175152602756460254
+    second: furnies_5
+  - first:
+      213: 4709057105258863863
+    second: furnies_6
+  - first:
+      213: -4653216088703684742
+    second: furnies_7
+  - first:
+      213: 1279723459733773317
+    second: furnies_8
+  - first:
+      213: 1055259436626897407
+    second: furnies_9
+  - first:
+      213: 4209212398069586676
+    second: furnies_10
+  - first:
+      213: 7350912901842621513
+    second: furnies_11
+  - first:
+      213: -4338762766766090359
+    second: furnies_12
+  - first:
+      213: -3023496198585807533
+    second: furnies_13
+  - first:
+      213: 7123427101367101282
+    second: furnies_14
+  - first:
+      213: -1721023151000601798
+    second: furnies_15
+  - first:
+      213: -4053780251185756556
+    second: furnies_16
+  - first:
+      213: -5203225705610793275
+    second: furnies_17
+  - first:
+      213: 5540258236691778732
+    second: furnies_18
+  - first:
+      213: -3139760946594897597
+    second: furnies_19
+  - first:
+      213: 1657156849121250277
+    second: furnies_20
+  - first:
+      213: -4742474184639710948
+    second: furnies_21
+  - first:
+      213: -7873930711912217639
+    second: furnies_22
+  - first:
+      213: -3044751678296883536
+    second: furnies_23
+  - first:
+      213: 2253527015268832456
+    second: furnies_24
+  - first:
+      213: 6803804475354782548
+    second: furnies_25
+  - first:
+      213: -2505040234279201123
+    second: furnies_26
+  - first:
+      213: -9136317624141093118
+    second: furnies_27
+  - first:
+      213: 6958091322409797492
+    second: furnies_28
+  - first:
+      213: -2353055902246244330
+    second: furnies_29
+  - first:
+      213: -5747855293684528462
+    second: furnies_30
+  - first:
+      213: -5490652250553934542
+    second: furnies_31
+  - first:
+      213: 5040388420398474594
+    second: furnies_32
+  - first:
+      213: 713700824340389552
+    second: furnies_33
+  - first:
+      213: -8132053614594477144
+    second: furnies_34
+  - first:
+      213: 5762107169353408240
+    second: furnies_35
+  - first:
+      213: -1817813747537545809
+    second: furnies_36
+  - first:
+      213: -7318937624118186589
+    second: furnies_37
+  - first:
+      213: 7230003850027575770
+    second: furnies_38
+  - first:
+      213: 8168117057516397812
+    second: furnies_39
+  - first:
+      213: -8495107548100414135
+    second: furnies_40
+  - first:
+      213: -7736469317197052708
+    second: furnies_41
+  - first:
+      213: -5482598243824458993
+    second: furnies_42
+  - first:
+      213: -1157476514686982274
+    second: furnies_43
+  - first:
+      213: -3212383099445842807
+    second: furnies_44
+  - first:
+      213: 4510536567669666497
+    second: furnies_45
+  - first:
+      213: -1599258098300438008
+    second: furnies_46
+  - first:
+      213: 5006279028588204093
+    second: furnies_47
+  - first:
+      213: 4041154367424638588
+    second: furnies_48
+  - first:
+      213: 4674019672402575254
+    second: furnies_49
+  - first:
+      213: 4290858895516075340
+    second: furnies_50
+  - first:
+      213: -6857188690677693922
+    second: furnies_51
+  - first:
+      213: -7550489440085093671
+    second: furnies_52
+  - first:
+      213: -5427860581816493599
+    second: furnies_53
+  - first:
+      213: 1509653052258729812
+    second: furnies_54
+  - first:
+      213: -1916345092981535374
+    second: furnies_55
+  - first:
+      213: 3029847288483748701
+    second: furnies_56
+  - first:
+      213: 3802599280236885243
+    second: furnies_57
+  - first:
+      213: -5464906465096722756
+    second: furnies_58
+  - first:
+      213: -3100752133049593179
+    second: furnies_59
+  - first:
+      213: 1238309025222841036
+    second: furnies_60
+  - first:
+      213: 5284769143695092849
+    second: furnies_61
+  - first:
+      213: 6183678809196663640
+    second: furnies_62
+  - first:
+      213: 1914671212186963470
+    second: furnies_63
+  - first:
+      213: 5642104354548795596
+    second: furnies_64
+  - first:
+      213: -7621381810237541937
+    second: furnies_65
+  - first:
+      213: 5582617993531684835
+    second: furnies_66
+  - first:
+      213: 2579306836497245744
+    second: furnies_67
+  - first:
+      213: 3807702621974380518
+    second: furnies_68
+  - first:
+      213: -6201333094923203048
+    second: furnies_69
+  - first:
+      213: -7508690837957935216
+    second: furnies_70
+  - first:
+      213: -5698093932994861635
+    second: furnies_71
+  - first:
+      213: 5853519503592981760
+    second: furnies_72
+  - first:
+      213: 6170218135916608125
+    second: furnies_73
+  - first:
+      213: -4881070721351543963
+    second: furnies_74
+  - first:
+      213: 8796582288694760949
+    second: furnies_75
+  - first:
+      213: -6990940553692410039
+    second: furnies_76
+  - first:
+      213: -2543261802329383570
+    second: furnies_77
+  - first:
+      213: -2374239092408343491
+    second: furnies_78
+  - first:
+      213: 260519005903601404
+    second: furnies_79
+  - first:
+      213: -769639518375037704
+    second: furnies_80
+  - first:
+      213: 6661790153531698801
+    second: furnies_81
+  - first:
+      213: -2273524519666522617
+    second: furnies_82
+  - first:
+      213: -8085124859638185120
+    second: furnies_83
+  - first:
+      213: -7521216798660126191
+    second: furnies_84
+  - first:
+      213: 916177587580493331
+    second: furnies_85
+  - first:
+      213: 3055839352090535229
+    second: furnies_86
+  - first:
+      213: 5065113962197207951
+    second: furnies_87
+  - first:
+      213: 2136685962819995554
+    second: furnies_88
+  - first:
+      213: -2386912779546495928
+    second: furnies_89
+  - first:
+      213: -4812603567681706170
+    second: furnies_90
+  - first:
+      213: 8985150952674451895
+    second: furnies_91
+  - first:
+      213: 9169086427708131084
+    second: furnies_92
+  - first:
+      213: 4420974787074459884
+    second: furnies_93
+  - first:
+      213: -5893283893406724904
+    second: furnies_94
+  - first:
+      213: -526988530101915611
+    second: furnies_95
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: furnies_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 368
+        width: 160
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a14de2801cdf82a10800000000000000
+      internalID: 1885035449562354714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_1
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 369
+        width: 9
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144b17fd3323de980800000000000000
+      internalID: -8508088922659507135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_2
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 373
+        width: 30
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 528e133eb753723a0800000000000000
+      internalID: -6690319915226634203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_3
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 373
+        width: 46
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b963490bdccca660800000000000000
+      internalID: 7398513528988199351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 354
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09917dcb45c561650800000000000000
+      internalID: 6203247055764658576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_5
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 368
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edea8e77af9f37170800000000000000
+      internalID: 8175152602756460254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 321
+        width: 48
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fcdbf1dc7ee95140800000000000000
+      internalID: 4709057105258863863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_7
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 330
+        width: 13
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f2fa10f947c6fb0800000000000000
+      internalID: -4653216088703684742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_8
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 341
+        width: 64
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50c5a24d4bd72c110800000000000000
+      internalID: 1279723459733773317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_9
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 339
+        width: 60
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff9660addd805ae00800000000000000
+      internalID: 1055259436626897407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_10
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 352
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fa9b1bef502a6a30800000000000000
+      internalID: 4209212398069586676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_11
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 339
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9445a216650b30660800000000000000
+      internalID: 7350912901842621513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_12
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 339
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 987573a504e99c3c0800000000000000
+      internalID: -4338762766766090359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_13
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 336
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d8c8ff9326a06d0800000000000000
+      internalID: -3023496198585807533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_14
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 324
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2676068053f7bd260800000000000000
+      internalID: 7123427101367101282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_15
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 323
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3bb2620092bd18e0800000000000000
+      internalID: -1721023151000601798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_16
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 308
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4764492e6541eb7c0800000000000000
+      internalID: -4053780251185756556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_17
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 308
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce23e2e9cd6ac7b0800000000000000
+      internalID: -5203225705610793275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_18
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 309
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cac02f14383f2ec40800000000000000
+      internalID: 5540258236691778732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_19
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 298
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3412192ed045d64d0800000000000000
+      internalID: -3139760946594897597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_20
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 321
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb4af0df576ff610800000000000000
+      internalID: 1657156849121250277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_21
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 304
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c19f6141bd85f2eb0800000000000000
+      internalID: -4742474184639710948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_22
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 306
+        width: 63
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d30f624cbd2ab290800000000000000
+      internalID: -7873930711912217639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 241
+        width: 96
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bef6d9fa7edeb5d0800000000000000
+      internalID: -3044751678296883536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_24
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 305
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c458d471e2264f10800000000000000
+      internalID: 2253527015268832456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_25
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 292
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b1cba4f18fb6e50800000000000000
+      internalID: 6803804475354782548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_26
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 294
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d961abfdd2f4c3dd0800000000000000
+      internalID: -2505040234279201123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_27
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 289
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 207ede1f687453180800000000000000
+      internalID: -9136317624141093118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_28
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 277
+        width: 80
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 477c6f2313b109060800000000000000
+      internalID: 6958091322409797492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_29
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 278
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 610f9f9bf14485fd0800000000000000
+      internalID: -2353055902246244330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_30
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 279
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bac59750148b30b0800000000000000
+      internalID: -5747855293684528462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_31
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 273
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23d988c6ed84dc3b0800000000000000
+      internalID: -5490652250553934542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_32
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 260
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 265e7df209e03f540800000000000000
+      internalID: 5040388420398474594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_33
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 260
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be56be4e1397e900800000000000000
+      internalID: 713700824340389552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_34
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 225
+        width: 14
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a33aafa254252f80800000000000000
+      internalID: -8132053614594477144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_35
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 256
+        width: 80
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe9a0b01fd17ff40800000000000000
+      internalID: 5762107169353408240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_36
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 251
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa5f33e1704d5c6e0800000000000000
+      internalID: -1817813747537545809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_37
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 250
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ada13d1209ed6a90800000000000000
+      internalID: -7318937624118186589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_38
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 229
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad9a9950232265460800000000000000
+      internalID: 7230003850027575770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_39
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 229
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f4e211ff2bfa5170800000000000000
+      internalID: 8168117057516397812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_40
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 229
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9453cbaa1b05b1a80800000000000000
+      internalID: -8495107548100414135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 229
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd4c2c4452a82a490800000000000000
+      internalID: -7736469317197052708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_42
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 213
+        width: 61
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f03a9aef1f5e9e3b0800000000000000
+      internalID: -5482598243824458993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_43
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 240
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e77a9321e31dfefe0800000000000000
+      internalID: -1157476514686982274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_44
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 209
+        width: 30
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98cef0b47925b63d0800000000000000
+      internalID: -3212383099445842807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_45
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 209
+        width: 30
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c23c564c15a89e30800000000000000
+      internalID: 4510536567669666497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_46
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 208
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ab2aa9b3b4ec9e0800000000000000
+      internalID: -1599258098300438008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_47
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 208
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d30dc798040e97540800000000000000
+      internalID: 5006279028588204093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_48
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 197
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7e2dd87c70151830800000000000000
+      internalID: 4041154367424638588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_49
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 197
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69f3eb6c0247dd040800000000000000
+      internalID: 4674019672402575254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_50
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 194
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c458f887e613c8b30800000000000000
+      internalID: 4290858895516075340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_51
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 183
+        width: 13
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e12845e773f56d0a0800000000000000
+      internalID: -6857188690677693922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_52
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 183
+        width: 13
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d2d363cbd5473790800000000000000
+      internalID: -7550489440085093671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_53
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 180
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e99b721f8d5ca4b0800000000000000
+      internalID: -5427860581816493599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_54
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 212
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45f37f9d37d53f410800000000000000
+      internalID: 1509653052258729812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_55
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 213
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27dc5c98a46c765e0800000000000000
+      internalID: -1916345092981535374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 176
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5b11c95e0e2c0a20800000000000000
+      internalID: 3029847288483748701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_57
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 176
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf4fca9f5eb85c430800000000000000
+      internalID: 3802599280236885243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_58
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 165
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb69c293680c824b0800000000000000
+      internalID: -5464906465096722756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_59
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 165
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a25b0d0d5ae7f4d0800000000000000
+      internalID: -3100752133049593179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_60
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 162
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc251926f7b5f2110800000000000000
+      internalID: 1238309025222841036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_61
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 180
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c24e94985475940800000000000000
+      internalID: 5284769143695092849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_62
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 176
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 853174b4d17d0d550800000000000000
+      internalID: 6183678809196663640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_63
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 181
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0e0218b257429a10800000000000000
+      internalID: 1914671212186963470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_64
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 180
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc8c09e6408cc4e40800000000000000
+      internalID: 5642104354548795596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 24
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc1fa279f996b3690800000000000000
+      internalID: -7621381810237541937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_66
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 144
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e7f825bc71797d40800000000000000
+      internalID: 5582617993531684835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_67
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 139
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036a72ce6e98bc320800000000000000
+      internalID: 2579306836497245744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_68
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 139
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef3b115c5da7d430800000000000000
+      internalID: 3807702621974380518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_69
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 136
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81e8a3ff76070f9a0800000000000000
+      internalID: -6201333094923203048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_70
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 158
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09f79433775cbc790800000000000000
+      internalID: -7508690837957935216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_71
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 162
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5680bf1cd4ce0b0800000000000000
+      internalID: -5698093932994861635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_72
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 161
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0050b79a9f0eb3150800000000000000
+      internalID: 5853519503592981760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_73
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 129
+        width: 30
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a7bf114b401a550800000000000000
+      internalID: 6170218135916608125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_74
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 133
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 563184a3a04f24cb0800000000000000
+      internalID: -4881070721351543963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_75
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 133
+        width: 46
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f5d42b3cfcb31a70800000000000000
+      internalID: 8796582288694760949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_76
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 130
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94f8a432b903bfe90800000000000000
+      internalID: -6990940553692410039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_77
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 145
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6d56559dd484bcd0800000000000000
+      internalID: -2543261802329383570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_78
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 128
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d34a72def120d0fd0800000000000000
+      internalID: -2374239092408343491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_79
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 208
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfe3f14d7ac8d9300800000000000000
+      internalID: 260519005903601404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_80
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 89
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f4372e8fe0b155f0800000000000000
+      internalID: -769639518375037704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_81
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 104
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17ea37559de637c50800000000000000
+      internalID: 6661790153531698801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_82
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 101
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706e229be71d270e0800000000000000
+      internalID: -2273524519666522617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_83
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 69
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0630698e6cddbcf80800000000000000
+      internalID: -8085124859638185120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_84
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 69
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11a9925bb254f9790800000000000000
+      internalID: -7521216798660126191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_85
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 33
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ed8ea69aae6bc00800000000000000
+      internalID: 916177587580493331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_86
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 33
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d35240043b5886a20800000000000000
+      internalID: 3055839352090535229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_87
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 33
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8bc2afff46ea4640800000000000000
+      internalID: 5065113962197207951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_88
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 33
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a70372009807ad10800000000000000
+      internalID: 2136685962819995554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_89
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 33
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8447a41397bffded0800000000000000
+      internalID: -2386912779546495928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_90
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 40
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 647ed8fad82363db0800000000000000
+      internalID: -4812603567681706170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_91
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 1
+        width: 38
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b16c63af2ba1bc70800000000000000
+      internalID: 8985150952674451895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_92
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 1
+        width: 38
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c07066ea6832f3f70800000000000000
+      internalID: 9169086427708131084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_93
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 1
+        width: 38
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce8088045257a5d30800000000000000
+      internalID: 4420974787074459884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_94
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 1
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dc06fcd589d63ea0800000000000000
+      internalID: -5893283893406724904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: furnies_95
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 20
+        width: 22
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 520f19659b2cfa8f0800000000000000
+      internalID: -526988530101915611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      furnies_29: -2353055902246244330
+      furnies_62: 6183678809196663640
+      furnies_68: 3807702621974380518
+      furnies_6: 4709057105258863863
+      furnies_11: 7350912901842621513
+      furnies_14: 7123427101367101282
+      furnies_36: -1817813747537545809
+      furnies_56: 3029847288483748701
+      furnies_85: 916177587580493331
+      furnies_22: -7873930711912217639
+      furnies_57: 3802599280236885243
+      furnies_92: 9169086427708131084
+      furnies_83: -8085124859638185120
+      furnies_94: -5893283893406724904
+      furnies_7: -4653216088703684742
+      furnies_67: 2579306836497245744
+      furnies_33: 713700824340389552
+      furnies_41: -7736469317197052708
+      furnies_46: -1599258098300438008
+      furnies_52: -7550489440085093671
+      furnies_3: 7398513528988199351
+      furnies_76: -6990940553692410039
+      furnies_9: 1055259436626897407
+      furnies_4: 6203247055764658576
+      furnies_93: 4420974787074459884
+      furnies_26: -2505040234279201123
+      furnies_60: 1238309025222841036
+      furnies_44: -3212383099445842807
+      furnies_2: -6690319915226634203
+      furnies_21: -4742474184639710948
+      furnies_64: 5642104354548795596
+      furnies_18: 5540258236691778732
+      furnies_70: -7508690837957935216
+      furnies_77: -2543261802329383570
+      furnies_31: -5490652250553934542
+      furnies_61: 5284769143695092849
+      furnies_58: -5464906465096722756
+      furnies_8: 1279723459733773317
+      furnies_51: -6857188690677693922
+      furnies_63: 1914671212186963470
+      furnies_86: 3055839352090535229
+      furnies_17: -5203225705610793275
+      furnies_24: 2253527015268832456
+      furnies_32: 5040388420398474594
+      furnies_89: -2386912779546495928
+      furnies_80: -769639518375037704
+      furnies_45: 4510536567669666497
+      furnies_38: 7230003850027575770
+      furnies_84: -7521216798660126191
+      furnies_10: 4209212398069586676
+      furnies_28: 6958091322409797492
+      furnies_66: 5582617993531684835
+      furnies_59: -3100752133049593179
+      furnies_75: 8796582288694760949
+      furnies_23: -3044751678296883536
+      furnies_87: 5065113962197207951
+      furnies_81: 6661790153531698801
+      furnies_71: -5698093932994861635
+      furnies_12: -4338762766766090359
+      furnies_16: -4053780251185756556
+      furnies_25: 6803804475354782548
+      furnies_78: -2374239092408343491
+      furnies_43: -1157476514686982274
+      furnies_30: -5747855293684528462
+      furnies_90: -4812603567681706170
+      furnies_82: -2273524519666522617
+      furnies_73: 6170218135916608125
+      furnies_34: -8132053614594477144
+      furnies_27: -9136317624141093118
+      furnies_72: 5853519503592981760
+      furnies_50: 4290858895516075340
+      furnies_95: -526988530101915611
+      furnies_79: 260519005903601404
+      furnies_0: 1885035449562354714
+      furnies_48: 4041154367424638588
+      furnies_49: 4674019672402575254
+      furnies_19: -3139760946594897597
+      furnies_15: -1721023151000601798
+      furnies_37: -7318937624118186589
+      furnies_91: 8985150952674451895
+      furnies_40: -8495107548100414135
+      furnies_1: -8508088922659507135
+      furnies_39: 8168117057516397812
+      furnies_47: 5006279028588204093
+      furnies_55: -1916345092981535374
+      furnies_69: -6201333094923203048
+      furnies_88: 2136685962819995554
+      furnies_42: -5482598243824458993
+      furnies_74: -4881070721351543963
+      furnies_35: 5762107169353408240
+      furnies_53: -5427860581816493599
+      furnies_54: 1509653052258729812
+      furnies_20: 1657156849121250277
+      furnies_65: -7621381810237541937
+      furnies_13: -3023496198585807533
+      furnies_5: 8175152602756460254
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
