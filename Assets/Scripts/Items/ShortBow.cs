@@ -20,21 +20,21 @@ public class ShortBow : MonoBehaviour
         if (gameManager.arrowCount > 0)
         {
 
-        
-        // Spawn arrow on top of player
-        GameObject a = Instantiate(arrow,
-                                new Vector3(player.transform.position.x,
-                                            player.transform.position.y,
-                                            player.transform.position.z), 
-                                player.transform.rotation);
-                                
-        arrow.GetComponent<Arrow>().clickPoint = mousePosition;
-        // Set arrow as child of player gameobject                     
-        a.transform.parent = player.transform;
+            var playerPos = new Vector3(player.transform.position.x,
+                                        player.transform.position.y,
+                                        player.transform.position.z);
+            // Spawn arrow on top of player
+            GameObject a = Instantiate(
+                                        arrow,
+                                        playerPos,
+                                        player.transform.rotation,
+                                        player.transform);
 
-        GameObject.Find("GameManager").GetComponent<GameManager>().arrowCount --;
+            arrow.GetComponent<Arrow>().clickPoint = mousePosition;
 
-        // Play arrow shot sound
+            GameObject.Find("GameManager").GetComponent<GameManager>().arrowCount--;
+
+            // Play arrow shot sound
 
         }
     }

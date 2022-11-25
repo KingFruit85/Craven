@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TrapRoom : MonoBehaviour
@@ -58,12 +57,14 @@ public class TrapRoom : MonoBehaviour
                 }
             }
             // Place the arrow trap on the closest tile
-            GameObject arrowTrap = Instantiate(Resources.Load("arrowTrap"), tileToPlaceArrowTrap, Quaternion.identity) as GameObject;
+            GameObject arrowTrap = Instantiate(
+                Resources.Load("arrowTrap"),
+                tileToPlaceArrowTrap,
+                Quaternion.identity,
+                transform) as GameObject;
             trapTile.GetComponent<TrapTile>().MyTrap = arrowTrap;
             arrowTrap.GetComponent<SpriteRenderer>().enabled = false;
-
             arrowTrap.transform.LookAt(tileToPlaceArrowTrap);
-            arrowTrap.transform.parent = gameObject.transform;
         }
     }
 

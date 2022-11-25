@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LoreRooms : MonoBehaviour
 {
@@ -21,8 +19,10 @@ public class LoreRooms : MonoBehaviour
         var spawnLocations = gameObject.transform.GetComponent<SimpleRoom>().SpawnableFloorTiles;
         var r = UnityEngine.Random.Range(0, spawnLocations.Length);
 
-        GameObject terminal = Instantiate(Resources.Load("InteractableRune1"), spawnLocations[r].transform.position, Quaternion.identity) as GameObject;
-        terminal.transform.parent = gameObject.transform;
+        GameObject terminal = Instantiate(
+            Resources.Load("InteractableRune1"),
+            spawnLocations[r].transform.position,
+            Quaternion.identity,
+            transform) as GameObject;
     }
-
 }

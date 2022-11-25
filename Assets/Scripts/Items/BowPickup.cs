@@ -30,11 +30,10 @@ public class BowPickup : MonoBehaviour
                             new Vector3(player.transform.position.x,
                                         player.transform.position.y,
                                         player.transform.position.z),
-                                        player.transform.rotation);
+                                        player.transform.rotation,
+                                        transform);
 
-        // Set arrow as child of player gameobject                     
-        a.transform.parent = player.transform;
-        // newly instanciated objects have "(clone)" at the end of their name, renaming for 
+        // newly instantiated objects have "(clone)" at the end of their name, renaming for 
         a.name = "BowAim";
         //Updates the gameobject variable in <Human>
         player.GetComponent<Human>().bowAim = a;
@@ -57,10 +56,9 @@ public class BowPickup : MonoBehaviour
                                 new Vector3(player.transform.position.x,
                                             player.transform.position.y,
                                             player.transform.position.z),
-                                            player.transform.rotation);
+                                            player.transform.rotation,
+                                            transform);
 
-            // Set arrow as child of player gameobject                     
-            a.transform.parent = player.transform;
             // newly instanciated objects have "(clone)" at the end of their name, renaming for 
             a.name = "BowAim";
             //Updates the gameobject variable in <Human>

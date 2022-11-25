@@ -19,12 +19,19 @@ public class PrizeRoom : MonoBehaviour
         // Get the random floor tile to spawn a chest on
         var chestSpawnLocation = room.SpawnableFloorTiles[UnityEngine.Random.Range(0, room.SpawnableFloorTiles.Length)].transform;
 
+        var tilesTransform = gameObject.transform.Find("Tiles").transform;
         // Spawn a chest on a random tile
-        GameObject bars = Instantiate(Resources.Load("verticalBars"), chestSpawnLocation.position, Quaternion.identity) as GameObject;
-        bars.transform.parent = gameObject.transform.Find("Tiles");
+        GameObject bars = Instantiate(
+            Resources.Load("verticalBars"),
+            chestSpawnLocation.position,
+            Quaternion.identity,
+            tilesTransform) as GameObject;
 
-        GameObject chest = Instantiate(Resources.Load("chest"), chestSpawnLocation.position, Quaternion.identity) as GameObject;
-        chest.transform.parent = gameObject.transform.Find("Tiles");
+        GameObject chest = Instantiate(
+            Resources.Load("chest"),
+            chestSpawnLocation.position,
+            Quaternion.identity,
+            tilesTransform) as GameObject;
 
         //Add to room contents array
         room.AddItemToRoomContents(chest.transform.localPosition, 'C');

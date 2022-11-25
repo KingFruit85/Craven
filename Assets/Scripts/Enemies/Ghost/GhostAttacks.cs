@@ -25,27 +25,27 @@ public class GhostAttacks : MonoBehaviour
     public void FireGhostBolt()
     {
 
-            string[] ghostBolts  = new string[]{"GhostBolt1","GhostBolt2","GhostBolt3","GhostBolt4",
+        string[] ghostBolts = new string[]{"GhostBolt1","GhostBolt2","GhostBolt3","GhostBolt4",
                                              "GhostBolt5","GhostBolt6","GhostBolt7"};
 
-            int rand = Random.Range(0, ghostBolts.Length);
+        int rand = Random.Range(0, ghostBolts.Length);
 
-            audioManager.PlayAudioClip(ghostBolts[rand]);
-            
-            // Visual warning for the player that attack is incomming
-            StartCoroutine(FlashColor(Color.red));
+        audioManager.PlayAudioClip(ghostBolts[rand]);
 
-            var pos = transform.position;
+        // Visual warning for the player that attack is incomming
+        StartCoroutine(FlashColor(Color.red));
 
-            GameObject a = Instantiate
-                                    (
-                                        ghostBolt,
-                                        transform.position,
-                                        transform.rotation
-                                    )
-                                    as GameObject;
-                                    a.transform.parent = transform;
-            
+        var pos = transform.position;
+
+        GameObject a = Instantiate
+                                (
+                                    ghostBolt,
+                                    transform.position,
+                                    transform.rotation,
+                                    transform
+                                )
+                                as GameObject;
+
     }
 
     private IEnumerator FlashColor(Color color)
@@ -69,8 +69,8 @@ public class GhostAttacks : MonoBehaviour
             {
                 FireGhostBolt();
                 lastAttacked = Time.time;
-            }            
+            }
         }
-        
+
     }
 }

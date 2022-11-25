@@ -55,19 +55,17 @@ public class Ghost : MonoBehaviour
 
     public void FireGhostBolt()
     {
-
         if (!isPhasing)
         {
             GameObject a = Instantiate
                                     (
                                         Resources.Load("Ghost_Bolt"),
                                         transform.position,
-                                        transform.rotation
+                                        transform.rotation,
+                                        transform
                                     )
                                     as GameObject;
-            a.transform.parent = transform;
         }
-
     }
 
     void Update()

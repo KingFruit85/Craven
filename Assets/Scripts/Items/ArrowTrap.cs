@@ -17,13 +17,13 @@ public class ArrowTrap : MonoBehaviour
     {
         if (active)
         {
-            Invoke("Activate",startDelay);
+            Invoke("Activate", startDelay);
         }
 
-        if (shootUp) direction = "up"; spawnPOS = new Vector3(0,1); 
-        if (shootDown) direction = "down"; spawnPOS = new Vector3(0,-1);
-        if (shootLeft) direction = "left"; spawnPOS = new Vector3(-1,0);
-        if (shootRight) direction = "right"; spawnPOS = new Vector3(1,0);
+        if (shootUp) direction = "up"; spawnPOS = new Vector3(0, 1);
+        if (shootDown) direction = "down"; spawnPOS = new Vector3(0, -1);
+        if (shootLeft) direction = "left"; spawnPOS = new Vector3(-1, 0);
+        if (shootRight) direction = "right"; spawnPOS = new Vector3(1, 0);
     }
 
     public void Activate()
@@ -38,10 +38,9 @@ public class ArrowTrap : MonoBehaviour
         //just shoot one arrow for traps and stuff
         GameObject a = Instantiate(trapArrow,
                                        transform.position,
-                                       Quaternion.identity)
+                                       Quaternion.identity,
+                                       transform)
                                        as GameObject;
-
-        a.transform.parent = transform;
 
         active = false;
     }
@@ -51,10 +50,10 @@ public class ArrowTrap : MonoBehaviour
         var arrowThatDoesntCollideWithWalls = Resources.Load("trapArrowThatIgnoresWalls") as GameObject;
         GameObject a = Instantiate(arrowThatDoesntCollideWithWalls,
                                        transform.position,
-                                       Quaternion.identity)
+                                       Quaternion.identity,
+                                       transform)
                                        as GameObject;
 
-        a.transform.parent = transform;
 
         var rb = a.GetComponent<Rigidbody2D>();
 
@@ -66,17 +65,16 @@ public class ArrowTrap : MonoBehaviour
     {
         return direction;
     }
-    
+
     void Update()
     {
         if (Time.time > shotCooldown + shotDelay && canShoot)
         {
             GameObject a = Instantiate(trapArrow,
                                        transform.position,
-                                       Quaternion.identity)
+                                       Quaternion.identity,
+                                       transform)
                                        as GameObject;
-
-            a.transform.parent = transform;
             shotCooldown = Time.time;
         }
     }

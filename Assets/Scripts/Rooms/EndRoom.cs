@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EndRoom : MonoBehaviour
 {
@@ -12,9 +10,11 @@ public class EndRoom : MonoBehaviour
 
         gameObject.transform.name += " END ROOM";
 
-        GameObject mb = Instantiate(Resources.Load("GhostMiniBoss"), gameObject.transform.transform.position, Quaternion.identity) as GameObject;
+        GameObject mb = Instantiate(Resources.Load("GhostMiniBoss"),
+                                    gameObject.transform.transform.position,
+                                    Quaternion.identity,
+                                    transform) as GameObject;
         room.SpawnExitTile();
-        mb.transform.parent = gameObject.transform.transform;
     }
 
 }

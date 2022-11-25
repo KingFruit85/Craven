@@ -32,7 +32,7 @@ public class Human : MonoBehaviour
     public string attackRight = "Sword_Stab_Right";
     public string attackUp = "Human_Attack_Up";
     public string attackDown = "Human_Attack_Down";
-    
+
 
     private Rigidbody2D rb;
     private Animator playerAnim;
@@ -59,17 +59,17 @@ public class Human : MonoBehaviour
 
     void Awake()
     {
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            dust = GameObject.Find("dustPS").GetComponent<ParticleSystem>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        dust = GameObject.Find("dustPS").GetComponent<ParticleSystem>();
 
-            if (gameManager.rangedWeaponEquipped)
-            {
-                var BowPickup = Resources.Load("BowPickup") as GameObject;
-                GameObject x = Instantiate(BowPickup,transform.position,Quaternion.identity);
+        if (gameManager.rangedWeaponEquipped)
+        {
+            var BowPickup = Resources.Load("BowPickup") as GameObject;
+            GameObject x = Instantiate(BowPickup, transform.position, Quaternion.identity);
 
-                x.GetComponent<BowPickup>().AddBowToPlayer();
-                Destroy(x);
-            }
+            x.GetComponent<BowPickup>().AddBowToPlayer();
+            Destroy(x);
+        }
     }
 
     void Start()
@@ -84,23 +84,23 @@ public class Human : MonoBehaviour
 
 
         //This is the current set up i'm using for the weapons, needs improvement
-        GameObject swordLoad = 
+        GameObject swordLoad =
                             Instantiate(
                                 Resources.Load("SwordAim"),
-                                new Vector2(transform.position.x - 0.04f,transform.position.y + 0.05f),
-                                Quaternion.identity)
+                                new Vector2(transform.position.x - 0.04f, transform.position.y + 0.05f),
+                                Quaternion.identity,
+                                transform)
                             as GameObject;
-                            swordLoad.transform.parent = transform;;
-                            swordLoad.name = "SwordAim";
+        swordLoad.name = "SwordAim";
 
         swordAim = gameObject.transform.Find("SwordAim").gameObject;
 
-        sword = swordAim.transform.GetChild(0).gameObject;                           
+        sword = swordAim.transform.GetChild(0).gameObject;
         swordAim.SetActive(true);
         swordAnim = sword.GetComponent<Animator>();
 
-        transform.localScale = new Vector3(2.5f,2.5f,0);
-        
+        transform.localScale = new Vector3(2.5f, 2.5f, 0);
+
         GetComponent<PlayerMovement>().moveSpeed = moveSpeed;
 
         //Set the player animations/sprites to the current host creature
@@ -142,46 +142,46 @@ public class Human : MonoBehaviour
             StartCoroutine(ToggleIsDashingBool());
 
             switch (direction)
-            {   
+            {
                 default: throw new System.Exception("invalid dash direction provided");
                 case Looking.Up:
-                                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + dashSpeed); 
-                                playerAnim.Play("Human_Dash_Up");
-                                shaker.CombatShaker("Up");
-                                dashCoolDown = Time.time;
-                                break;
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + dashSpeed);
+                    playerAnim.Play("Human_Dash_Up");
+                    shaker.CombatShaker("Up");
+                    dashCoolDown = Time.time;
+                    break;
 
                 case Looking.Down:
-                                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y -dashSpeed); 
-                                playerAnim.Play("Human_Dash_Down");
-                                shaker.CombatShaker("Down");
-                                dashCoolDown = Time.time;
-                                break;
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - dashSpeed);
+                    playerAnim.Play("Human_Dash_Down");
+                    shaker.CombatShaker("Down");
+                    dashCoolDown = Time.time;
+                    break;
 
                 case Looking.Left:
-                                rb.velocity = new Vector2(rb.velocity.x - dashSpeed, rb.velocity.y);
-                                playerAnim.Play("Human_Dash_Left");
-                                shaker.CombatShaker("Left");
-                                dashCoolDown = Time.time;
-                                break;
+                    rb.velocity = new Vector2(rb.velocity.x - dashSpeed, rb.velocity.y);
+                    playerAnim.Play("Human_Dash_Left");
+                    shaker.CombatShaker("Left");
+                    dashCoolDown = Time.time;
+                    break;
 
                 case Looking.Right:
-                                rb.velocity = new Vector2(rb.velocity.x + dashSpeed, rb.velocity.y);
-                                playerAnim.Play("Human_Dash_Right");
-                                shaker.CombatShaker("Right");
-                                dashCoolDown = Time.time;
-                                break;
+                    rb.velocity = new Vector2(rb.velocity.x + dashSpeed, rb.velocity.y);
+                    playerAnim.Play("Human_Dash_Right");
+                    shaker.CombatShaker("Right");
+                    dashCoolDown = Time.time;
+                    break;
             }
 
             CreateDust();
-            gameManager.HostStamina --;
+            gameManager.HostStamina--;
         }
     }
 
     private IEnumerator ToggleIsDashingBool()
     {
         isDashing = true;
-        yield return new WaitForSeconds( 0.1f );
+        yield return new WaitForSeconds(0.1f);
         isDashing = false;
     }
 
@@ -202,7 +202,7 @@ public class Human : MonoBehaviour
                 // swordAnim.Play(attackLeft);
                 // shaker.CombatShaker("Left");
                 break;
-                
+
             case PlayerMovement.Looking.Right:
                 // swordAnim.Play(attackRight);
                 // shaker.CombatShaker("Right");
@@ -217,7 +217,7 @@ public class Human : MonoBehaviour
                 // swordAnim.Play(attackDown);
                 // shaker.CombatShaker("Down");
                 break;
-        }   
+        }
         // Detect enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(sword.transform.position, swordRange, LayerMask.GetMask("enemies"));
 
@@ -229,7 +229,7 @@ public class Human : MonoBehaviour
             if (enemy.GetComponent<Health>())
             {
                 int dammageToApply = swordDamage + gameManager.meleeAttackBonus;
-                var random = Random.Range(0,11);
+                var random = Random.Range(0, 11);
 
                 // Check if critical hit
                 if (random == 10)
@@ -237,11 +237,11 @@ public class Human : MonoBehaviour
                     dammageToApply *= critModifier;
                     isCrit = true;
                 }
-                   
 
-                enemy.GetComponent<Health>().TakeDamage(dammageToApply, transform.gameObject,"PlayerSword", isCrit);  
-                
-                string[] swordHits = new string[]{"SwordHit","SwordHit1","SwordHit2","SwordHit3","SwordHit4","SwordHit5","SwordHit6"};
+
+                enemy.GetComponent<Health>().TakeDamage(dammageToApply, transform.gameObject, "PlayerSword", isCrit);
+
+                string[] swordHits = new string[] { "SwordHit", "SwordHit1", "SwordHit2", "SwordHit3", "SwordHit4", "SwordHit5", "SwordHit6" };
                 int rand = Random.Range(0, swordHits.Length);
 
                 audioManager.PlayAudioClip(swordHits[rand]);
@@ -273,7 +273,7 @@ public class Human : MonoBehaviour
             walkLeft = walkLeftNonBloodied;
             walkRight = walkRightNonBloodied;
             walkUp = walkUpNonBloodied;
-            walkDown =  walkDownNonBloodied;
+            walkDown = walkDownNonBloodied;
         }
     }
 
@@ -291,7 +291,7 @@ public class Human : MonoBehaviour
             bow.SetActive(false);
             BowEquipped = false;
             gameManager.rangedWeaponEquipped = false;
-        } 
+        }
     }
 
     public void SetRangedAsActiveWeapon()
@@ -307,7 +307,7 @@ public class Human : MonoBehaviour
             bowAim.SetActive(true);
             bow.SetActive(true);
             player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Bow");
-        }   
+        }
     }
 
     // This update function if really chonky, probably needs a look over
@@ -326,49 +326,49 @@ public class Human : MonoBehaviour
         playerIsLooking = GetComponent<PlayerMovement>().PlayerIsLooking();
         if (BowEquipped)
         {
-            bowAim.transform.localScale = new Vector2(-transform.localScale.x + 1.5f,transform.localScale.y - 1.5f);
+            bowAim.transform.localScale = new Vector2(-transform.localScale.x + 1.5f, transform.localScale.y - 1.5f);
         }
 
         switch (playerIsLooking)
         {
-            default:return;
-            case PlayerMovement.Looking.Left: 
-                if (SwordEquipped != null && SwordEquipped == true ) swordAim.transform.localPosition = new Vector3(0.054f,0.057f,180f);
-                if (SwordEquipped != null && SwordEquipped == true ) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                if (BowEquipped == true ) 
+            default: return;
+            case PlayerMovement.Looking.Left:
+                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(0.054f, 0.057f, 180f);
+                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                if (BowEquipped == true)
                 {
                     bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                } 
+                }
                 break;
-                
+
             case PlayerMovement.Looking.Right:
-                if (SwordEquipped != null && SwordEquipped == true ) swordAim.transform.localPosition = new Vector3(-0.05f,0.043f,0);
-                if (SwordEquipped != null && SwordEquipped == true ) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                
-                if (BowEquipped == true ) 
+                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(-0.05f, 0.043f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
+
+                if (BowEquipped == true)
                 {
                     bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                } 
+                }
 
                 break;
 
             case PlayerMovement.Looking.Up:
-                if (SwordEquipped != null && SwordEquipped == true ) swordAim.transform.localPosition = new Vector3(0.052f,0.055f,0);
-                if (SwordEquipped != null && SwordEquipped == true ) sword.GetComponent<SpriteRenderer>().sortingOrder = 1;  
-                if (BowEquipped == true ) 
+                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(0.052f, 0.055f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                if (BowEquipped == true)
                 {
                     bow.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                } 
+                }
                 break;
 
             case PlayerMovement.Looking.Down:
-                if (SwordEquipped != null && SwordEquipped == true ) swordAim.transform.localPosition = new Vector3(-0.0287f,0.0485f,0);
-                if (SwordEquipped != null && SwordEquipped == true ) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;  
+                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(-0.0287f, 0.0485f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
 
-                if (BowEquipped == true ) 
+                if (BowEquipped == true)
                 {
                     bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                } 
+                }
                 break;
         }
 
@@ -398,20 +398,20 @@ public class Human : MonoBehaviour
         }
 
 
-        Vector3 mousePOS = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+        Vector3 mousePOS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePOS.z = 0f;
 
         Vector3 aimDirection = (mousePOS - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
         if (SwordEquipped)
-        {      
-            swordAim.transform.eulerAngles = new Vector3(0,0,angle);
+        {
+            swordAim.transform.eulerAngles = new Vector3(0, 0, angle);
         }
 
         if (GetComponent<PlayerCombat>().rangedWeaponEquipped)
         {
-            bowAim.transform.eulerAngles = new Vector3(0,0,angle);
+            bowAim.transform.eulerAngles = new Vector3(0, 0, angle);
         }
 
     }

@@ -131,10 +131,17 @@ public class SwarmRooms : MonoBehaviour
                 .FirstOrDefault();
 
             var enemyToSpawn = enemies[UnityEngine.Random.Range(0, enemies.Count)];
-            GameObject enemy = Instantiate(Resources.Load(enemyToSpawn), spawnTile.transform.position, Quaternion.identity) as GameObject;
-            enemy.transform.parent = gameObject.transform;
-            GameObject spawnEffect = Instantiate(Resources.Load("SpawnEffect"), enemy.transform.position, Quaternion.identity) as GameObject;
-            spawnEffect.transform.parent = gameObject.transform;
+            GameObject enemy = Instantiate(
+                Resources.Load(enemyToSpawn),
+                spawnTile.transform.position,
+                Quaternion.identity,
+                transform) as GameObject;
+
+            GameObject spawnEffect = Instantiate(
+                Resources.Load("SpawnEffect"),
+                enemy.transform.position,
+                Quaternion.identity,
+                transform) as GameObject;
             tracker++;
         }
     }

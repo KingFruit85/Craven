@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,12 +44,12 @@ public class AddRoom : MonoBehaviour
 
     Scene scene;
 
-    void Awake()            
+    void Awake()
     {
         objectSpawners = GetComponentsInChildren<Transform>().Where(t => t.tag == "ObjectSpawner").ToArray();
     }
     void Start()
-    {  
+    {
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "PCG")
         {
@@ -69,9 +67,9 @@ public class AddRoom : MonoBehaviour
     {
         if (!exitSpawned)
         {
-            var exitSquare = Instantiate(Resources.Load("ExitSquare") as GameObject, new Vector3(exitPoint.transform.position.x,exitPoint.transform.position.y,0), Quaternion.identity);
-            
-            if(scene.name == "shop")
+            var exitSquare = Instantiate(Resources.Load("ExitSquare") as GameObject, new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, 0), Quaternion.identity);
+
+            if (scene.name == "shop")
             {
                 exitSquare.GetComponent<ExitTile>().isShopLevel = true;
             }
@@ -82,7 +80,7 @@ public class AddRoom : MonoBehaviour
 
     public void SpawnWinGameExit()
     {
-        var exitSquare = Instantiate(Resources.Load("WinSquare") as GameObject, new Vector3(exitPoint.transform.position.x,exitPoint.transform.position.y,0), Quaternion.identity);
+        var exitSquare = Instantiate(Resources.Load("WinSquare") as GameObject, new Vector3(exitPoint.transform.position.x, exitPoint.transform.position.y, 0), Quaternion.identity);
         exitSpawned = true;
 
     }
@@ -112,19 +110,19 @@ public class AddRoom : MonoBehaviour
         switch (door)
         {
             default:
-            case "up": 
+            case "up":
                 upSpawner.SetActive(false);
                 Destroy(upSpawner);
                 break;
-            case "down": 
+            case "down":
                 downSpawner.SetActive(false);
                 Destroy(downSpawner);
                 break;
-            case "left": 
+            case "left":
                 leftSpawner.SetActive(false);
                 Destroy(leftSpawner);
                 break;
-            case "right": 
+            case "right":
                 rightSpawner.SetActive(false);
                 Destroy(rightSpawner);
                 break;
@@ -157,7 +155,7 @@ public class AddRoom : MonoBehaviour
                 UpDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
                 DownDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
                 LeftDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
-                RightDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false; 
+                RightDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
     }
@@ -189,9 +187,9 @@ public class AddRoom : MonoBehaviour
                     DownDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
                 }
                 foreach (var wall in downToggleWalls)
-                    {
-                        wall.GetComponent<Wall>().setAltDefaultSprite();
-                    }
+                {
+                    wall.GetComponent<Wall>().setAltDefaultSprite();
+                }
                 break;
 
             case "left":
@@ -213,11 +211,11 @@ public class AddRoom : MonoBehaviour
                     RightDoorwayCollider.GetComponent<BoxCollider2D>().enabled = false;
                 }
                 foreach (var wall in rightToggleWalls)
-                    {
-                        wall.GetComponent<Wall>().setAltDefaultSprite();
-                    }
+                {
+                    wall.GetComponent<Wall>().setAltDefaultSprite();
+                }
                 break;
-    }
+        }
     }
 
     public void OpenToggleDoor(string door)
@@ -275,7 +273,7 @@ public class AddRoom : MonoBehaviour
                     }
                 }
                 break;
-    }
+        }
 
-}
+    }
 }
