@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShortBow : MonoBehaviour
 {
@@ -33,8 +31,6 @@ public class ShortBow : MonoBehaviour
             arrow.GetComponent<Arrow>().clickPoint = mousePosition;
 
             GameObject.Find("GameManager").GetComponent<GameManager>().arrowCount--;
-
-            // Play arrow shot sound
 
         }
     }
