@@ -57,30 +57,22 @@ public class SimpleRoomInfo
 
 public class Map : MonoBehaviour
 {
+    private Helper helper;
     public SimpleRoomInfo[,] map;
     public int mapLength = 25;
     public int MapHeight = 25;
     public Vector3 CurrentMapPosition;
     private int lastMapX;
     private int lastMapY;
-    public GameObject cameraBox;
     private GameManager gameManager;
-    private Rigidbody2D rb2D;
 
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
-    }
-
-    void Awake()
-    {
+        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
         map = new SimpleRoomInfo[mapLength, MapHeight];
         int x = mapLength / 2;
         int y = MapHeight / 2;
-        cameraBox = Resources.Load("CameraBox") as GameObject;
-        GameObject camBox = Instantiate(cameraBox, Vector3.zero, Quaternion.identity) as GameObject;
-        camBox.name = "CameraBox";
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = helper.GameManager;
 
         //Set start room
         FillMapWithRooms();
@@ -306,7 +298,6 @@ public class Map : MonoBehaviour
                 }
             }
         }
-        Console.WriteLine("created a level");
         gameManager.timeTillDeath = roomNumber * 10;
     }
 }

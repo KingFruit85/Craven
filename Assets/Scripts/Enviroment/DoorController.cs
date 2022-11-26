@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
+    private Helper helper;
     public List<GameObject> doors = new List<GameObject>();
-    public Collider2D[] enemies;
+    public Collider2D[] enemiesInRoom;
     public EnemySpawner enemySpawner;
-    public Collider2D player;
+    public Collider2D playerInRoom;
     public LayerMask enemyLayer;
     public LayerMask playerLayer;
     public GameObject topLeft;
@@ -23,16 +23,12 @@ public class DoorController : MonoBehaviour
 
     void Awake()
     {
-        topLeft = transform.Find("TopLeft").gameObject;
-        bottomRight = transform.Find("BottomRight").gameObject;
-        GameObject.Find("CameraBox").transform.position = camAnchor.transform.position;
-        // enemySpawner = transform.parent.Find("EnemySpawner").GetComponent<EnemySpawner>();
+        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        helper.CameraBox.transform.position = camAnchor.transform.position;
     }
 
     void Start()
     {
-        enemies = Physics2D.OverlapAreaAll(topLeft.transform.position, bottomRight.transform.position, enemyLayer);
-
         // for each door in "Doors", if it's active, add it to the doors list
         var _doors = transform.parent.Find("Doors");
         if (_doors.GetChild(0).gameObject.activeSelf) doors.Add(_doors.GetChild(0).gameObject);
@@ -41,6 +37,7 @@ public class DoorController : MonoBehaviour
         if (_doors.GetChild(3).gameObject.activeSelf) doors.Add(_doors.GetChild(3).gameObject);
     }
 
+    // Do not delete, called below by Invoke
     public void closeThisRoomsDoors()
     {
         foreach (var door in doors)
@@ -49,6 +46,7 @@ public class DoorController : MonoBehaviour
         }
     }
 
+    // Do not delete, called below by Invoke
     public void openThisRoomsDoors()
     {
         foreach (var door in doors)
@@ -57,61 +55,41 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    public void killAllMobsInRoom()
-    {
-        foreach (var mob in enemies)
-        {
-            Destroy(mob.gameObject);
-        }
-    }
-
     void Update()
     {
-        if (transform.parent.GetComponent<EnemySpawner>())
+        if (!enemySpawner)
         {
             enemySpawner = transform.parent.GetComponent<EnemySpawner>();
         }
-        if (!roomComplete && !player)
-        {
-            foreach (var enemy in enemies)
-            {
-                enemy.GetComponent<AIMovement>().enabled = false;
-            }
-        }
 
         // Handles player entering a new room
-        player = Physics2D.OverlapArea(topLeft.transform.position, bottomRight.transform.position, playerLayer);
+        playerInRoom = Physics2D.OverlapArea(topLeft.transform.position, bottomRight.transform.position, playerLayer);
+        enemiesInRoom = Physics2D.OverlapAreaAll(topLeft.transform.position, bottomRight.transform.position, enemyLayer);
 
-        enemies = Physics2D.OverlapAreaAll(topLeft.transform.position, bottomRight.transform.position, enemyLayer);
-
-        // Player enters the room
-        if (player)
+        if (playerInRoom)
         {
-            foreach (var enemy in enemies)
-            {
-                enemy.GetComponent<AIMovement>().enabled = true;
-            }
-            // Detects player is in the room and moves the camera
-            var cam = GameObject.FindGameObjectWithTag("MainCamera");
-            cam.transform.position = camAnchor.transform.position;
-            GameObject.Find("CameraBox").transform.position = camAnchor.transform.position;
-
+            helper.CameraBox.transform.position = camAnchor.transform.position;
+            helper.Camera.transform.position = camAnchor.transform.position;
 
             if (!roomComplete)
             {
-
                 // Closes the door shortly after the player enters
                 foreach (var door in doors)
                 {
                     if (door.GetComponent<Door>().open)
                     {
-                        Invoke("closeThisRoomsDoors", 0.4f);
+                        Invoke("closeThisRoomsDoors", 0.2f);
                     }
                 }
             }
         }
 
-        if (openCondition == OpenCondition.MobDeath && enemies.Length <= 0)
+        if (!playerInRoom && !roomComplete)
+        {
+            Invoke("openThisRoomsDoors", 1f);
+        }
+
+        if (openCondition == OpenCondition.MobDeath && enemiesInRoom.Length <= 0)
         {
             Invoke("openThisRoomsDoors", 1f);
         }

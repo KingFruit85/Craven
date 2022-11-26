@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class PrizeRoom : MonoBehaviour
 {
+    public Helper helper;
     public SimpleRoom room;
     public DoorController doorController;
     public EnemySpawner enemySpawner;
 
     void Start()
     {
+        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
         room = GetComponent<SimpleRoom>();
         gameObject.AddComponent<EnemySpawner>();
         enemySpawner = GetComponent<EnemySpawner>();
@@ -19,19 +21,20 @@ public class PrizeRoom : MonoBehaviour
         // Get the random floor tile to spawn a chest on
         var chestSpawnLocation = room.SpawnableFloorTiles[UnityEngine.Random.Range(0, room.SpawnableFloorTiles.Length)].transform;
 
-        var tilesTransform = gameObject.transform.Find("Tiles");
         // Spawn a chest on a random tile
-        GameObject bars = Instantiate(
+        GameObject barrier = Instantiate(
             Resources.Load<GameObject>("chestBarrier"),
             chestSpawnLocation.position,
-            Quaternion.identity,
-            tilesTransform) as GameObject;
+            Quaternion.identity);
+
+        barrier.transform.parent = transform.Find("Tiles");
 
         GameObject chest = Instantiate(
-            Resources.Load<GameObject>("chest"),
+            helper.chest,
             chestSpawnLocation.position,
-            Quaternion.identity,
-            tilesTransform) as GameObject;
+            Quaternion.identity);
+
+        chest.transform.parent = transform.Find("Tiles");
 
         //Add to room contents array
         room.AddItemToRoomContents(chest.transform.localPosition, 'C');

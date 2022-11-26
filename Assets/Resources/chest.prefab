@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7285464018562087650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 67dc91e1a312d064b96c2fd22cde161d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0bc10639a8f4fd4e929b68080a82376, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.5833333}
+  m_Size: {x: 0.75, y: 0.4375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -97,21 +97,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5833333}
-    newSize: {x: 1, y: 0.5833333}
+    oldSize: {x: 0.75, y: 0.4375}
+    newSize: {x: 0.75, y: 0.4375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5833333}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &5014754074558315791
 Rigidbody2D:
@@ -146,12 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2dacc67c29b5e42b497855cdf227b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  open: {fileID: 21300000, guid: c3f85a56866d7f34b8e037156c889f61, type: 3}
-  closed: {fileID: 21300000, guid: 67dc91e1a312d064b96c2fd22cde161d, type: 3}
-  treasure:
-  - {fileID: 4521313019926239491, guid: 0548689cda24bec4d95b11e31a93eee1, type: 3}
-  - {fileID: 1917367669865602255, guid: ef6f905aa449ea1498479654a59819ed, type: 3}
-  - {fileID: 3293585198452726355, guid: 2537a8df637e4574da1178eb6d6ca59c, type: 3}
-  linkedDoors: []
-  linkedbarriers: []
-  linkedFlameBowls: []
+  open: {fileID: 21300000, guid: 70a4dcffe5d406544bb73ab7f79778f2, type: 3}
+  closed: {fileID: 21300000, guid: b0bc10639a8f4fd4e929b68080a82376, type: 3}
+  treasure: []

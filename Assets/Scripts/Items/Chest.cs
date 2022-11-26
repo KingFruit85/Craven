@@ -1,29 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
+    private Helper helper;
     private SpriteRenderer sr;
-    private GameManager gm;
+    private GameManager gameManager;
     public Sprite open;
     public Sprite closed;
     public List<GameObject> treasure;
-    private bool hasBeenOpened = false;
+    private bool opened = false;
     private bool openButtonPressed = false;
-    private Vector3 playerPOS;
-    private float distanceBetween;
-    public Door[] linkedDoors;
-    public Barrier[] linkedbarriers;
-    public FlameBowl[] linkedFlameBowls;
+    private bool playerInRange = false;
 
     void Awake()
     {
+        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
         sr = GetComponent<SpriteRenderer>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        open = Resources.Load<Sprite>("Level1Sprites/chest2");
-        closed = Resources.Load<Sprite>("Level1Sprites/chest");
+        gameManager = helper.GameManager;
         sr.sprite = closed;
         var chestSpawnablesFolder = Directory.GetFiles(@".\Assets\Resources\ChestSpawnables");
 
@@ -34,95 +29,59 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private GameObject SpawnItem()
+    private GameObject GetItem()
     {
         // If player doesn't have a bow yet, spawn a bow
-        if (!gm.rangedWeaponEquipped)
+        if (!gameManager.rangedWeaponEquipped)
         {
-            return (GameObject)Resources.Load("BowPickup");
+            return Resources.Load<GameObject>("BowPickup");
         }
         else
         {
-            var R = Random.Range(0, treasure.Count);
-            return treasure[R];
+            return treasure[Random.Range(0, treasure.Count)];
         }
     }
 
     void openChest()
     {
         sr.sprite = open;
-        GameObject item = SpawnItem();
-        var pos = transform.position;
         GameObject a = Instantiate
                             (
-                                item,
-                                new Vector3(pos.x, pos.y, pos.z),
+                                GetItem(),
+                                transform.position,
                                 transform.rotation
                             )
                             as GameObject;
-        //sets flag to stop item spawning if chest is closes & reopened
-        hasBeenOpened = true;
-        //Spawn item on top of chest
-        item.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        a.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        opened = true;
     }
 
-    void CloseLinkedDoors()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        foreach (var door in linkedDoors)
+        if (other.tag == "Player")
         {
-            door.CloseDoor();
+            playerInRange = true;
         }
     }
 
-    void OpenLinkedBarriers()
+    void OnTriggerExit2D(Collider2D other)
     {
-        foreach (var barrier in linkedbarriers)
+        if (other.tag == "Player")
         {
-            barrier.gameObject.SetActive(false);
+            playerInRange = false;
         }
     }
-
-    void LightFlameBowls()
-    {
-        foreach (var flameBowl in linkedFlameBowls)
-        {
-            flameBowl.Light();
-        }
-    }
-
 
     void Update()
     {
-        playerPOS = GameObject.Find("Player").transform.position;
-        distanceBetween = Vector2.Distance(transform.position, playerPOS);
-
-        if (distanceBetween < 1f && Input.GetKeyDown(KeyCode.E))
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             openButtonPressed = true;
         }
-        else
-        {
-            openButtonPressed = false;
-        }
 
-        if (openButtonPressed == true && hasBeenOpened == false)
+        if (openButtonPressed && !opened)
         {
             openChest();
-
-            if (linkedDoors.Length > 0 && linkedDoors != null)
-            {
-                CloseLinkedDoors();
-            }
-
-            if (linkedbarriers.Length > 0 && linkedbarriers != null)
-            {
-                OpenLinkedBarriers();
-            }
-
-            if (linkedFlameBowls.Length > 0 && linkedFlameBowls != null)
-            {
-                LightFlameBowls();
-            }
         }
     }
 }
