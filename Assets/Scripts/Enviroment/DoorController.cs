@@ -8,11 +8,8 @@ public class DoorController : MonoBehaviour
     public Collider2D[] enemiesInRoom;
     public EnemySpawner enemySpawner;
     public Collider2D playerInRoom;
-    public LayerMask enemyLayer;
-    public LayerMask playerLayer;
-    public GameObject topLeft;
-    public GameObject bottomRight;
-    public GameObject camAnchor;
+    public LayerMask enemyLayer, playerLayer;
+    public GameObject topLeft, bottomRight, camAnchor;
     public enum OpenCondition
     {
         MobDeath,
@@ -27,22 +24,15 @@ public class DoorController : MonoBehaviour
         helper.CameraBox.transform.position = camAnchor.transform.position;
     }
 
-    void Start()
-    {
-        // for each door in "Doors", if it's active, add it to the doors list
-        var _doors = transform.parent.Find("Doors");
-        if (_doors.GetChild(0).gameObject.activeSelf) doors.Add(_doors.GetChild(0).gameObject);
-        if (_doors.GetChild(1).gameObject.activeSelf) doors.Add(_doors.GetChild(1).gameObject);
-        if (_doors.GetChild(2).gameObject.activeSelf) doors.Add(_doors.GetChild(2).gameObject);
-        if (_doors.GetChild(3).gameObject.activeSelf) doors.Add(_doors.GetChild(3).gameObject);
-    }
-
     // Do not delete, called below by Invoke
     public void closeThisRoomsDoors()
     {
         foreach (var door in doors)
         {
-            door.GetComponent<Door>().CloseDoor();
+            if (door.activeSelf)
+            {
+                door.GetComponent<Door>().CloseDoor();
+            }
         }
     }
 
@@ -51,16 +41,16 @@ public class DoorController : MonoBehaviour
     {
         foreach (var door in doors)
         {
-            door.GetComponent<Door>().OpenDoor();
+            if (door.activeSelf)
+            {
+                door.GetComponent<Door>().OpenDoor();
+            }
         }
     }
 
     void Update()
     {
-        if (!enemySpawner)
-        {
-            enemySpawner = transform.parent.GetComponent<EnemySpawner>();
-        }
+        if (!enemySpawner) enemySpawner = transform.parent.GetComponent<EnemySpawner>();
 
         // Handles player entering a new room
         playerInRoom = Physics2D.OverlapArea(topLeft.transform.position, bottomRight.transform.position, playerLayer);
@@ -76,7 +66,7 @@ public class DoorController : MonoBehaviour
                 // Closes the door shortly after the player enters
                 foreach (var door in doors)
                 {
-                    if (door.GetComponent<Door>().open)
+                    if (door.activeSelf)
                     {
                         Invoke("closeThisRoomsDoors", 0.2f);
                     }
@@ -89,8 +79,9 @@ public class DoorController : MonoBehaviour
             Invoke("openThisRoomsDoors", 1f);
         }
 
-        if (openCondition == OpenCondition.MobDeath && enemiesInRoom.Length <= 0)
+        if (openCondition == OpenCondition.MobDeath && enemiesInRoom.Length <= 0 && playerInRoom)
         {
+            roomComplete = true;
             Invoke("openThisRoomsDoors", 1f);
         }
     }

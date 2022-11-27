@@ -19,11 +19,12 @@ public class Computer : MonoBehaviour
 
     void Start()
     {
-        unlockMyDoor = () => {
-            myDoor.GetComponent<Door>().UnlockDoor();
-        };
+        // unlockMyDoor = () => {
+        //     myDoor.GetComponent<Door>().UnlockDoor();
+        // };
 
-        displayErrorMsg = () => {
+        displayErrorMsg = () =>
+        {
             // Create a UI Element and set some text in it
             Debug.Log("Unable to unlock door, insufficient access");
         };
@@ -33,17 +34,17 @@ public class Computer : MonoBehaviour
     public void LoadTerminal()
     {
         TerminalPopUp popup = UIManager.Instance.CreateTerminal();
-            // Canvas, btn1txt, btn2txt, btn3txt, action1, action2, 
+        // Canvas, btn1txt, btn2txt, btn3txt, action1, action2, 
 
-            popup.PopUpTerminal(
-                                this.gameObject,
-                                UIManager.Instance.MainCanvas, 
-                                "Unlock North Door", 
-                                "Unlock West Door", 
-                                "Close Terminal", 
-                                unlockMyDoor, 
-                                displayErrorMsg);
-                                }
+        popup.PopUpTerminal(
+                            this.gameObject,
+                            UIManager.Instance.MainCanvas,
+                            "Unlock North Door",
+                            "Unlock West Door",
+                            "Close Terminal",
+                            unlockMyDoor,
+                            displayErrorMsg);
+    }
 
 
 
@@ -51,7 +52,7 @@ public class Computer : MonoBehaviour
     {
         playerPOS = GameObject.Find("Player").transform.position;
         dist = Vector3.Distance(playerPOS, transform.position);
-        
+
         if (dist < 1.5f && Input.GetKeyDown(KeyCode.E) && !inUse)
         {
             inUse = true;

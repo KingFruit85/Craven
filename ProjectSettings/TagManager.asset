@@ -48,6 +48,9 @@ TagManager:
   - slowzone
   - AudioManager
   - SwarmToken
+  - Map
+  - Helper
+  - CameraBox
   layers:
   - Default
   - TransparentFX

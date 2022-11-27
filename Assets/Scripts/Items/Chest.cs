@@ -5,21 +5,20 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     private Helper helper;
-    private SpriteRenderer sr;
+    private SpriteRenderer spriteRenderer;
     private GameManager gameManager;
-    public Sprite open;
-    public Sprite closed;
+    public Sprite open, closed;
     public List<GameObject> treasure;
-    private bool opened = false;
+    private bool chestOpen = false;
     private bool openButtonPressed = false;
     private bool playerInRange = false;
 
     void Awake()
     {
         helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
-        sr = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = helper.GameManager;
-        sr.sprite = closed;
+        spriteRenderer.sprite = closed;
         var chestSpawnablesFolder = Directory.GetFiles(@".\Assets\Resources\ChestSpawnables");
 
         foreach (var item in chestSpawnablesFolder)
@@ -44,7 +43,7 @@ public class Chest : MonoBehaviour
 
     void openChest()
     {
-        sr.sprite = open;
+        spriteRenderer.sprite = open;
         GameObject a = Instantiate
                             (
                                 GetItem(),
@@ -53,7 +52,7 @@ public class Chest : MonoBehaviour
                             )
                             as GameObject;
         a.GetComponent<SpriteRenderer>().sortingOrder = 3;
-        opened = true;
+        chestOpen = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -79,7 +78,7 @@ public class Chest : MonoBehaviour
             openButtonPressed = true;
         }
 
-        if (openButtonPressed && !opened)
+        if (openButtonPressed && !chestOpen)
         {
             openChest();
         }

@@ -2,8 +2,7 @@
 
 public class Rune : MonoBehaviour
 {
-    public Sprite deactivatedSprite;
-    public Sprite activatedSprite;
+    public Sprite deactivatedSprite, activatedSprite;
     public FlameBowl flameBowl;
     private SpriteRenderer SR;
     public string MyCode;
