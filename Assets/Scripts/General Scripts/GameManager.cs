@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    string[] critMessages = new string[] { "FEEL NOTHING", "YOU WILL LOVE ME", "FOCUS", "YOUR MEMORIES AREN'T REAL", "KEEP DREAMING", "NO", "DON'T THINK", "HUSH" };
+    string[] critMessages = new string[] { "THERE'S WORSE YET TO COME", "FEEL NOTHING", "YOU WILL LOVE ME", "FOCUS", "YOUR MEMORIES AREN'T REAL", "KEEP DREAMING", "NO", "DON'T THINK", "HUSH" };
 
 
     private IEnumerator Hit(float duration, bool isCrit)

@@ -20,6 +20,7 @@ public class Health : MonoBehaviour
     public bool IsImmuneToAllDamage = false;
     private int CurrentGameLevel;
     private bool IsUsingNonDefaultColor = false;
+    private bool IsDead = false;
 
     void Start()
     {
@@ -208,6 +209,7 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        IsDead = true;
         // Player death
         if (gameObject.CompareTag(Helper.PlayerTag))
         {
@@ -251,6 +253,11 @@ public class Health : MonoBehaviour
             {
                 dropLoot.SpawnLoot();
             }
+
+            if (TryGetComponent(out Collider2D collider))
+            {
+                collider.enabled = false;
+            }
         }
     }
 
@@ -262,7 +269,7 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (CurrentHealth <= 0)
+        if (CurrentHealth <= 0 && !IsDead)
         {
             if (Player.CompareTag(gameObject.tag))
             {

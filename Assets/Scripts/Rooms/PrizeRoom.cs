@@ -30,7 +30,7 @@ public class PrizeRoom : MonoBehaviour
         barrier.transform.parent = transform.Find("Tiles");
 
         GameObject chest = Instantiate(
-            helper.chest,
+            helper.Chest,
             chestSpawnLocation.position,
             Quaternion.identity);
 

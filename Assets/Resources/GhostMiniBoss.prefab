@@ -249,10 +249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastHitBy: {fileID: 0}
   Player: {fileID: 0}
-  MaxHealth: 0
-  CurrentHealth: 0
+  MaxHealth: 200
+  CurrentHealth: 200
   CurrentHost: 
-  IsBoss: 0
+  IsBoss: 1
   IsImmuneToMeleeDamage: 0
   IsImmuneToProjectileDamage: 0
   IsImmuneToAllDamage: 0

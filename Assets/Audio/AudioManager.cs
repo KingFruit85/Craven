@@ -9,17 +9,22 @@ using System.Linq;
 public class AudioManager : MonoBehaviour
 {
 
+    public Helper Helper;
     public List<AudioClip> Clips = new List<AudioClip>();
 
     [SerializeField]
     public static AudioManager instance;
     public AudioSource MusicSource;
     public AudioSource EffectsSource;
+
+
     public GameManager gameManager;
 
     void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+
+        gameManager = Helper.GameManager;
 
         // Stops duplicate audio managers being created
         // https://www.youtube.com/watch?v=6OT43pvUyfY @ around 13:00 or so explains pretty well

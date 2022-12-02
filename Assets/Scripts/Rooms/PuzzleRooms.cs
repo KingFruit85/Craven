@@ -52,15 +52,15 @@ public class PuzzleRooms : MonoBehaviour
         foreach (var tile in room.pillarTiles)
         {
             GameObject wall = Instantiate<GameObject>(
-                helper.wall,
+                helper.Wall,
                 tile.transform.position,
                 Quaternion.identity);
-            
+
             wall.transform.parent = tilesObject;
 
             // Flame bowls and arrow traps
             GameObject flameBowl = Instantiate(
-                helper.flameBowl,
+                helper.Flamebowl,
                 tile.transform.position,
                 Quaternion.identity);
 
@@ -71,7 +71,7 @@ public class PuzzleRooms : MonoBehaviour
                 flameBowl.name = "flameBowl1";
 
                 GameObject arrowTrap = Instantiate(
-                    helper.arrowTrap,
+                    helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap1Position.transform.position,
                     Quaternion.identity);
 
@@ -88,7 +88,7 @@ public class PuzzleRooms : MonoBehaviour
                 flameBowl.name = "flameBowl2";
 
                 GameObject arrowTrap = Instantiate(
-                    helper.arrowTrap,
+                    helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap2Position.transform.position,
                     Quaternion.identity);
 
@@ -104,7 +104,7 @@ public class PuzzleRooms : MonoBehaviour
             {
                 flameBowl.name = "flameBowl3";
                 GameObject arrowTrap = Instantiate(
-                    helper.arrowTrap,
+                    helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap3Position.transform.position,
                     Quaternion.identity);
 
@@ -121,7 +121,7 @@ public class PuzzleRooms : MonoBehaviour
             {
                 flameBowl.name = "flameBowl4";
                 GameObject arrowTrap = Instantiate(
-                    helper.arrowTrap,
+                    helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap4Position.transform.position,
                     Quaternion.identity);
 

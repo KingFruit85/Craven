@@ -60,6 +60,7 @@ public class DoorController : MonoBehaviour
         {
             helper.CameraBox.transform.position = camAnchor.transform.position;
             helper.Camera.transform.position = camAnchor.transform.position;
+            helper.Player.transform.parent = transform.parent;
 
             if (!roomComplete)
             {

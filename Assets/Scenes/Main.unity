@@ -341,6 +341,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1370754946, guid: b159eef89695c68418fa7df939f9c6be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 532115670213617637, guid: b159eef89695c68418fa7df939f9c6be,
         type: 3}
       propertyPath: m_Name
@@ -406,6 +410,11 @@ PrefabInstance:
       propertyPath: transition
       value: 
       objectReference: {fileID: 1701789908}
+    - target: {fileID: 8134003747624580870, guid: b159eef89695c68418fa7df939f9c6be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b159eef89695c68418fa7df939f9c6be, type: 3}
 --- !u!1001 &560174725
@@ -803,6 +812,11 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4931397499671596512, guid: 3d79c217379d3b042bfc73ce63b032d7,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 227128070}
     - target: {fileID: 4931397499671596512, guid: 3d79c217379d3b042bfc73ce63b032d7,
         type: 3}
       propertyPath: Clips.Array.size
@@ -1431,7 +1445,7 @@ PrefabInstance:
         type: 3}
       propertyPath: wall
       value: 
-      objectReference: {fileID: 4684371922345256795, guid: e803337a48adf4c4290a3f0388331658,
+      objectReference: {fileID: 9151319679531388145, guid: 0e44f59d1f85eac419b2d3319d465e8d,
         type: 3}
     - target: {fileID: 4226118986754296760, guid: 3a0e991d252994e4ca3177020a3c0699,
         type: 3}

@@ -2,44 +2,43 @@
 
 public class GhostBolt : MonoBehaviour, IProjectile
 {
-    private Rigidbody2D rb;
-    private GameObject player;
-    private Vector3 aim;
-    private Vector3 playerMouseClick;
+    private Rigidbody2D Rigidbody2d;
 
-    private float born;
-    private float lifeTime = 1.5f;
+    public Helper Helper;
 
-    public string shooter;
-    private Vector3 lastVelocity;
-    public bool deflected;
-    private AudioManager audioManager;
-    GameManager gameManager;
+    private GameObject Player;
+    private Vector3 Aim;
+    private Vector3 PlayerMouseClick;
 
-    public float speed { get; set; }
-    public int damage { get; set; }
+    private float Born;
+    private float LifeTime = 1.5f;
+
+    public string Shooter;
+    private Vector3 LastVelocity;
+    public bool Deflected;
+    public float speed = 0.001f;
+    public int damage = 10;
+
+    float IProjectile.speed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    int IProjectile.damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        rb = GetComponent<Rigidbody2D>();
-        playerMouseClick = player.GetComponent<PlayerCombat>().mouseClickPosition;
-        born = Time.time;
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        speed = 0.001f;
-        damage = 10;
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Player = Helper.Player;
+        Rigidbody2d = GetComponent<Rigidbody2D>();
+        PlayerMouseClick = Player.GetComponent<PlayerCombat>().mouseClickPosition;
+        Born = Time.time;
     }
 
     void Start()
     {
-        shooter = transform.parent.tag;
+        Shooter = transform.parent.tag;
 
         // Stops the bolt colliding with whoever is firing it
-        if (shooter == "Player")
+        if (Shooter == "Player")
         {
-            Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), player.GetComponent<CapsuleCollider2D>());
+            Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), Player.GetComponent<CapsuleCollider2D>());
         }
         else
         {
@@ -49,40 +48,39 @@ public class GhostBolt : MonoBehaviour, IProjectile
 
     void Update()
     {
-        switch (shooter)
+        switch (Shooter)
         {
             case "Ghost": ShootAtPlayer(); break;
             case "Player": ShootAtEnemy(); break;
         }
 
-        if (Time.time >= born + lifeTime)
+        if (Time.time >= Born + LifeTime)
         {
             Destroy(this.gameObject);
         }
 
         // Tracked to calculate speed for deflections
-        lastVelocity = rb.velocity;
+        LastVelocity = Rigidbody2d.velocity;
 
-        if (deflected)
+        if (Deflected)
         {
             damage = 0;
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
     private void ShootAtEnemy()
     {
-        damage = gameManager.rangedAttackBonus + damage;
-        aim = (playerMouseClick - transform.position);
-        rb.AddForce(aim * (speed * 5));
+        damage = Helper.GameManager.rangedAttackBonus + damage;
+        Aim = (PlayerMouseClick - transform.position);
+        Rigidbody2d.AddForce(Aim * (speed * 5));
     }
 
     private void ShootAtPlayer()
     {
-        aim = (player.transform.position - transform.position).normalized;
-        rb.AddForce(aim * speed);
+        Aim = (Player.transform.position - transform.position).normalized;
+        Rigidbody2d.AddForce(Aim * speed);
     }
-
-
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -97,12 +95,12 @@ public class GhostBolt : MonoBehaviour, IProjectile
 
             int rand = Random.Range(0, deflects.Length - 1);
 
-            audioManager.PlayAudioClip(deflects[rand]);
+            Helper.AudioManager.PlayAudioClip(deflects[rand]);
 
-            float speed = lastVelocity.magnitude;
-            Vector3 direction = Vector3.Reflect(lastVelocity.normalized, coll.contacts[0].normal);
-            rb.velocity = direction * speed * 2;
-            deflected = true;
+            float speed = LastVelocity.magnitude;
+            Vector3 direction = Vector3.Reflect(LastVelocity.normalized, coll.contacts[0].normal);
+            Rigidbody2d.velocity = direction * speed * 4;
+            Deflected = true;
         }
 
         if (other.tag == "Wall")
@@ -111,18 +109,18 @@ public class GhostBolt : MonoBehaviour, IProjectile
             Destroy(this.gameObject);
         }
 
-        // PLayer logic
+        // Player logic
 
-        if (shooter == "Player" && other.layer == 8)
+        if (Shooter == "Player" && other.layer == 8)
         {
             other.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.Ranged, false);
         }
 
         // Ghost logic, should only do damage to player and if shot is deflected do no damage
-        if (shooter == "Ghost" && other.tag == "Player" && !deflected)
+        if (Shooter == "Ghost" && other.tag == "Player" && !Deflected)
         {
             // If player is human and dashing don't apply damage
-            if (player.GetComponent<Human>() && player.GetComponent<Human>().isPlayerDashing())
+            if (Player.GetComponent<Human>() && Player.GetComponent<Human>().isPlayerDashing())
             {
                 return;
             }
@@ -136,7 +134,7 @@ public class GhostBolt : MonoBehaviour, IProjectile
                     isCrit = true;
                     damage += (damage * 2);
                 }
-                player.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.Ranged, isCrit);
+                Player.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.Ranged, isCrit);
                 //add animation
                 Destroy(this.gameObject);
             }

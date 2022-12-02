@@ -29,11 +29,10 @@ public class GhostAttacks : MonoBehaviour
         string[] ghostBolts = new string[]{"GhostBolt1","GhostBolt2","GhostBolt3","GhostBolt4",
                                              "GhostBolt5","GhostBolt6","GhostBolt7"};
 
-        int rand = Random.Range(0, ghostBolts.Length);
+        AudioManager.PlayAudioClip(ghostBolts[Random.Range(0, ghostBolts.Length)]);
 
-        AudioManager.PlayAudioClip(ghostBolts[rand]);
+        // Visual warning for the player that attack is incoming
 
-        // Visual warning for the player that attack is incomming
         StartCoroutine(FlashColor(Color.red));
         _ = Instantiate
                                 (
@@ -58,7 +57,7 @@ public class GhostAttacks : MonoBehaviour
 
     void Update()
     {
-        // Check for player in aggo range
+        // Check for player in agro range
         if (Vector3.Distance(transform.position, Player.transform.position) <= 2.5f)
         {
             if (Time.time > LastAttacked + AttackDelay && CanAttack)
