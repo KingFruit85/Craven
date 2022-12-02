@@ -31,7 +31,7 @@ public class arrowTurret : MonoBehaviour
                                        transform)
                                        as GameObject;
 
-            rightArrow.GetComponent<TrapArrow>().direction = "right";
+            rightArrow.GetComponent<TrapArrow>().Direction = "right";
 
             GameObject leftArrow = Instantiate(arrow,
                                        leftSpawn.transform.position,
@@ -39,7 +39,7 @@ public class arrowTurret : MonoBehaviour
                                        transform)
                                        as GameObject;
 
-            rightArrow.GetComponent<TrapArrow>().direction = "left";
+            rightArrow.GetComponent<TrapArrow>().Direction = "left";
 
             GameObject upArrow = Instantiate(arrow,
                                        topSpawn.transform.position,
@@ -47,7 +47,7 @@ public class arrowTurret : MonoBehaviour
                                        transform)
                                        as GameObject;
 
-            rightArrow.GetComponent<TrapArrow>().direction = "up";
+            rightArrow.GetComponent<TrapArrow>().Direction = "up";
 
             GameObject downArrow = Instantiate(arrow,
                                        bottomSpawn.transform.position,
@@ -55,7 +55,7 @@ public class arrowTurret : MonoBehaviour
                                        transform)
                                        as GameObject;
 
-            rightArrow.GetComponent<TrapArrow>().direction = "down";
+            rightArrow.GetComponent<TrapArrow>().Direction = "down";
 
             shotCooldown = Time.time;
         }

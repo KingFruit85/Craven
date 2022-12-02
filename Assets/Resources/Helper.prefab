@@ -45,3 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
+  CameraBox: {fileID: 0}
+  GameManager: {fileID: 0}
+  AudioManager: {fileID: 0}
+  PlayerPosition: {x: 0, y: 0, z: 0}
+  chest: {fileID: 0}
+  wall: {fileID: 0}
+  flameBowl: {fileID: 0}
+  arrowTrap: {fileID: 0}
+  Player: {fileID: 0}
+  PlayerPrefab: {fileID: 0}
+  SimpleRoomPrefab: {fileID: 0}

@@ -3,51 +3,39 @@ using UnityEngine;
 
 public class StartRoom : MonoBehaviour
 {
-    public SimpleRoom room;
-    public DoorController doorController;
-    public GameManager gameManager;
+    private Helper Helper;
+    private SimpleRoom Room;
+    private DoorController DoorController;
+    private GameManager GameManager;
+    public GameObject Camera;
+
+    private void Awake()
+    {
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+    }
+
     void Start()
     {
-        room = GetComponent<SimpleRoom>();
-        doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Room = GetComponent<SimpleRoom>();
+        DoorController = GetComponentInChildren<DoorController>();
+        GameManager = Helper.GameManager;
+        Camera = Helper.Camera;
 
         gameObject.transform.name += " START ROOM";
+        DoorController.roomComplete = true;
 
-        var flameBowlTile = room.floorTiles
-        .Where(t => t.name == "46")
-        .FirstOrDefault();
-
-        var bowPickupTile = room.floorTiles
-        .Where(t => t.name == "47")
-        .FirstOrDefault();
-
-        GameObject flamebowl = Instantiate(Resources.Load("FlameBowl"), flameBowlTile.transform.position, Quaternion.identity) as GameObject;
-        flamebowl.GetComponent<FlameBowl>().startLit = true;
-        flamebowl.GetComponent<FlameBowl>().Light();
-
-        GameObject bowPickup = Instantiate(Resources.Load(@"ChestSpawnables\BowPickup"), bowPickupTile.transform.position, Quaternion.identity) as GameObject;
-
-
-        GameObject player = Instantiate(Resources.Load("Player Variant 1"), gameObject.transform.position, Quaternion.identity) as GameObject;
-        player.name = "Player";
-        var camera = GameObject.Find("Main Camera");
-        camera.transform.position = gameObject.transform.position;
-
-        doorController.roomComplete = true;
+        // Move player to room
+        Helper.Player.transform.position = GetComponent<SimpleRoom>().SpawnableFloorTiles[1].transform.position;
 
         // Debug: Spawn kill square 
-        Instantiate(Resources.Load("KillSquare"), room.ExitTile.transform.position, Quaternion.identity);
+        Instantiate(Resources.Load("KillSquare"), Room.ExitTile.transform.position, Quaternion.identity);
 
         // Place level specific terminal with new lore
-        if (gameManager.currentGameLevel == 1)
+        if (GameManager.currentGameLevel == 1)
         {
-
-            GameObject terminal = Instantiate(Resources.Load("InteractableRune1"), room.ReturnTerminalSpawnLocation(), Quaternion.identity) as GameObject;
+            GameObject terminal = Instantiate(Resources.Load("InteractableRune1"), Room.ReturnTerminalSpawnLocation(), Quaternion.identity) as GameObject;
             terminal.transform.parent = gameObject.transform.Find("Tiles");
             terminal.transform.position = gameObject.transform.Find("CameraAnchor").transform.position;
-
         }
-
     }
 }

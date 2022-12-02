@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
+    private Helper Helper;
+    private PlayAnimations PlayAnimation;
+    private SpriteRenderer SpriteRenderer;
+    private bool IsPhasing = false;
+    public float MoveSpeed = 5;
+    private bool IsPlayer = false;
+
     public string idleLeft = "Ghost_Idle_Left";
     public string idleRight = "Ghost_Idle_Right";
     public string walkLeft = "Ghost_Walk_Left";
@@ -13,79 +20,74 @@ public class Ghost : MonoBehaviour
     public string idleUp = "Ghost_Walk_Up"; // Replace this when posable
     public string idleDown = "Ghost_Idle_Front";
     public string death = "Ghost_Death";
-    public float moveSpeed = 5;
-    private PlayAnimations pa;
-    private SpriteRenderer sr;
-    private bool isPhasing;
-    private bool isPlayer = false;
 
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        pa = GetComponent<PlayAnimations>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        PlayAnimation = GetComponent<PlayAnimations>();
 
-        if (gameObject.tag == "Player")
-
+        if (gameObject.CompareTag(Helper.PlayerTag))
         {
-            isPlayer = true;
-            GetComponent<PlayerMovement>().moveSpeed = moveSpeed;
+            IsPlayer = true;
+            GetComponent<PlayerMovement>().moveSpeed = MoveSpeed;
             //Due to the sprite scaling when you change from a human to a ghost the capsule collider is too large to move horizontally though 1 unit tall corridors
             GetComponent<CapsuleCollider2D>().size = new Vector2(0.1f, 0.2f);
-            GameObject.Find("GameManager").GetComponent<GameManager>().currentHost = "Ghost";
+            Helper.GameManager.currentHost = Helper.EnemyTypes.Ghost.ToString();
         }
 
-        isPhasing = false;
         transform.localScale = new Vector3(3.5f, 3.5f, 0);
 
         //Set the player animations/sprites to the current host creature
-        pa.idleLeft = idleLeft;
-        pa.idleRight = idleRight;
-        pa.walkLeft = walkLeft;
-        pa.walkRight = walkRight;
-        pa.walkUp = walkUp;
-        pa.walkDown = walkDown;
-        pa.death = death;
+        PlayAnimation.idleLeft = idleLeft;
+        PlayAnimation.idleRight = idleRight;
+        PlayAnimation.walkLeft = walkLeft;
+        PlayAnimation.walkRight = walkRight;
+        PlayAnimation.walkUp = walkUp;
+        PlayAnimation.walkDown = walkDown;
+        PlayAnimation.death = death;
 
     }
 
     public bool Phasing()
     {
-        return isPhasing;
+        return IsPhasing;
     }
 
     public void FireGhostBolt()
     {
-        if (!isPhasing)
+        if (!IsPhasing)
         {
-            GameObject a = Instantiate
-                                    (
-                                        Resources.Load("Ghost_Bolt"),
-                                        transform.position,
-                                        transform.rotation,
-                                        transform
-                                    )
-                                    as GameObject;
+            _ = Instantiate
+                (
+                    Resources.Load<GameObject>("Ghost_Bolt"),
+                    transform.position,
+                    transform.rotation,
+                    transform
+                );
         }
     }
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) && isPhasing == false && isPlayer)
+        if (IsPlayer)
         {
-            sr.material.color = new Color(1f, 1f, 1f, 0.5f);
-            isPhasing = true;
-            //Can pass through enemies
-            Physics2D.IgnoreLayerCollision(12, 8, true);
-            //Does not pick up items
-            Physics2D.IgnoreLayerCollision(12, 10, true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && isPhasing == true && isPlayer)
-        {
-            sr.material.color = new Color(1f, 1f, 1f, 1f);
-            isPhasing = false;
-            Physics2D.IgnoreLayerCollision(12, 8, false);
-            Physics2D.IgnoreLayerCollision(12, 10, false);
+            if (Input.GetKeyDown(KeyCode.Space) && IsPhasing == false)
+            {
+                SpriteRenderer.material.color = new Color(1f, 1f, 1f, 0.5f);
+                IsPhasing = true;
+                //Can pass through enemies
+                Physics2D.IgnoreLayerCollision(12, 8, true);
+                //Does not pick up items
+                Physics2D.IgnoreLayerCollision(12, 10, true);
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && IsPhasing == true)
+            {
+                SpriteRenderer.material.color = new Color(1f, 1f, 1f, 1f);
+                IsPhasing = false;
+                Physics2D.IgnoreLayerCollision(12, 8, false);
+                Physics2D.IgnoreLayerCollision(12, 10, false);
+            }
         }
     }
 }

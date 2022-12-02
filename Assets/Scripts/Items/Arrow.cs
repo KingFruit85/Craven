@@ -81,11 +81,11 @@ public class Arrow : MonoBehaviour
         {
             if (isAlight)
             {
-                coll.gameObject.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, "FlamingPlayerArrow", false);
+                coll.gameObject.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.FlamingPlayerArrow, false);
             }
             else
             {
-                coll.gameObject.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, gameObject.tag, false);
+                coll.gameObject.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.PlayerArrow, false);
             }
 
             Destroy(gameObject);

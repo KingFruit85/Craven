@@ -71,12 +71,7 @@ public class FloorTile : MonoBehaviour
 
     void Update()
     {
-        // text.GetComponent<TextMeshPro>().text = transform.parent.parent.GetComponent<SimpleRoom>().WorldToArrayPOS(transform.localPosition).ToString();
-
-        if (gameManager.playerHit)
-        {
-            CriticalFlash();
-        }
+        if (gameManager.playerHit) CriticalFlash();
 
         if (isPulsing)
         {
@@ -123,7 +118,7 @@ public class FloorTile : MonoBehaviour
         }
         if (col.tag == "Player" && isPulsing)
         {
-            col.gameObject.GetComponent<Health>().TakeDamage(1, gameObject, "floorTile", true);
+            col.gameObject.GetComponent<Health>().TakeDamage(1, gameObject, Helper.DamageTypes.WallOfDeath, true);
         }
     }
 

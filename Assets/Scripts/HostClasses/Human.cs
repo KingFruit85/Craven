@@ -238,7 +238,7 @@ public class Human : MonoBehaviour
                     isCrit = true;
                 }
 
-                enemy.GetComponent<Health>().TakeDamage(dammageToApply, transform.gameObject, "PlayerSword", isCrit);
+                enemy.GetComponent<Health>().TakeDamage(dammageToApply, transform.gameObject, Helper.DamageTypes.PlayerSword, isCrit);
 
                 string[] swordHits = new string[] { "SwordHit", "SwordHit1", "SwordHit2", "SwordHit3", "SwordHit4", "SwordHit5", "SwordHit6" };
                 int rand = Random.Range(0, swordHits.Length);
@@ -312,16 +312,6 @@ public class Human : MonoBehaviour
     // This update function if really chonky, probably needs a look over
     void Update()
     {
-        if (GetComponent<Health>().isBloodied)
-        {
-            SetBloodiedSprites(true);
-        }
-
-        if (!GetComponent<Health>().isBloodied)
-        {
-            SetBloodiedSprites(false);
-        }
-
         playerIsLooking = GetComponent<PlayerMovement>().PlayerIsLooking();
         if (BowEquipped)
         {

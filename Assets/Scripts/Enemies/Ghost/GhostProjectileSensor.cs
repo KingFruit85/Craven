@@ -21,8 +21,8 @@ public class GhostProjectileSensor : MonoBehaviour
                 GetComponentInParent<AIMovement>().DazeForSeconds(2);
                 other.GetComponent<SpriteRenderer>().color = Color.red;
                 // GetComponentInParent<GhostAttacks>().ResetAttackDelay(); 
-                GetComponentInParent<Health>().setProjectileImmunity(false);
-                GetComponentInParent<Health>().setMeleeImmunity(false);
+                GetComponentInParent<Health>().SetProjectileImmunity(false);
+                GetComponentInParent<Health>().SetMeleeImmunity(false);
             }
             else
             {

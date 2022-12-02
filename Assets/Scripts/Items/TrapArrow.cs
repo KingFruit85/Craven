@@ -1,54 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TrapArrow : MonoBehaviour
 {
-    private Rigidbody2D RB;
-    public float speed = 0.05f;
-    private Vector3 left = new Vector3(-1,0,0);
-    private Vector3 right = new Vector3(1,0,0);
-    private Vector3 up = new Vector3(0,1,0);
-    private Vector3 down = new Vector3(0,-1,0);
-    public string direction;
-    public int damage = 10;
-    private Vector3 lastVelocity;
-    public bool deflected = false;
-    private GameObject player;
-    private AudioManager audioManager;
-    public bool ignoreWalls = false;
+    public Helper Helper;
+    private Rigidbody2D RigidBody2D;
+
+    private Vector3 LastVelocity;
+    public float Speed = 0.05f;
+    private Vector3 Left = new Vector3(-1,0,0);
+    private Vector3 Right = new Vector3(1,0,0);
+    private Vector3 Up = new Vector3(0,1,0);
+    private Vector3 Down = new Vector3(0,-1,0);
+    public string Direction;
+    public int Damage = 10;
+    public bool Deflected = false;
+    public bool IgnoreWalls = false;
+
 
     void Awake()
     {
-        if (transform.name.Contains("trapArrowThatIgnoresWalls"))
-        {
-            ignoreWalls = true;
-        }
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
     }
     void Start()
     {
-        RB = GetComponent<Rigidbody2D>();
-        player = GameObject.Find("Player");
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
-
+        RigidBody2D = GetComponent<Rigidbody2D>();
 
         // Check what object is firing me and fire in the appropriate direction
-        if (gameObject.transform.parent.tag == "ArrowTrap")
+        if (gameObject.transform.parent.CompareTag("ArrowTrap"))
         {
-            direction = GetComponentInParent<ArrowTrap>().GetDirection();
+            Direction = GetComponentInParent<ArrowTrap>().GetDirection();
 
-            if (direction == "up") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-            if (direction == "down") transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
-            if (direction == "left") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-            if (direction == "right") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); 
+            if (Direction == "up") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+            if (Direction == "down") transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+            if (Direction == "left") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+            if (Direction == "right") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); 
         }
 
-        if (gameObject.transform.parent.tag == "ArrowTurret")
+        if (gameObject.transform.parent.CompareTag("ArrowTurret"))
         {
-            if (direction == "up") 
+            if (Direction == "up") 
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-                up = new Vector3(0,0,0);
+                Up = new Vector3(0,0,0);
             }
         }
         Fire();
@@ -56,40 +49,37 @@ public class TrapArrow : MonoBehaviour
 
     public void Fire()
     {
-        if (direction == "left")
+        if (Direction == "left")
         {
-            RB.AddForce(left * speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Left * Speed ,ForceMode2D.Force);
         }
-        if (direction == "right")
+        if (Direction == "right")
         {
-            RB.AddForce(right * speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Right * Speed ,ForceMode2D.Force);
         }
-        if (direction == "up")
+        if (Direction == "up")
         {
-            RB.AddForce(up * speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Up * Speed ,ForceMode2D.Force);
         }
-        if (direction == "down")
+        if (Direction == "down")
         {
-            RB.AddForce(down * speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Down * Speed ,ForceMode2D.Force);
         }
     }
 
-
-
     void Update()
     {
-
         // Tracked to calculate speed for deflections
-        lastVelocity = RB.velocity;
+        LastVelocity = RigidBody2D.velocity;
 
         // Removes any deflected arrows that are laying about doing nothing
-        if (deflected && RB.velocity.x > -5f && RB.velocity.y > - 5f) Destroy(gameObject, .5f);
+        if (Deflected && RigidBody2D.velocity.x > -5f && RigidBody2D.velocity.y > - 5f) Destroy(gameObject, .5f);
 
-        if (player.TryGetComponent(out Ghost ghost))
+        if (Helper.Player.TryGetComponent(out Ghost ghost))
         {
             if (ghost.Phasing() == true)
             {
-                Physics2D.IgnoreCollision(player.GetComponent<CapsuleCollider2D>(),gameObject.GetComponent<BoxCollider2D>());
+                Physics2D.IgnoreCollision(Helper.Player.GetComponent<CapsuleCollider2D>(),gameObject.GetComponent<BoxCollider2D>());
             }
         }
     }   
@@ -97,28 +87,28 @@ public class TrapArrow : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
 
-        if (coll.collider.gameObject.tag == "Player")
+        if (coll.collider.gameObject.CompareTag("Player"))
         {
-            if (!deflected)
+            if (!Deflected)
             {
-                coll.gameObject.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, coll.collider.gameObject.tag, false);
+                coll.gameObject.GetComponent<Health>().TakeDamage(Damage, transform.parent.gameObject, Helper.DamageTypes.TrapArrow, false);
                 Destroy(gameObject);
             }
         }
 
         else if (coll.collider.gameObject.layer == LayerMask.NameToLayer("Items"))
         {
-            deflected = true;
+            Deflected = true;
             return;
         }
 
         else if (coll.collider.gameObject.layer == LayerMask.NameToLayer("enemies"))
         {
-            deflected = true;
+            Deflected = true;
             return;
         }
 
-        else if (coll.collider.gameObject.tag == "PlayerSword")
+        else if (coll.collider.gameObject.CompareTag("PlayerSword"))
         {
 
             string[] deflects = new string[]{"SwordArrowDeflect1","SwordArrowDeflect2","SwordArrowDeflect3","SwordArrowDeflect4",
@@ -126,30 +116,30 @@ public class TrapArrow : MonoBehaviour
 
             int rand = Random.Range(0, deflects.Length);
 
-            audioManager.PlayAudioClip(deflects[rand]);
+            Helper.AudioManager.PlayAudioClip(deflects[rand]);
 
             // Deflect the arrow away from the sword
-            float speed = lastVelocity.magnitude;
-            Vector3 direction = Vector3.Reflect(lastVelocity.normalized,coll.contacts[0].normal);
-            RB.velocity = direction * speed / 2;
+            float speed = LastVelocity.magnitude;
+            Vector3 direction = Vector3.Reflect(LastVelocity.normalized,coll.contacts[0].normal);
+            RigidBody2D.velocity = direction * speed / 2;
             
             // tag the arrow as having been deflected
-            deflected = true;
+            Deflected = true;
         }
 
-        else if (coll.collider.gameObject.tag == "PlayerArrow")
+        else if (coll.collider.gameObject.CompareTag("PlayerArrow"))
         {
-            var speed = lastVelocity.magnitude;
-            var direction = Vector3.Reflect(lastVelocity.normalized,coll.contacts[0].normal);
-            RB.velocity = direction * speed * 2;
+            var speed = LastVelocity.magnitude;
+            var direction = Vector3.Reflect(LastVelocity.normalized,coll.contacts[0].normal);
+            RigidBody2D.velocity = direction * speed * 2;
         }
 
-        else if (coll.gameObject.tag == "Wall" && !ignoreWalls)
+        else if (coll.gameObject.CompareTag("Wall") && !IgnoreWalls)
         {
             Destroy(gameObject);
         }
 
-        else if (coll.gameObject.tag == "Wall" && ignoreWalls)
+        else if (coll.gameObject.CompareTag("Wall") && IgnoreWalls)
         {
             return;
         }

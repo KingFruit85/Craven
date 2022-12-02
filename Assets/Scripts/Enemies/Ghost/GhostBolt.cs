@@ -112,11 +112,10 @@ public class GhostBolt : MonoBehaviour, IProjectile
         }
 
         // PLayer logic
-        LayerMask mask = LayerMask.GetMask("enemies");
 
         if (shooter == "Player" && other.layer == 8)
         {
-            other.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, gameObject.tag, false);
+            other.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.Ranged, false);
         }
 
         // Ghost logic, should only do damage to player and if shot is deflected do no damage
@@ -137,7 +136,7 @@ public class GhostBolt : MonoBehaviour, IProjectile
                     isCrit = true;
                     damage += (damage * 2);
                 }
-                player.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, gameObject.tag, isCrit);
+                player.GetComponent<Health>().TakeDamage(damage, transform.parent.gameObject, Helper.DamageTypes.Ranged, isCrit);
                 //add animation
                 Destroy(this.gameObject);
             }

@@ -62,7 +62,7 @@ public class HUDUpdater : MonoBehaviour
 
         if (player != null)
         {
-            playerHealth = player.GetComponent<Health>().currentHealth;
+            playerHealth = player.GetComponent<Health>().CurrentHealth;
             GetAttackDamage(gameManager.currentHost);
         }
 

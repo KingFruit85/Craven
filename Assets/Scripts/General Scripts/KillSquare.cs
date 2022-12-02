@@ -9,7 +9,7 @@ public class KillSquare : MonoBehaviour
         // Player walks on tile
         if (other.tag == "Player")
         {
-            other.GetComponent<Health>().TakeDamage(1000,new GameObject(),"debug",false);
+            other.GetComponent<Health>().TakeDamage(1000,new GameObject(),Helper.DamageTypes.Debug,false);
             GameObject.Find("GameManager").GetComponent<GameManager>().Restart();
         }
     }

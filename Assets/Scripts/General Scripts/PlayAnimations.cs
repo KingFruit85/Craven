@@ -129,7 +129,7 @@ public class PlayAnimations : MonoBehaviour
         currentState = newState;
     }
 
-    public IEnumerator Kill()
+    public IEnumerator Death()
     {
             ChangeAnimationState(death);
 

@@ -46,7 +46,6 @@ public class PuzzleRooms : MonoBehaviour
             Resources.Load<GameObject>("chestBarrier"),
             roomCenter,
             Quaternion.identity);
-
         barrier.transform.parent = tilesObject;
 
         // Pillars
@@ -56,7 +55,7 @@ public class PuzzleRooms : MonoBehaviour
                 helper.wall,
                 tile.transform.position,
                 Quaternion.identity);
-
+            
             wall.transform.parent = tilesObject;
 
             // Flame bowls and arrow traps

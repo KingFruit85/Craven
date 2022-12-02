@@ -1,51 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public List<string> enemies = new List<string>() { "Worm", "Ghost" };
-    public int enemyCount;
-    public SimpleRoom simpR;
+    public Helper Helper;
+    public List<string> Enemies = new() { "Worm", "Ghost" };
+    public int EnemyCount;
+    public SimpleRoom ThisRoom;
     public GameManager GameManager;
-    public DoorController doorController;
+    public DoorController DoorController;
 
     public List<Vector2> _availbleTiles;
     public List<Vector2> availbleTiles;
 
     void Start()
     {
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        simpR = GetComponent<SimpleRoom>();
-        doorController = transform.Find("DoorController").GetComponent<DoorController>();
+        ThisRoom = GetComponent<SimpleRoom>();
+        DoorController = transform.Find("DoorController").GetComponent<DoorController>();
 
-        var spawnPoints = GetValidSpawns();
-
-        for (int i = 0; i <= enemyCount; i++)
+        for (int i = 0; i <= EnemyCount; i++)
         {
-            var posA = spawnPoints[Random.Range(0, (spawnPoints.Count - 1))];
-            var mobToSpawn = enemies[Random.Range(0, (enemies.Count))];
-            GameObject mob = Instantiate(Resources.Load<GameObject>(mobToSpawn), posA, Quaternion.identity, transform);
-            mob.transform.localPosition = posA;
+            var spawnTile = ThisRoom.SpawnableFloorTiles[Random.Range(0, (ThisRoom.SpawnableFloorTiles.Length))].transform.position;
+            var randomEnemy = Enemies[Random.Range(0, (Enemies.Count))];
+            Instantiate(Resources.Load<GameObject>(randomEnemy), spawnTile, Quaternion.identity, transform);
         }
     }
 
     public void SetEnemyCount(int noOfEnemiesToSpawn)
     {
-        enemyCount = noOfEnemiesToSpawn;
-    }
-
-    public List<Vector2> GetValidSpawns()
-    {
-        _availbleTiles = simpR.GetAllTilesOfType('░');
-        availbleTiles = new List<Vector2>();
-
-        foreach (var tile in _availbleTiles)
-        {
-            availbleTiles.Add(simpR.ArrayToWorldPOS(tile));
-        }
-
-        return availbleTiles;
+        EnemyCount = noOfEnemiesToSpawn;
     }
 
     public List<string> GetEnemies(int count = 1)
@@ -53,8 +38,8 @@ public class EnemySpawner : MonoBehaviour
         var results = new List<string>();
         for (int i = 0; i < count; i++)
         {
-            var r = UnityEngine.Random.Range(0, 2);
-            results.Add(enemies[r]);
+            var r = Random.Range(0, Enemies.Count);
+            results.Add(Enemies[r]);
         }
         return results;
     }

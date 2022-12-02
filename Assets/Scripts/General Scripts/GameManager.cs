@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public int currentGameLevel;
     public Color LevelWallBaseColor;
     public Color LevelFloorBaseColor;
+
+    private Helper Helper;
+
     public string currentHost;
     public float XP;
     public int HostStamina = 100;
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
 
         //If there is already a host value use that, otherwise assume new game and default to human
         currentHost = PlayerPrefs.GetString("currentHost", "Human");
@@ -163,8 +167,8 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().maxHealth = 1000000000;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().currentHealth = 1000000000;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().MaxHealth = 1000000000;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().CurrentHealth = 1000000000;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().swordDamage = 999;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().arrowDamage = 999;
         }

@@ -94,7 +94,7 @@ public class WormAttacks : MonoBehaviour
     {
         for (int i = 0; i <= 5; i++)
         {
-            enemy.GetComponent<Health>().TakeDamage(1, transform.gameObject, "WormPoison", false);    
+            enemy.GetComponent<Health>().TakeDamage(1, transform.gameObject, Helper.DamageTypes.WormPoison, false);    
             StartCoroutine(FlashColor(Color.red));
             yield return new WaitForSeconds(0.5f);
         }
@@ -129,7 +129,7 @@ public class WormAttacks : MonoBehaviour
                     }
                     if ( enemy != null )
                     {
-                        enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, "WormPoison", isCrit);    
+                        enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, Helper.DamageTypes.WormPoison, isCrit);    
                         enemy.GetComponent<PlayerMovement>().DazeForSeconds(2);
                         PoisonBite(enemy,1);
                     } 

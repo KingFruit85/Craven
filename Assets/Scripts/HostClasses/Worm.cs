@@ -33,14 +33,20 @@ public class Worm : MonoBehaviour
     private Vector2 attackPoint;
     private PlayerMovement.Looking playerIsLooking;
     private Vector2 attackPointDown;
+    private Helper helper;
 
     void Awake()
     {
+        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        pa = GetComponent<PlayAnimations>();
+        sr = GetComponent<SpriteRenderer>();
+        am = GetComponent<Animator>();
+
         if (gameObject.tag == "Player")
         {
             GetComponent<PlayerMovement>().moveSpeed = moveSpeed;
             enemyLayers = LayerMask.GetMask("enemies");
-            GameObject.Find("GameManager").GetComponent<GameManager>().currentHost = "Worm";
+            helper.GameManager.currentHost = "Worm";
         }
         else
         {
@@ -48,10 +54,6 @@ public class Worm : MonoBehaviour
         }
 
         transform.localScale = new Vector3(1,1,0);
-
-        pa = GetComponent<PlayAnimations>();
-        sr = GetComponent<SpriteRenderer>();
-        am = GetComponent<Animator>();
 
         //Set the player animations/sprites to the current host creature
         pa.idleLeft = idleLeft;
@@ -61,7 +63,6 @@ public class Worm : MonoBehaviour
         pa.walkUp = walkUp;
         pa.walkDown = walkDown;
         pa.death = death;
-        
     }
 
     void SetAttackPoint()
@@ -71,7 +72,6 @@ public class Worm : MonoBehaviour
         attackPointRight = new Vector2(transform.position.x + attackRange + 0.3f ,transform.position.y);
         attackPointUp = new Vector2(transform.position.x ,transform.position.y + attackRange);
         attackPointDown = new Vector2(transform.position.x ,transform.position.y - attackRange);
-
 
 
         if (transform.tag == "Player")
@@ -85,10 +85,7 @@ public class Worm : MonoBehaviour
                 case PlayerMovement.Looking.Down:attackPoint = attackPointDown;break;
                 case PlayerMovement.Looking.Left:attackPoint = attackPointLeft;break;
                 case PlayerMovement.Looking.Right:attackPoint = attackPointRight;break;
-
-
             }
-            
         }
     }
 
@@ -97,21 +94,12 @@ public class Worm : MonoBehaviour
         SetAttackPoint();
     }
 
-    void OnDrawGizmosSelected()
-    {
-        // Display the explosion radius when selected
-        Gizmos.color = new Color(1, 1, 0, 0.75F);
-        Gizmos.DrawSphere(attackPoint, attackRange);
-
-    }
-
     private IEnumerator FlashColor(Color color)
     {
         sr.color = color;
         yield return new WaitForSeconds(0.1f);
         sr.color = Color.white;
     }
-
 
     public void PoisonBite()
     {
@@ -144,7 +132,7 @@ public class Worm : MonoBehaviour
                 {
                     if ( enemy != null )
                     {
-                        enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, "WormPoison", false);   
+                        enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, Helper.DamageTypes.WormPoison, false);   
                         //Need to add slow for enemies 
                         if (enemy.tag == "Player")
                         {

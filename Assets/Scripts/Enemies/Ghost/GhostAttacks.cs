@@ -4,22 +4,23 @@ using UnityEngine;
 public class GhostAttacks : MonoBehaviour
 {
 
-    public GameObject ghostBolt;
+    public Helper Helper;
+    private AudioManager AudioManager;
+    private SpriteRenderer SpriteRenderer;
+    public GameObject GhostBolt;
+    private GameObject Player;
+
     [SerializeField]
-    private SpriteRenderer sr;
-    private GameObject player;
-    private float attackDelay = 1.0f;
-    private float lastAttacked = -9999;
-    private AudioManager audioManager;
-
-
+    private float AttackDelay = 1.0f;
+    private float LastAttacked = -9999;
+    private bool CanAttack = true;
 
     public void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        sr = GetComponent<SpriteRenderer>();
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
-
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Player = Helper.Player;
+        AudioManager = Helper.AudioManager;
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void FireGhostBolt()
@@ -30,47 +31,46 @@ public class GhostAttacks : MonoBehaviour
 
         int rand = Random.Range(0, ghostBolts.Length);
 
-        audioManager.PlayAudioClip(ghostBolts[rand]);
+        AudioManager.PlayAudioClip(ghostBolts[rand]);
 
         // Visual warning for the player that attack is incomming
         StartCoroutine(FlashColor(Color.red));
-
-        var pos = transform.position;
-
-        GameObject a = Instantiate
+        _ = Instantiate
                                 (
-                                    ghostBolt,
+                                    GhostBolt,
                                     transform.position,
                                     transform.rotation,
                                     transform
-                                )
-                                as GameObject;
-
+                                );
     }
 
     private IEnumerator FlashColor(Color color)
     {
-        sr.color = color;
-        yield return new WaitForSeconds(0.1f);
-        sr.color = Color.white;
+        SpriteRenderer.color = color;
+        yield return new WaitForSeconds(0.4f);
+        SpriteRenderer.color = Color.white;
     }
 
     public void ResetAttackDelay()
     {
-        lastAttacked = Time.time;
+        LastAttacked = Time.time;
     }
 
     void Update()
     {
         // Check for player in aggo range
-        if (Vector3.Distance(transform.position, player.transform.position) <= 2.5f)
+        if (Vector3.Distance(transform.position, Player.transform.position) <= 2.5f)
         {
-            if (Time.time > lastAttacked + attackDelay)
+            if (Time.time > LastAttacked + AttackDelay && CanAttack)
             {
                 FireGhostBolt();
-                lastAttacked = Time.time;
+                LastAttacked = Time.time;
             }
         }
+    }
 
+    public void SetCanAttack(bool newCanAttack)
+    {
+        CanAttack = newCanAttack;
     }
 }

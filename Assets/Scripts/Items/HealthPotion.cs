@@ -17,7 +17,7 @@ public class HealthPotion : MonoBehaviour
             var player = other.gameObject.GetComponent<Health>();
 
             // If already at full health do nothing
-            if (player.maxHealth == player.currentHealth)
+            if (player.MaxHealth == player.CurrentHealth)
             {
                 return;
             }

@@ -149,10 +149,10 @@ public class RoomSpawner : MonoBehaviour
         if (!GameManager.miniBossKilled)
         {
             GameObject GB = Instantiate(Resources.Load("Ghost"),_newRoom.transform.position,Quaternion.identity) as GameObject;
-            GB.GetComponent<Health>().isBoss = true;
+            GB.GetComponent<Health>().IsBoss = true;
             GB.transform.localScale += new Vector3(2f,2f,0);
             GB.GetComponent<SpriteRenderer>().color = Color.red;
-            GB.GetComponent<Ghost>().moveSpeed += 3;
+            GB.GetComponent<Ghost>().MoveSpeed += 3;
             GB.transform.parent = _newRoom.transform;
         }
         }

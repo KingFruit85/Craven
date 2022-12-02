@@ -214,4 +214,9 @@ public class AIMovement : MonoBehaviour
         speed = speed * 2;
         isSlowed = false;
     }
+
+    public void SetSpeed(int newSpeed)
+    {
+        speed = newSpeed;
+    }
 }

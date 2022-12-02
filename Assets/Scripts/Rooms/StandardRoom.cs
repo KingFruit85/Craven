@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class StandardRoom : MonoBehaviour
 {
-    public SimpleRoom room;
-    public DoorController doorController;
-    public EnemySpawner enemySpawner;
+    public SimpleRoom Room;
+    public DoorController DoorController;
+    public EnemySpawner EnemySpawner;
 
     void Start()
     {
-        room = GetComponent<SimpleRoom>();
+        Room = GetComponent<SimpleRoom>();
+        
         gameObject.AddComponent<EnemySpawner>();
+        EnemySpawner = GetComponent<EnemySpawner>();
+        EnemySpawner.SetEnemyCount(Random.Range(0, 3));
 
-        enemySpawner = GetComponent<EnemySpawner>();
-        enemySpawner.SetEnemyCount(UnityEngine.Random.Range(0, 3));
 
+        DoorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
 
-        doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
-
-        doorController.openCondition = DoorController.OpenCondition.MobDeath;
+        DoorController.openCondition = DoorController.OpenCondition.MobDeath;
         // Get the floor tiles we can spawn objects on
-        var floorTiles = room.SpawnableFloorTiles;
+        var floorTiles = Room.SpawnableFloorTiles;
         // And a random number of walls we're going to spawn
         var wallTilesToSpawn = UnityEngine.Random.Range(0, floorTiles.Length);
 
@@ -30,9 +30,9 @@ public class StandardRoom : MonoBehaviour
         {
             GameObject wall = Instantiate(Resources.Load("Wall"), floorTiles[i].transform.position, Quaternion.identity) as GameObject;
             wall.transform.parent = gameObject.transform.Find("Tiles");
-            room.spawnedWallTiles.Add(wall);
+            Room.spawnedWallTiles.Add(wall);
             //Add to room contents array
-            room.AddItemToRoomContents(wall.transform.localPosition, '#');
+            Room.AddItemToRoomContents(wall.transform.localPosition, '#');
 
             // Spawn arrow traps on valid wall locations
             List<Vector3> validTrapWalls = new List<Vector3>()

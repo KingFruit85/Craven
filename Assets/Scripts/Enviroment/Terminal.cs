@@ -5,20 +5,21 @@ using UnityEngine;
 
 public class Terminal : MonoBehaviour
 {
-    public float dist;
-    public Vector3 playerPOS;
-    public GameManager gameManager;
-    public bool used = false;
-    private bool inUse;
+    public Helper Helper;
+    public Vector3 PlayerPosition;
+    public float DistanceToPlayer;
+    public bool HasBeenUsed = false;
+    private bool CurrentlyInUse;
 
-    private List<TextContent> TerminalMessages = new List<TextContent>();
+    private List<TextContent> TerminalMessages = new();
 
-    public string myTitle = "";
-    public string myContent = "";
+    public string myTitle = string.Empty;
+    public string myContent = string.Empty;
 
     public void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+
         TerminalMessages.Add(new TextContent(
             "KRVN-0 Initial discovery",
             "Description: KRVN-0 is an exactly 100ml volume of inert black non-Euclidean liquid. Samples taken from the original body of liquid quickly revert to pure water making chemical analysis difficult. The original sample was observed to recover it’s lost mass between approximately 5 - 20minutes after the failed sample was taken via some yet unknown mechanism. Dr. NAME has instructed that only no-destructive/invasive methods of analysis and experimentation are performed on KRVN-0 while further sample exploration and discovery are ongoing at site ALPHA.",
@@ -42,28 +43,19 @@ public class Terminal : MonoBehaviour
 
     }
 
-    // Terminal should have perhaps two different text sections title/body
-    // TerminalMessages list should be a list of lists or tupples maybe? so we can store the title/body
-    void setTerminalContent(string title, string content)
-    {
-
-    }
-    
-
     void Update()
     {
-
-        dist = Vector3.Distance(playerPOS, transform.position);
-        playerPOS = GameObject.Find("Player").transform.position;
+        PlayerPosition = Helper.PlayerPosition;
+        DistanceToPlayer = Vector3.Distance(PlayerPosition, transform.position);
         
-        if (dist < 1.5f && Input.GetKeyDown(KeyCode.E) && !inUse)
+        if (DistanceToPlayer < 1.5f && Input.GetKeyDown(KeyCode.E) && !CurrentlyInUse)
         {
             int x = (Screen.width / 2);
             int y = (Screen.height / 2);
 
             // If we've run out of messages then just return the last message in the collection
-            var i = (gameManager.loreIndex >= (TerminalMessages.Count -1)) ? (TerminalMessages.Count -1) : gameManager.loreIndex;
-            if (!used)
+            var i = (Helper.GameManager.loreIndex >= (TerminalMessages.Count -1)) ? (TerminalMessages.Count -1) : Helper.GameManager.loreIndex;
+            if (!HasBeenUsed)
             {
                 myTitle = TerminalMessages[i].Title;
                 myContent = TerminalMessages[i].Description;
@@ -71,8 +63,8 @@ public class Terminal : MonoBehaviour
                     tWindow.name = "tWindow";
                     tWindow.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = myTitle;
                     tWindow.transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = myContent;
-                gameManager.loreIndex++;
-                used = true;
+                Helper.GameManager.loreIndex++;
+                HasBeenUsed = true;
             }
             else
             {
@@ -84,8 +76,8 @@ public class Terminal : MonoBehaviour
 
         }
 
-        if (GameObject.Find("tWindow")) inUse = true;
-        else inUse = false;
+        if (GameObject.Find("tWindow")) CurrentlyInUse = true;
+        else CurrentlyInUse = false;
     }
 
 }

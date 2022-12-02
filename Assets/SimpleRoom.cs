@@ -137,7 +137,7 @@ public class SimpleRoom : MonoBehaviour
 
     public void SaveRoomLayoutToFile(int xx, int yy)
     {
-        using (var sw = new StreamWriter($"c:/temp/output/X{xx}Y{yy}.txt"))
+        using (var sw = new StreamWriter($"./MapData/X{xx}Y{yy}.txt"))
         {
             for (int y = 0; y < RoomContents.GetLength(0); y++)
             {

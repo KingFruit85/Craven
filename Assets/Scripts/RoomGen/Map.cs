@@ -11,27 +11,27 @@ public class SimpleRoomInfo
     public bool IsStartRoom;
     public int MapPositionX;
     public int MapPositionY;
+    public bool IsUsed;
+    public bool Placed;
+    public Map.RoomType RoomType;
+
     public enum WallDirection
     {
-        UP,
         DOWN,
+        UP,
         LEFT,
         RIGHT
     }
-    public List<WallDirection> ValidWalls = new List<WallDirection>()
+
+    public List<WallDirection> ValidWalls = new()
         {
             WallDirection.UP,
             WallDirection.DOWN,
             WallDirection.LEFT,
             WallDirection.RIGHT
         };
-
-    public bool isUsed;
-    public bool placed;
-    public string RoomType;
-
-    // Default constructor
-    public SimpleRoomInfo(int x, int y, string r, string roomType)
+    
+    public SimpleRoomInfo(int x, int y, Map.RoomType roomType)
     {
         this.UpDoor = false;
         this.DownDoor = false;
@@ -43,121 +43,122 @@ public class SimpleRoomInfo
         this.RoomType = roomType;
     }
 
-    public void OpenDoorInWall(SimpleRoomInfo.WallDirection wall)
+    public void OpenDoorInWall(WallDirection wall)
     {
         switch (wall)
         {
-            case SimpleRoomInfo.WallDirection.UP: UpDoor = true; break;
-            case SimpleRoomInfo.WallDirection.DOWN: DownDoor = true; break;
-            case SimpleRoomInfo.WallDirection.LEFT: LeftDoor = true; break;
-            case SimpleRoomInfo.WallDirection.RIGHT: RightDoor = true; break;
+            case WallDirection.UP: UpDoor = true; break;
+            case WallDirection.DOWN: DownDoor = true; break;
+            case WallDirection.LEFT: LeftDoor = true; break;
+            case WallDirection.RIGHT: RightDoor = true; break;
         }
     }
 }
 
 public class Map : MonoBehaviour
 {
-    private Helper helper;
-    public SimpleRoomInfo[,] map;
+    private Helper Helper;
+    public SimpleRoomInfo[,] LevelMap;
+    private GameManager GameManager;
+    public Vector3 CurrentMapPosition;
     public int mapLength = 25;
     public int MapHeight = 25;
-    public Vector3 CurrentMapPosition;
-    private int lastMapX;
-    private int lastMapY;
-    private GameManager gameManager;
+
+    public enum RoomType
+    {
+        Standard, 
+        Puzzle, 
+        LoreRoom, 
+        Prize, 
+        Trap1, 
+        Trap2, 
+        Swarm
+    }
 
     void Start()
     {
-        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
-        map = new SimpleRoomInfo[mapLength, MapHeight];
-        int x = mapLength / 2;
-        int y = MapHeight / 2;
-        gameManager = helper.GameManager;
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        LevelMap = new SimpleRoomInfo[mapLength, MapHeight];
+        GameManager = Helper.GameManager;
 
         //Set start room
         FillMapWithRooms();
         CreatePathThroughRooms();
         SpawnRoomsInGameSpace();
-        // clean up any doors leading to nowhere
     }
 
     /// <summary> Spawns a room into game space and open any valid doors </summary>
     public void SpawnRoom(int x, int y, Vector3 worldPos, int RoomNumber)
     {
-        GameObject TemplateRoom = Resources.Load("SimpleRoom") as GameObject;
-        GameObject _newRoom = Instantiate(TemplateRoom, worldPos, Quaternion.identity);
+        GameObject simpleRoom = Helper.SimpleRoomPrefab;
+        GameObject currentRoom = Instantiate(simpleRoom, worldPos, Quaternion.identity);
 
-        // Set room name, room type and attach to parent
-        _newRoom.name = $"X:{x} Y:{y} Room {RoomNumber}";
-        var room = _newRoom.GetComponent<SimpleRoom>();
-        room.RoomType = map[x, y].RoomType;
-        // Set the event that will open the room doors, this changes based on the room type
-        var doorController = _newRoom.transform.Find("DoorController").GetComponent<DoorController>();
-        _newRoom.transform.parent = GameObject.Find("Rooms").transform;
+        currentRoom.name = $"X:{x} Y:{y} Room {RoomNumber}";
+        var _currentRoom = currentRoom.GetComponent<SimpleRoom>();
+        _currentRoom.RoomType = LevelMap[x, y].RoomType.ToString();
+        currentRoom.transform.parent = GameObject.Find("Rooms").transform;
 
-        // Open Doors
-        if (map[x, y].UpDoor) room.OpenDoor("UP");
-        if (map[x, y].DownDoor) room.OpenDoor("DOWN");
-        if (map[x, y].LeftDoor) room.OpenDoor("LEFT");
-        if (map[x, y].RightDoor) room.OpenDoor("RIGHT");
-
+        if (LevelMap[x, y].UpDoor) _currentRoom.OpenDoor("UP");
+        if (LevelMap[x, y].DownDoor) _currentRoom.OpenDoor("DOWN");
+        if (LevelMap[x, y].LeftDoor) _currentRoom.OpenDoor("LEFT");
+        if (LevelMap[x, y].RightDoor) _currentRoom.OpenDoor("RIGHT");
 
         // If start room remove any enemies and spawn player
         if (RoomNumber == 0)
         {
-            room.RoomType = "StartRoom";
-            room.gameObject.AddComponent<StartRoom>();
+            _currentRoom.RoomType = "StartRoom";
+            _currentRoom.gameObject.AddComponent<StartRoom>();
         }
 
         // If end room remove any enemies and spawn mini boss and exit tile
         if (RoomNumber == GetTotalValidRooms() - 1)
         {
-            room.RoomType = "EndRoom";
-            room.gameObject.AddComponent<EndRoom>();
+            _currentRoom.RoomType = "EndRoom";
+            _currentRoom.gameObject.AddComponent<EndRoom>();
         }
 
         // Configure Standard room
-        if (room.RoomType == "Standard")
+        if (_currentRoom.RoomType == "Standard")
         {
-            room.gameObject.AddComponent<StandardRoom>();
+            _currentRoom.gameObject.AddComponent<StandardRoom>();
         }
 
         // Configure Prize Room
-        if (room.RoomType == "Prize")
+        if (_currentRoom.RoomType == "Prize")
         {
-            room.gameObject.AddComponent<PrizeRoom>();
+            _currentRoom.gameObject.AddComponent<PrizeRoom>();
         }
 
         // Configure Trap Room
-        if (room.RoomType == "Trap1")
+        if (_currentRoom.RoomType == "Trap1")
         {
-            room.gameObject.AddComponent<TrapRoom>();
+            _currentRoom.gameObject.AddComponent<TrapRoom>();
         }
 
-        if (room.RoomType == "Trap2")
+        if (_currentRoom.RoomType == "Trap2")
         {
-            room.gameObject.AddComponent<WallOfDeathRoom>();
+            _currentRoom.gameObject.AddComponent<WallOfDeathRoom>();
         }
 
         // Configure Lore Room
-        if (room.RoomType == "LoreRoom")
+        if (_currentRoom.RoomType == "LoreRoom")
         {
-            room.gameObject.AddComponent<LoreRooms>();
+            _currentRoom.gameObject.AddComponent<LoreRooms>();
         }
 
         // Configure Puzzle Room
-        if (room.RoomType == "Puzzle")
+        if (_currentRoom.RoomType == "Puzzle")
         {
-            room.gameObject.AddComponent<PuzzleRooms>();
+            _currentRoom.gameObject.AddComponent<PuzzleRooms>();
         }
 
         // Configure Puzzle Room
-        if (room.RoomType == "Swarm")
+        if (_currentRoom.RoomType == "Swarm")
         {
-            room.gameObject.AddComponent<SwarmRooms>();
+            _currentRoom.gameObject.AddComponent<SwarmRooms>();
         }
 
-        foreach (var w in room.spawnedWallTiles)
+        foreach (var w in _currentRoom.spawnedWallTiles)
         {
             // For some reason floor tiles were getting slightly changed when instanciated, for example something
             // with a y of 0.05 in the prefab would instantiated with  0.500001, this was breaking the conversion in 
@@ -167,29 +168,36 @@ public class Map : MonoBehaviour
             w.GetComponent<Wall>().SetTileSprite(new Vector3(convertedX, convertedY, 0));
         }
 
-        room.SaveRoomLayoutToFile(x, y);
+        _currentRoom.SaveRoomLayoutToFile(x, y);
 
+    }
+
+    public RoomType GetRandomRoomType()
+    {
+        var totalRoomTypes = Enum.GetNames(typeof(RoomType)).Length;
+        return (RoomType)UnityEngine.Random.Range(0, totalRoomTypes);
     }
 
     /// <summary> Bulk fills the 2D map array with SimpleRoomInfoObjects </summary>
     public void FillMapWithRooms()
     {
-        var roomTypes = new List<string>() { "Standard", "Puzzle", "LoreRoom", "Prize", "Trap1", "Trap2", "Swarm" };
+        var specialRoomsAlreadyPlaced = new List<string>();
 
-        for (int x = 0; x < map.GetLength(0); x++)
+        for (int x = 0; x < LevelMap.GetLength(0); x++)
         {
-            for (int y = 0; y < map.GetLength(1); y++)
+            for (int y = 0; y < LevelMap.GetLength(1); y++)
             {
-                if (map[x, y] == null || !map[x, y].placed)
+                if (LevelMap[x, y] == null || !LevelMap[x, y].Placed)
                 {
-                    var roomType = roomTypes[UnityEngine.Random.Range(0, roomTypes.Count)];
-                    if (roomType != "Standard")
-                    {
-                        roomTypes.RemoveAll(r => r == roomType);
-                    } // this sucks
+                    var roomType = GetRandomRoomType();
+                    if (specialRoomsAlreadyPlaced.Contains(roomType.ToString())) roomType = RoomType.Standard;
 
-                    map[x, y] = new SimpleRoomInfo(x, y, "10X10Room", roomType);
-                    map[x, y].placed = true;
+                    if (roomType != RoomType.Standard) specialRoomsAlreadyPlaced.Add(roomType.ToString());
+
+                    LevelMap[x, y] = new SimpleRoomInfo(x, y, roomType)
+                    {
+                        Placed = true
+                    };
                 }
                 CurrentMapPosition = new Vector3(x, y, 0);
             }
@@ -201,38 +209,38 @@ public class Map : MonoBehaviour
     {
         // If room is on the edge of map, remove doors that would lead off the map
         if (room.MapPositionY == 0) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.DOWN);
-        if (room.MapPositionY == (map.GetLength(1) - 1)) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.UP);
+        if (room.MapPositionY == (LevelMap.GetLength(1) - 1)) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.UP);
         if (room.MapPositionX == 0) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.LEFT);
-        if (room.MapPositionX == (map.GetLength(0) - 1)) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.RIGHT);
+        if (room.MapPositionX == (LevelMap.GetLength(0) - 1)) room.ValidWalls.Remove(SimpleRoomInfo.WallDirection.RIGHT);
     }
 
     /// <summary> Opens a random valid door and the doorway of the adjacent room to link both rooms. Returns the adjacent room </summary>
-    public SimpleRoomInfo OpenRandomValidDoor(SimpleRoomInfo roomBlueprint)
+    public SimpleRoomInfo OpenRandomValidDoor(SimpleRoomInfo room)
     {
-        RemoveInvalidExits(roomBlueprint);
+        RemoveInvalidExits(room);
 
         // Return a random valid door
-        var wall = roomBlueprint.ValidWalls[UnityEngine.Random.Range(0, roomBlueprint.ValidWalls.Count)];
-        roomBlueprint.OpenDoorInWall(wall);
+        var wall = room.ValidWalls[UnityEngine.Random.Range(0, room.ValidWalls.Count)];
+        room.OpenDoorInWall(wall);
         // Open the adjacent rooms door
-        SimpleRoomInfo connectingRoom = map[0, 0];
+        SimpleRoomInfo connectingRoom = LevelMap[0, 0];
         var oppositeDoor = SimpleRoomInfo.WallDirection.UP;
         switch (wall)
         {
             case SimpleRoomInfo.WallDirection.UP:
-                connectingRoom = map[roomBlueprint.MapPositionX, (roomBlueprint.MapPositionY + 1)];
+                connectingRoom = LevelMap[room.MapPositionX, (room.MapPositionY + 1)];
                 oppositeDoor = SimpleRoomInfo.WallDirection.DOWN;
                 break;
             case SimpleRoomInfo.WallDirection.DOWN:
-                connectingRoom = map[roomBlueprint.MapPositionX, (roomBlueprint.MapPositionY - 1)];
+                connectingRoom = LevelMap[room.MapPositionX, (room.MapPositionY - 1)];
                 oppositeDoor = SimpleRoomInfo.WallDirection.UP;
                 break;
             case SimpleRoomInfo.WallDirection.LEFT:
-                connectingRoom = map[(roomBlueprint.MapPositionX - 1), roomBlueprint.MapPositionY];
+                connectingRoom = LevelMap[(room.MapPositionX - 1), room.MapPositionY];
                 oppositeDoor = SimpleRoomInfo.WallDirection.RIGHT;
                 break;
             case SimpleRoomInfo.WallDirection.RIGHT:
-                connectingRoom = map[(roomBlueprint.MapPositionX + 1), roomBlueprint.MapPositionY];
+                connectingRoom = LevelMap[(room.MapPositionX + 1), room.MapPositionY];
                 oppositeDoor = SimpleRoomInfo.WallDirection.LEFT;
                 break;
         }
@@ -245,13 +253,13 @@ public class Map : MonoBehaviour
     public void CreatePathThroughRooms()
     {
         // Pick a random start room
-        var currentRoom = map[UnityEngine.Random.Range(0, (map.GetLength(0) - 1)), UnityEngine.Random.Range(0, (map.GetLength(1) - 1))];
+        var currentRoom = LevelMap[UnityEngine.Random.Range(0, (LevelMap.GetLength(0) - 1)), UnityEngine.Random.Range(0, (LevelMap.GetLength(1) - 1))];
         currentRoom.IsStartRoom = true;
 
         // Need to track the current room and the next room
-        for (int i = 0; i < (map.GetLength(0) * map.GetLength(1)); i++)
+        for (int i = 0; i < (LevelMap.GetLength(0) * LevelMap.GetLength(1)); i++)
         {
-            currentRoom.isUsed = true;
+            currentRoom.IsUsed = true;
             currentRoom = OpenRandomValidDoor(currentRoom);
         }
     }
@@ -266,11 +274,11 @@ public class Map : MonoBehaviour
     {
         int totalValidRooms = 0;
 
-        for (int y = 0; y < map.GetLength(0); y++)
+        for (int y = 0; y < LevelMap.GetLength(0); y++)
         {
-            for (int x = 0; x < map.GetLength(1); x++)
+            for (int x = 0; x < LevelMap.GetLength(1); x++)
             {
-                if (map[x, y] != null && map[x, y].isUsed)
+                if (LevelMap[x, y] != null && LevelMap[x, y].IsUsed)
                 {
                     totalValidRooms++;
                 }
@@ -284,20 +292,18 @@ public class Map : MonoBehaviour
     public void SpawnRoomsInGameSpace()
     {
         int roomNumber = 0;
-        for (int y = 0; y < map.GetLength(0); y++)
+        for (int y = 0; y < LevelMap.GetLength(0); y++)
         {
-            for (int x = 0; x < map.GetLength(1); x++)
+            for (int x = 0; x < LevelMap.GetLength(1); x++)
             {
-                if (map[x, y] != null && map[x, y].isUsed)
+                if (LevelMap[x, y] != null && LevelMap[x, y].IsUsed)
                 {
                     var worldPos = ConvertMapPositionToWorldPosition(x, y);
                     SpawnRoom(x, y, worldPos, roomNumber);
-                    lastMapX = x;
-                    lastMapY = y;
                     roomNumber++;
                 }
             }
         }
-        gameManager.timeTillDeath = roomNumber * 10;
+        GameManager.timeTillDeath = roomNumber * 10;
     }
 }
