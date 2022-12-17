@@ -14,6 +14,23 @@ public class Shaker : MonoBehaviour
 
     public bool manualShake { get; private set; }
 
+    public static Shaker instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         target = GetComponent<Transform>();

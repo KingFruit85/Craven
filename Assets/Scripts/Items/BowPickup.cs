@@ -2,73 +2,76 @@
 
 public class BowPickup : MonoBehaviour
 {
-    public GameObject player;
-    public PlayerCombat playerCombat;
-    public Human playerHuman;
-    public GameObject shortBow;
-    public GameManager gameManager;
+    public Helper Helper;
+    public GameObject Player;
+    public PlayerCombat PlayerCombat;
+    public Human PlayerIsHuman;
+    public GameObject ShortBow;
+    public GameManager GameManager;
 
     void Awake()
     {
-        shortBow = Resources.Load("BowAim") as GameObject;
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Player = Helper.Player;
+        ShortBow = Resources.Load("BowAim") as GameObject;
+        GameManager = Helper.GameManager;
     }
 
     void Update()
     {
-        if (!player)
+        if (!Player)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            Player = Helper.Player;
         }
-        if (!playerCombat || !playerHuman)
+        if (!PlayerCombat || !PlayerIsHuman)
         {
-            playerCombat = player.GetComponent<PlayerCombat>();
-            playerHuman = player.GetComponent<Human>();
+            PlayerCombat = Player.GetComponent<PlayerCombat>();
+            PlayerIsHuman = Player.GetComponent<Human>();
         }
     }
 
     public void AddBowToPlayer()
     {
-        playerCombat.SetRangedWeaponEquipped(true);
+        PlayerCombat.SetRangedWeaponEquipped(true);
 
         // add shortbow game object to player game object
         GameObject bow = Instantiate(
-            shortBow,
-            player.transform.position,
+            ShortBow,
+            Player.transform.position,
             Quaternion.identity,
             transform);
 
         bow.name = "BowAim";
-        playerHuman.bowAim = bow;
-        playerHuman.bow = bow.transform.Find("Bow").gameObject;
-        playerHuman.bowAim.SetActive(false);
+        PlayerIsHuman.BowController = bow;
+        PlayerIsHuman.Bow = bow.transform.Find("Bow").gameObject;
+        PlayerIsHuman.BowController.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && playerCombat.rangedWeaponEquipped == false && gameManager.currentHost == "Human")
+        if (other.tag == "Player" && PlayerCombat.RangedWeaponEquipped == false && GameManager.currentHost == HostType.Human)
         {
-            gameManager.AddArrows(5);
-            playerCombat.SetRangedWeaponEquipped(true);
+            GameManager.AddArrows(5);
+            PlayerCombat.SetRangedWeaponEquipped(true);
 
             // add shortbow game object to player game object
             GameObject a = Instantiate(
-                shortBow,
-                player.transform.position,
-                player.transform.rotation,
-                player.transform);
+                ShortBow,
+                Player.transform.position,
+                Player.transform.rotation,
+                Player.transform);
 
             a.name = "BowAim";
-            playerHuman.bowAim = a;
-            playerHuman.bow = a.transform.Find("Bow").gameObject;
-            playerHuman.SetRangedAsActiveWeapon();
+            PlayerIsHuman.BowController = a;
+            PlayerIsHuman.Bow = a.transform.Find("Bow").gameObject;
+            PlayerIsHuman.SetRangedAsActiveWeapon();
             Destroy(this.gameObject);
 
 
         }
-        else if (other.tag == "Player" && playerCombat.rangedWeaponEquipped == true && gameManager.currentHost == "Human")
+        else if (other.tag == "Player" && PlayerCombat.RangedWeaponEquipped == true && GameManager.currentHost == HostType.Human)
         {
-            gameManager.AddArrows(5);
+            GameManager.AddArrows(5);
             Destroy(this.gameObject);
         }
 

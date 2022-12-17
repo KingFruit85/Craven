@@ -26,8 +26,8 @@ public class Arrow : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         audioManager = GameObject.FindObjectOfType<AudioManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Human>();
-        damage = player.arrowDamage;
-        arrowSpeed = player.arrowSpeed;
+        damage = player.ArrowDamage;
+        arrowSpeed = player.ArrowSpeed;
 
 
         rb = GetComponent<Rigidbody2D>();

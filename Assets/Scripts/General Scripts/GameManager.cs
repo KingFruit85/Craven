@@ -13,10 +13,8 @@ public class GameManager : MonoBehaviour
 
     private Helper Helper;
 
-    public string currentHost;
+    public HostType currentHost;
     public float XP;
-    public int HostStamina = 100;
-    public int CravenStamina = 100;
     public int arrowCount;
     public int coinCount;
     public bool rangedWeaponEquipped = false;
@@ -32,14 +30,27 @@ public class GameManager : MonoBehaviour
     public bool deathTimeActive = false;
     public string GameLevelType = string.Empty;
     public float timeTillDeath = 1.0f;
+    public static GameManager instance;
 
 
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+
         Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
 
         //If there is already a host value use that, otherwise assume new game and default to human
-        currentHost = PlayerPrefs.GetString("currentHost", "Human");
+        currentHost = getHostTypeFromString(PlayerPrefs.GetString("currentHost", "Human"));
         XP = PlayerPrefs.GetFloat("XP", 0);
         arrowCount = PlayerPrefs.GetInt("arrowCount", 0);
         coinCount = PlayerPrefs.GetInt("coinCount", 0);
@@ -70,27 +81,26 @@ public class GameManager : MonoBehaviour
         Physics2D.IgnoreLayerCollision(25, 17); // TileTrap arrows ignore walls 
     }
 
-    public void LoadHostScript(string host)
+    public void LoadHostScript()
     {
-
         var player = GameObject.FindGameObjectWithTag("Player");
 
         switch (currentHost)
         {
             default: throw new System.Exception("failed to load host script, unknown currentHost value");
-            case "Human":
+            case HostType.Human:
                 player.AddComponent<Human>();
                 player.GetComponent<Animator>().Play(player.GetComponent<Human>().idleDown);
                 player.GetComponent<PlayAnimations>().human = GetComponent<Human>();
                 break;
 
-            case "Ghost":
+            case HostType.Ghost:
                 player.AddComponent<Ghost>();
                 player.GetComponent<Animator>().Play(player.GetComponent<Ghost>().idleDown);
                 player.GetComponent<PlayAnimations>().ghost = GetComponent<Ghost>();
                 break;
 
-            case "Worm":
+            case HostType.Worm:
                 player.AddComponent<Worm>();
                 player.GetComponent<Animator>().Play(player.GetComponent<Worm>().idleDown);
                 player.GetComponent<PlayAnimations>().worm = GetComponent<Worm>();
@@ -106,7 +116,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("arrowCount", arrowCount);
         PlayerPrefs.SetInt("coinCount", coinCount);
         PlayerPrefs.SetInt("currentGameLevel", currentGameLevel);
-        PlayerPrefs.SetString("currentHost", currentHost);
+        PlayerPrefs.SetString("currentHost", currentHost.ToString());
         PlayerPrefs.SetInt("meleeAttackBonus", meleeAttackBonus);
         PlayerPrefs.SetInt("healthBonus", healthBonus);
         PlayerPrefs.SetInt("loreIndex", loreIndex);
@@ -128,7 +138,7 @@ public class GameManager : MonoBehaviour
         XP = 0;
         arrowCount = 0;
         coinCount = 0;
-        currentHost = "Human";
+        currentHost = HostType.Human;
         meleeAttackBonus = 0;
         rangedAttackBonus = 0;
         healthBonus = 0;
@@ -147,7 +157,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("coinCount", 0);
         PlayerPrefs.SetInt("currentGameLevel", 1);
         PlayerPrefs.SetString("currentHost", "Human");
-        currentHost = PlayerPrefs.GetString("currentHost");
+        currentHost = getHostTypeFromString(PlayerPrefs.GetString("currentHost"));
 
         PlayerPrefs.SetInt("meleeAttackBonus", 0);
         PlayerPrefs.SetInt("healthBonus", 0);
@@ -156,6 +166,17 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("rangedAttackBonus", 0);
 
         Invoke("Restart", restartDelay);
+    }
+
+    HostType getHostTypeFromString(string hostAsString)
+    {
+        switch (hostAsString)
+        {
+            case "Human": return HostType.Human;
+            case "Ghost": return HostType.Ghost;
+            case "Worm": return HostType.Worm;
+            default: throw new Exception("fuck it");
+        }
     }
 
     void Update()
@@ -169,13 +190,14 @@ public class GameManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().MaxHealth = 1000000000;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().CurrentHealth = 1000000000;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().swordDamage = 999;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().arrowDamage = 999;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().SwordDamage = 999;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Human>().ArrowDamage = 999;
         }
 
         if (GameLevelType == "shop")
         {
             deathTimeActive = false;
+            Helper.Camera.transform.position = new Vector3(0, 0, 0);
         }
         else
         {
@@ -233,6 +255,11 @@ public class GameManager : MonoBehaviour
     public void SetPlayerHit(bool isCrit)
     {
         StartCoroutine(Hit(0.1f, isCrit));
+    }
+
+    public void SetHost(HostType host)
+    {
+        currentHost = host;
     }
 
     public void AddMeleeAttackBonus(int bonus)

@@ -51,6 +51,8 @@ TagManager:
   - Map
   - Helper
   - CameraBox
+  - SwordAim
+  - SwordController
   layers:
   - Default
   - TransparentFX

@@ -4,17 +4,12 @@ using static PlayerMovement;
 
 public class Human : MonoBehaviour
 {
-
-    public ParticleSystem dust;
     public string idleLeft = "Human_Idle_Left";
     public string idleRight = "Human_Idle_Right";
-
     public string walkLeft = "Human_Walk_Left";
     public string walkRight = "Human_Walk_Right";
     public string walkUp = "Human_Move_Up";
     public string walkDown = "Human_Move_Down";
-
-
     public string walkLeftNonBloodied = "Human_Walk_Left";
     public string walkRightNonBloodied = "Human_Walk_Right";
     public string walkUpNonBloodied = "Human_Move_Up";
@@ -34,207 +29,156 @@ public class Human : MonoBehaviour
     public string attackDown = "Human_Attack_Down";
 
 
-    private Rigidbody2D rb;
-    private Animator playerAnim;
-    private PlayAnimations pa;
-    public Animator swordAnim;
-    private Shaker shaker;
-    public GameObject swordAim;
-    public GameObject bowAim;
-    public GameObject sword;
-    public GameObject bow;
-    public GameObject player;
-    private AudioManager audioManager;
-    private GameManager gameManager;
+    public GameObject Player;
+    private Rigidbody2D Rigidbody2D;
+    private Animator PlayerAnimator;
+    private PlayAnimations PlayAnimations;
+    private Shaker Shaker;
+    public GameObject SwordController;
+    public GameObject BowController;
+    public GameObject Sword;
+    public GameObject Bow;
+    private AudioManager AudioManager;
+    public Helper Helper;
+    private GameManager GameManager;
+    public PlayerMovement.Looking playerIsLooking;
 
     public bool SwordEquipped = true;
     public bool BowEquipped = false;
-    public float moveSpeed = 5;
-    public int swordDamage = 30;
-    public float swordRange = 0.5f;
-
-    public int arrowDamage = 10;
-    public int arrowSpeed = 10;
-    public int critModifier = 2;
+    public float MoveSpeed = 5;
+    public int SwordDamage = 30;
+    public float SwordRange = 0.5f;
+    public int ArrowDamage = 10;
+    public int ArrowSpeed = 10;
+    public int CritModifier = 2;
+    public float DashSpeed = 20f;
+    private float DashCoolDown = -9999;
+    public float DashDelay = .5f;
+    private bool CanDash = true;
+    private bool IsDashing = false;
 
     void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        dust = GameObject.Find("dustPS").GetComponent<ParticleSystem>();
-
-        if (gameManager.rangedWeaponEquipped)
-        {
-            var BowPickup = Resources.Load("BowPickup") as GameObject;
-            GameObject x = Instantiate(BowPickup, transform.position, Quaternion.identity);
-
-            x.GetComponent<BowPickup>().AddBowToPlayer();
-            Destroy(x);
-        }
+        Sword = FindObjectOfType<Sword>().gameObject;
+        SwordController = Sword.transform.parent.gameObject;
     }
-
     void Start()
     {
-        gameManager.currentHost = "Human";
-
-        rb = GetComponent<Rigidbody2D>();
-        playerAnim = GetComponent<Animator>();
-        shaker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Shaker>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        audioManager = GameObject.FindObjectOfType<AudioManager>();
-
-
-        //This is the current set up i'm using for the weapons, needs improvement
-        GameObject swordLoad =
-                            Instantiate(
-                                Resources.Load("SwordAim"),
-                                new Vector2(transform.position.x - 0.04f, transform.position.y + 0.05f),
-                                Quaternion.identity,
-                                transform)
-                            as GameObject;
-        swordLoad.name = "SwordAim";
-
-        swordAim = gameObject.transform.Find("SwordAim").gameObject;
-
-        sword = swordAim.transform.GetChild(0).gameObject;
-        swordAim.SetActive(true);
-        swordAnim = sword.GetComponent<Animator>();
-
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
+        GameManager = Helper.GameManager;
+        GameManager.currentHost = HostType.Human;
+        PlayerAnimator = GetComponent<Animator>();
+        Shaker = Helper.Camera.GetComponent<Shaker>();
+        Player = Helper.Player;
+        AudioManager = Helper.AudioManager;
         transform.localScale = new Vector3(2.5f, 2.5f, 0);
 
-        GetComponent<PlayerMovement>().moveSpeed = moveSpeed;
+        GetComponent<PlayerMovement>().moveSpeed = MoveSpeed;
 
         //Set the player animations/sprites to the current host creature
-        pa = GetComponent<PlayAnimations>();
-
-        pa.idleLeft = idleLeft;
-        pa.idleRight = idleRight;
-        pa.walkLeft = walkLeft;
-        pa.walkRight = walkRight;
-        pa.walkUp = walkUp;
-        pa.walkDown = walkDown;
-        pa.death = death;
-        pa.attackLeft = attackLeft;
-        pa.attackRight = attackRight;
-        pa.attackUp = attackUp;
-        pa.attackDown = attackDown;
+        PlayAnimations = GetComponent<PlayAnimations>();
+        PlayAnimations.idleLeft = idleLeft;
+        PlayAnimations.idleRight = idleRight;
+        PlayAnimations.walkLeft = walkLeft;
+        PlayAnimations.walkRight = walkRight;
+        PlayAnimations.walkUp = walkUp;
+        PlayAnimations.walkDown = walkDown;
+        PlayAnimations.death = death;
+        PlayAnimations.attackLeft = attackLeft;
+        PlayAnimations.attackRight = attackRight;
+        PlayAnimations.attackUp = attackUp;
+        PlayAnimations.attackDown = attackDown;
     }
-
-    void CreateDust()
-    {
-        dust.Play();
-    }
-
-
-    public float dashSpeed = 20f;
-    private float dashCoolDown = -9999;
-    public float dashDelay = .5f;
-    private bool canDash = true;
-    private bool isDashing = false;
-
 
     public void Dash()
     {
         var direction = GetComponent<PlayerMovement>().looking;
-        if (canDash)
+        if (CanDash)
         {
             // Set users in dashing state/invincibility state for a frame or two
-            canDash = false;
+            CanDash = false;
             StartCoroutine(ToggleIsDashingBool());
 
             switch (direction)
             {
                 default: throw new System.Exception("invalid dash direction provided");
                 case Looking.Up:
-                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + dashSpeed);
-                    playerAnim.Play("Human_Dash_Up");
-                    shaker.CombatShaker("Up");
-                    dashCoolDown = Time.time;
+                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x, Rigidbody2D.velocity.y + DashSpeed);
+                    PlayerAnimator.Play("Human_Dash_Up");
+                    Shaker.CombatShaker("Up");
+                    DashCoolDown = Time.time;
                     break;
 
                 case Looking.Down:
-                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - dashSpeed);
-                    playerAnim.Play("Human_Dash_Down");
-                    shaker.CombatShaker("Down");
-                    dashCoolDown = Time.time;
+                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x, Rigidbody2D.velocity.y - DashSpeed);
+                    PlayerAnimator.Play("Human_Dash_Down");
+                    Shaker.CombatShaker("Down");
+                    DashCoolDown = Time.time;
                     break;
 
                 case Looking.Left:
-                    rb.velocity = new Vector2(rb.velocity.x - dashSpeed, rb.velocity.y);
-                    playerAnim.Play("Human_Dash_Left");
-                    shaker.CombatShaker("Left");
-                    dashCoolDown = Time.time;
+                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x - DashSpeed, Rigidbody2D.velocity.y);
+                    PlayerAnimator.Play("Human_Dash_Left");
+                    Shaker.CombatShaker("Left");
+                    DashCoolDown = Time.time;
                     break;
 
                 case Looking.Right:
-                    rb.velocity = new Vector2(rb.velocity.x + dashSpeed, rb.velocity.y);
-                    playerAnim.Play("Human_Dash_Right");
-                    shaker.CombatShaker("Right");
-                    dashCoolDown = Time.time;
+                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x + DashSpeed, Rigidbody2D.velocity.y);
+                    PlayerAnimator.Play("Human_Dash_Right");
+                    Shaker.CombatShaker("Right");
+                    DashCoolDown = Time.time;
                     break;
             }
-
-            CreateDust();
-            gameManager.HostStamina--;
         }
     }
 
     private IEnumerator ToggleIsDashingBool()
     {
-        isDashing = true;
+        IsDashing = true;
         yield return new WaitForSeconds(0.1f);
-        isDashing = false;
+        IsDashing = false;
     }
 
     public bool isPlayerDashing()
     {
-        return isDashing;
+        return IsDashing;
     }
-
-    public PlayerMovement.Looking playerIsLooking;
 
     public void SwordAttack()
     {
-
         switch (playerIsLooking)
         {
             default: throw new System.Exception("PlayerMovement.Looking state not valid");
             case PlayerMovement.Looking.Left:
-                // swordAnim.Play(attackLeft);
-                // shaker.CombatShaker("Left");
                 break;
 
             case PlayerMovement.Looking.Right:
-                // swordAnim.Play(attackRight);
-                // shaker.CombatShaker("Right");
                 break;
 
             case PlayerMovement.Looking.Up:
-                // swordAnim.Play(attackUp);
-                // shaker.CombatShaker("Up");
                 break;
 
             case PlayerMovement.Looking.Down:
-                // swordAnim.Play(attackDown);
-                // shaker.CombatShaker("Down");
                 break;
         }
-        // Detect enemies in range of attack
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(sword.transform.position, swordRange, LayerMask.GetMask("enemies"));
 
-        // Damage them
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(Sword.transform.position, SwordRange, LayerMask.GetMask("enemies"));
+
         foreach (Collider2D enemy in hitEnemies)
         {
             bool isCrit = false;
 
             if (enemy.GetComponent<Health>())
             {
-                int dammageToApply = swordDamage + gameManager.meleeAttackBonus;
+                int dammageToApply = SwordDamage + GameManager.meleeAttackBonus;
                 var random = Random.Range(0, 11);
 
                 // Check if critical hit
                 if (random == 10)
                 {
-                    dammageToApply *= critModifier;
+                    dammageToApply *= CritModifier;
                     isCrit = true;
                 }
 
@@ -243,19 +187,19 @@ public class Human : MonoBehaviour
                 string[] swordHits = new string[] { "SwordHit", "SwordHit1", "SwordHit2", "SwordHit3", "SwordHit4", "SwordHit5", "SwordHit6" };
                 int rand = Random.Range(0, swordHits.Length);
 
-                audioManager.PlayAudioClip(swordHits[rand]);
+                AudioManager.PlayAudioClip(swordHits[rand]);
 
             }
             else
             {
-                audioManager.PlayAudioClip("SwordMiss");
+                AudioManager.PlayAudioClip("SwordMiss");
             }
         }
     }
 
     public void BowAttack(Vector3 mouseClickPosition)
     {
-        player.transform.GetComponentInChildren<ShortBow>().ShootBow(mouseClickPosition);
+        Bow.GetComponent<ShortBow>().ShootBow(mouseClickPosition);
     }
 
     public void SetBloodiedSprites(bool x)
@@ -279,92 +223,94 @@ public class Human : MonoBehaviour
     public void SetMeleeAsActiveWeapon()
     {
         SwordEquipped = true;
-        swordAim.SetActive(true);
-        sword.SetActive(true);
-        player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Sword");
+        SwordController.SetActive(true);
+        Sword.SetActive(true);
+        Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Sword");
 
         //Deactivate bow if it currently is held by the player
-        if (GetComponent<PlayerCombat>().rangedWeaponEquipped)
+        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
         {
-            bowAim.SetActive(false);
-            bow.SetActive(false);
+            BowController.SetActive(false);
+            Bow.SetActive(false);
             BowEquipped = false;
-            gameManager.rangedWeaponEquipped = false;
+            GameManager.rangedWeaponEquipped = false;
         }
     }
 
     public void SetRangedAsActiveWeapon()
     {
         SwordEquipped = false;
-        swordAim.SetActive(false);
-        sword.SetActive(false);
+        SwordController.SetActive(false);
+        Sword.SetActive(false);
 
-        if (GetComponent<PlayerCombat>().rangedWeaponEquipped)
+        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
         {
             BowEquipped = true;
-            gameManager.rangedWeaponEquipped = true;
-            bowAim.SetActive(true);
-            bow.SetActive(true);
-            player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Bow");
+            GameManager.rangedWeaponEquipped = true;
+            BowController.SetActive(true);
+            Bow.SetActive(true);
+            Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Bow");
         }
     }
 
     // This update function if really chonky, probably needs a look over
     void Update()
     {
+        if (!Player) Player = Helper.Player;
+
         playerIsLooking = GetComponent<PlayerMovement>().PlayerIsLooking();
         if (BowEquipped)
         {
-            bowAim.transform.localScale = new Vector2(-transform.localScale.x + 1.5f, transform.localScale.y - 1.5f);
+            BowController.transform.localScale = new Vector2(-transform.localScale.x + 1.5f, transform.localScale.y - 1.5f);
         }
 
         switch (playerIsLooking)
         {
             default: return;
             case PlayerMovement.Looking.Left:
-                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(0.054f, 0.057f, 180f);
-                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                if (SwordEquipped != null && SwordEquipped == true) SwordController.transform.localPosition = new Vector3(0.054f, 0.057f, 180f);
+                if (SwordEquipped != null && SwordEquipped == true) Sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 if (BowEquipped == true)
                 {
-                    bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 }
                 break;
 
             case PlayerMovement.Looking.Right:
-                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(-0.05f, 0.043f, 0);
-                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                if (SwordEquipped != null && SwordEquipped == true) SwordController.transform.localPosition = new Vector3(-0.05f, 0.043f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) Sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
 
                 if (BowEquipped == true)
                 {
-                    bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 }
 
                 break;
 
             case PlayerMovement.Looking.Up:
-                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(0.052f, 0.055f, 0);
-                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                if (SwordEquipped != null && SwordEquipped == true) SwordController.transform.localPosition = new Vector3(0.052f, 0.055f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) Sword.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 if (BowEquipped == true)
                 {
-                    bow.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    Bow.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 }
                 break;
 
             case PlayerMovement.Looking.Down:
-                if (SwordEquipped != null && SwordEquipped == true) swordAim.transform.localPosition = new Vector3(-0.0287f, 0.0485f, 0);
-                if (SwordEquipped != null && SwordEquipped == true) sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                if (SwordEquipped != null && SwordEquipped == true) SwordController.transform.localPosition = new Vector3(-0.0287f, 0.0485f, 0);
+                if (SwordEquipped != null && SwordEquipped == true) Sword.GetComponent<SpriteRenderer>().sortingOrder = 3;
 
                 if (BowEquipped == true)
                 {
-                    bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Bow.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 }
                 break;
         }
 
-        if (Time.time > dashCoolDown + dashDelay)
+        if (Time.time > DashCoolDown + DashDelay)
         {
-            canDash = true;
-            dashCoolDown = Time.time;
+            CanDash = true;
+            DashCoolDown = Time.time;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -374,7 +320,7 @@ public class Human : MonoBehaviour
 
         ///WEAPON SELECTION SHOULD PROBABLY BE MOVED TO PlayerCombat.CS
 
-        // If the "1" button is presssed equip the sword
+        // If the "1" button is pressed equip the sword
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && SwordEquipped == false)
         {
@@ -386,7 +332,6 @@ public class Human : MonoBehaviour
             SetRangedAsActiveWeapon();
         }
 
-
         Vector3 mousePOS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePOS.z = 0f;
 
@@ -395,12 +340,12 @@ public class Human : MonoBehaviour
 
         if (SwordEquipped)
         {
-            swordAim.transform.eulerAngles = new Vector3(0, 0, angle);
+            SwordController.transform.eulerAngles = new Vector3(0, 0, angle);
         }
 
-        if (GetComponent<PlayerCombat>().rangedWeaponEquipped)
+        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
         {
-            bowAim.transform.eulerAngles = new Vector3(0, 0, angle);
+            BowController.transform.eulerAngles = new Vector3(0, 0, angle);
         }
 
     }

@@ -8,6 +8,7 @@ public class StartRoom : MonoBehaviour
     private DoorController DoorController;
     private GameManager GameManager;
     public GameObject Camera;
+    private bool PlayerMovedToRoom;
 
     private void Awake()
     {
@@ -24,9 +25,6 @@ public class StartRoom : MonoBehaviour
         gameObject.transform.name += " START ROOM";
         DoorController.roomComplete = true;
 
-        // Move player to room
-        Helper.Player.transform.position = GetComponent<SimpleRoom>().SpawnableFloorTiles[1].transform.position;
-
         // Debug: Spawn kill square 
         Instantiate(Resources.Load("KillSquare"), Room.ExitTile.transform.position, Quaternion.identity);
 
@@ -37,5 +35,16 @@ public class StartRoom : MonoBehaviour
             terminal.transform.parent = gameObject.transform.Find("Tiles");
             terminal.transform.position = gameObject.transform.Find("CameraAnchor").transform.position;
         }
+    }
+
+    void Update()
+    {
+        // Move player to room
+        if (Helper.Player && !PlayerMovedToRoom)
+        {
+            Helper.Player.transform.position = GetComponent<SimpleRoom>().SpawnableFloorTiles[1].transform.position;
+            PlayerMovedToRoom = true;
+        }
+
     }
 }

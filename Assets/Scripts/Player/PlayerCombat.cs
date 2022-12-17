@@ -3,116 +3,93 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private SpriteRenderer SR;
+    public Helper Helper;
+    private SpriteRenderer SpriteRenderer;
     [SerializeField]
-    private string currentSprite;
+    private string CurrentSprite;
     public Animator an;
-    public string rangedWeaponName;
-    public string equippedWeaponName;
-    private bool canShoot = false;
-    public bool rangedWeaponEquipped = false;
-    private float rangedCooldown = -9999;
-    private float arrowSpeed = 1;
-    private int arrowDamage = 10;
-    private float rangedAttackDelay = 0.5f;
-    private Shaker shaker;
-    private PlayerMovement.Looking playerIsLooking;
+    public string EquippedWeaponName;
+    public bool RangedWeaponEquipped = false;
+    private float RangedCooldown = -9999;
+    private float ArrowSpeed = 1;
+    private int ArrowDamage = 10;
+    private float RangedAttackDelay = 0.5f;
+    private PlayerMovement.Looking PlayerIsLooking;
     private PlayAnimations pa;
-    private GameManager gameManager;
+    public GameManager GameManager;
+    public Vector3 mouseClickPosition;
+
 
 
     void Start()
     {
-       
-        SR = GetComponent<SpriteRenderer>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         an = GetComponent<Animator>();
         pa = GetComponent<PlayAnimations>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        shaker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Shaker>();
-        equippedWeaponName = "Short Sword";
+        GameManager = Helper.GameManager;
+        EquippedWeaponName = "Short Sword"; // this sucks, switch to enum
     }
 
     public void SetEquippedWeaponName(string name)
     {
-        equippedWeaponName = name;
+        EquippedWeaponName = name;
     }
 
     public void SetRangedWeaponEquipped(bool x)
     {
-        rangedWeaponEquipped = x;
+        RangedWeaponEquipped = x;
         GameObject.Find("GameManager").GetComponent<GameManager>().rangedWeaponEquipped = true;
     }
 
     private void SetCurrentSprite()
     {
         // Gets the current player sprite with the junk text trimmed off
-        currentSprite = SR.sprite.ToString();
-        currentSprite = currentSprite.Substring(0,currentSprite.LastIndexOf(" " ) - 1).Trim();
+        CurrentSprite = SpriteRenderer.sprite.ToString();
+        CurrentSprite = CurrentSprite.Substring(0, CurrentSprite.LastIndexOf(" ") - 1).Trim();
     }
 
     public string GetCurrentSprite()
     {
-        return currentSprite;
+        return CurrentSprite;
     }
 
     void Attack()
     {
-        switch (gameManager.currentHost)
+        if (GameManager.currentHost == HostType.Human)
         {
-            default: throw new System.Exception("currentHost value not recognised");
-            case "Human":
-                if (gameManager.rangedWeaponEquipped)
-                {
-                    GetComponent<Human>().BowAttack(mouseClickPosition);
-                }
-                else
-                {
-                    GetComponent<Human>().SwordAttack();
-                }
-                break;
+            if (GameManager.rangedWeaponEquipped) gameObject.transform.GetComponent<Human>().BowAttack(mouseClickPosition);
+            if (!GameManager.rangedWeaponEquipped) GetComponent<Human>().SwordAttack();
+        }
 
-
-            case "Ghost":GetComponent<Ghost>().FireGhostBolt();break;
-
-
-            case "Worm" :GetComponent<Worm>().PoisonBite();break;
-        }        
+        if (GameManager.currentHost == HostType.Ghost) GetComponent<Ghost>().FireGhostBolt();
+        if (GameManager.currentHost == HostType.Worm) GetComponent<Worm>().PoisonBite();
     }
 
     public void SetRangedAttack(float speed, int damage, float attackDelay)
     {
-        arrowSpeed = speed;
-        arrowDamage = damage;
-        rangedAttackDelay = attackDelay;
+        ArrowSpeed = speed;
+        ArrowDamage = damage;
+        RangedAttackDelay = attackDelay;
     }
-
-    public Vector3 mouseClickPosition;
 
     public void Update()
     {
-        playerIsLooking = GameObject.FindGameObjectWithTag("Player")
-                                    .GetComponent<PlayerMovement>()
-                                    .PlayerIsLooking();
+        PlayerIsLooking = Helper.Player.GetComponent<PlayerMovement>().PlayerIsLooking();
 
-        var GS = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        if (rangedWeaponEquipped == true && GS.GetArrowCount() > 0)
+        if (RangedWeaponEquipped == true && GameManager.GetArrowCount() > 0)
         {
-                if (Time.time > rangedCooldown + rangedAttackDelay)
-                {
-                    canShoot = true;
-                    rangedCooldown = Time.time;
-                }
+            if (Time.time > RangedCooldown + RangedAttackDelay)
+            {
+                RangedCooldown = Time.time;
+            }
         }
         SetCurrentSprite();
         GetCurrentSprite();
 
-        mouseClickPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+        mouseClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Attack();
-        }
+        if (Input.GetMouseButtonDown(0)) Attack();
     }
 
 

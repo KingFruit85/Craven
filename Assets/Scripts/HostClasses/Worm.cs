@@ -46,14 +46,14 @@ public class Worm : MonoBehaviour
         {
             GetComponent<PlayerMovement>().moveSpeed = moveSpeed;
             enemyLayers = LayerMask.GetMask("enemies");
-            helper.GameManager.currentHost = "Worm";
+            helper.GameManager.currentHost = HostType.Worm;
         }
         else
         {
             enemyLayers = LayerMask.GetMask("Player");
         }
 
-        transform.localScale = new Vector3(1,1,0);
+        transform.localScale = new Vector3(1, 1, 0);
 
         //Set the player animations/sprites to the current host creature
         pa.idleLeft = idleLeft;
@@ -68,10 +68,10 @@ public class Worm : MonoBehaviour
     void SetAttackPoint()
     {
         // Set the ranges
-        attackPointLeft = new Vector2(transform.position.x - attackRange - 0.3f ,transform.position.y);
-        attackPointRight = new Vector2(transform.position.x + attackRange + 0.3f ,transform.position.y);
-        attackPointUp = new Vector2(transform.position.x ,transform.position.y + attackRange);
-        attackPointDown = new Vector2(transform.position.x ,transform.position.y - attackRange);
+        attackPointLeft = new Vector2(transform.position.x - attackRange - 0.3f, transform.position.y);
+        attackPointRight = new Vector2(transform.position.x + attackRange + 0.3f, transform.position.y);
+        attackPointUp = new Vector2(transform.position.x, transform.position.y + attackRange);
+        attackPointDown = new Vector2(transform.position.x, transform.position.y - attackRange);
 
 
         if (transform.tag == "Player")
@@ -80,11 +80,11 @@ public class Worm : MonoBehaviour
 
             switch (playerIsLooking)
             {
-                default:throw new System.Exception("looking in unknown direction");
-                case PlayerMovement.Looking.Up:attackPoint = attackPointUp;break;
-                case PlayerMovement.Looking.Down:attackPoint = attackPointDown;break;
-                case PlayerMovement.Looking.Left:attackPoint = attackPointLeft;break;
-                case PlayerMovement.Looking.Right:attackPoint = attackPointRight;break;
+                default: throw new System.Exception("looking in unknown direction");
+                case PlayerMovement.Looking.Up: attackPoint = attackPointUp; break;
+                case PlayerMovement.Looking.Down: attackPoint = attackPointDown; break;
+                case PlayerMovement.Looking.Left: attackPoint = attackPointLeft; break;
+                case PlayerMovement.Looking.Right: attackPoint = attackPointRight; break;
             }
         }
     }
@@ -104,7 +104,7 @@ public class Worm : MonoBehaviour
     public void PoisonBite()
     {
         StartCoroutine(FlashColor(Color.red));
-        
+
         if (attackPoint == attackPointLeft)
         {
             am.Play(attackLeft);
@@ -122,30 +122,30 @@ public class Worm : MonoBehaviour
             am.Play(attackDown);
         }
 
-            // Detect enemies in range of attack
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint, attackRange, enemyLayers);
+        // Detect enemies in range of attack
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint, attackRange, enemyLayers);
 
-            // Damage them
-            if (hitEnemies.Length > 0)
+        // Damage them
+        if (hitEnemies.Length > 0)
+        {
+            foreach (Collider2D enemy in hitEnemies)
             {
-                foreach (Collider2D enemy in hitEnemies)
+                if (enemy != null)
                 {
-                    if ( enemy != null )
+                    enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, Helper.DamageTypes.WormPoison, false);
+                    //Need to add slow for enemies 
+                    if (enemy.tag == "Player")
                     {
-                        enemy.GetComponent<Health>().TakeDamage(attackDamage, transform.gameObject, Helper.DamageTypes.WormPoison, false);   
-                        //Need to add slow for enemies 
-                        if (enemy.tag == "Player")
-                        {
-                            enemy.GetComponent<PlayerMovement>().DazeForSeconds(2);
-                        }
-                        else
-                        {
-                            enemy.GetComponent<AIMovement>().DazeForSeconds(2);
+                        enemy.GetComponent<PlayerMovement>().DazeForSeconds(2);
+                    }
+                    else
+                    {
+                        enemy.GetComponent<AIMovement>().DazeForSeconds(2);
 
-                        }
-                    } 
+                    }
                 }
             }
+        }
     }
 
 }

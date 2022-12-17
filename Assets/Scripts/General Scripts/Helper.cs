@@ -4,7 +4,6 @@ public class Helper : MonoBehaviour
 {
     public static Helper instance;
     public GameObject Camera;
-    public GameObject CameraBox;
     public GameManager GameManager;
     public AudioManager AudioManager;
     public Vector3 PlayerPosition;
@@ -13,9 +12,9 @@ public class Helper : MonoBehaviour
     public GameObject Flamebowl;
     public GameObject ArrowTrap;
     public GameObject Player;
+    public GameObject[] Prefabs;
     public const string PlayerTag = "Player";
     public GameObject SimpleRoomPrefab;
-
     public enum DamageTypes
     {
         Melee,
@@ -43,6 +42,8 @@ public class Helper : MonoBehaviour
 
     void Awake()
     {
+
+        // Prefabs = Resources.LoadAll<GameObject>("");
         DontDestroyOnLoad(gameObject);
 
         if (instance == null)
@@ -56,7 +57,6 @@ public class Helper : MonoBehaviour
         }
 
         if (!Camera) Camera = GameObject.FindGameObjectWithTag("MainCamera");
-        if (!CameraBox) CameraBox = GameObject.FindGameObjectWithTag("CameraBox");
         if (!GameManager) GameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         if (!AudioManager) AudioManager = GameObject.FindObjectOfType<AudioManager>();
         if (!Chest) Chest = Resources.Load<GameObject>("chest");
@@ -67,7 +67,23 @@ public class Helper : MonoBehaviour
 
     void Update()
     {
-        if (!Player) Player = GameObject.FindGameObjectWithTag("Player");
+        if (!Player)
+        {
+            try
+            {
+                Player = GameObject.FindGameObjectWithTag("Player");
+                if (!Player)
+                {
+                    Player = Resources.Load<GameObject>("Player Variant 1");
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+        }
         if (Player) PlayerPosition = Player.transform.position;
+        if (!Camera) Camera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 }

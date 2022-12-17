@@ -2,36 +2,35 @@
 
 public class ShortBow : MonoBehaviour
 {
-    private GameObject arrow;
-    private GameObject player;
-    private GameManager gameManager;
+    private Helper Helper;
+    public GameObject Arrow;
+    private GameObject Player;
+    private GameManager GameManager;
 
     void Start()
     {
-        arrow = Resources.Load("arrow") as GameObject;
-        player = GameObject.Find("Player");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Player = Helper.Player;
+        GameManager = Helper.GameManager;
     }
 
     public void ShootBow(Vector3 mousePosition)
     {
-        if (gameManager.arrowCount > 0)
+        if (GameManager.arrowCount <= 0)
         {
+            Helper.AudioManager.PlayAudioClip("SwordMiss");
+        }
 
-            var playerPos = new Vector3(player.transform.position.x,
-                                        player.transform.position.y,
-                                        player.transform.position.z);
-            // Spawn arrow on top of player
+        if (GameManager.arrowCount > 0)
+        {
             GameObject a = Instantiate(
-                                        arrow,
-                                        playerPos,
-                                        player.transform.rotation,
-                                        player.transform);
+                                        Arrow,
+                                        Helper.PlayerPosition,
+                                        Player.transform.rotation,
+                                        Player.transform);
 
-            arrow.GetComponent<Arrow>().clickPoint = mousePosition;
-
-            GameObject.Find("GameManager").GetComponent<GameManager>().arrowCount--;
-
+            Arrow.GetComponent<Arrow>().clickPoint = mousePosition;
+            GameManager.arrowCount--;
         }
     }
 }

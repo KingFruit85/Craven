@@ -33,7 +33,7 @@ public class Ghost : MonoBehaviour
             GetComponent<PlayerMovement>().moveSpeed = MoveSpeed;
             //Due to the sprite scaling when you change from a human to a ghost the capsule collider is too large to move horizontally though 1 unit tall corridors
             GetComponent<CapsuleCollider2D>().size = new Vector2(0.1f, 0.2f);
-            Helper.GameManager.currentHost = Helper.EnemyTypes.Ghost.ToString();
+            Helper.GameManager.currentHost = HostType.Ghost;
         }
 
         transform.localScale = new Vector3(3.5f, 3.5f, 0);

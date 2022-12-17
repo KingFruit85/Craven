@@ -26,11 +26,11 @@ public class HUDUpdater : MonoBehaviour
 
                 if (player.GetComponent<Human>().SwordEquipped)
                 {
-                    attackDamage = player.GetComponent<Human>().swordDamage + gameManager.meleeAttackBonus;
+                    attackDamage = player.GetComponent<Human>().SwordDamage + gameManager.meleeAttackBonus;
                 }
                 else if (player.GetComponent<Human>().BowEquipped)
                 {
-                    attackDamage = player.GetComponent<Human>().arrowDamage + gameManager.rangedAttackBonus;
+                    attackDamage = player.GetComponent<Human>().ArrowDamage + gameManager.rangedAttackBonus;
                 }
                 break;
 
@@ -63,7 +63,7 @@ public class HUDUpdater : MonoBehaviour
         if (player != null)
         {
             playerHealth = player.GetComponent<Health>().CurrentHealth;
-            GetAttackDamage(gameManager.currentHost);
+            GetAttackDamage(gameManager.currentHost.ToString());
         }
 
 

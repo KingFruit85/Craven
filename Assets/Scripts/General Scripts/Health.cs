@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    private Helper Helper;
     private SpriteRenderer SpriteRenderer;
     private Shaker CameraShaker;
     private GameManager GameManager;
-    private Helper Helper;
     private Color NonDefaultColor;
     public GameObject LastHitBy;
     public GameObject Player;
 
     public float MaxHealth;
     public float CurrentHealth;
-    public string CurrentHost;
+    public HostType CurrentHost;
     public bool IsBoss = false;
     public bool IsImmuneToMeleeDamage = false;
     public bool IsImmuneToProjectileDamage = false;
@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
         {
             ChangeMaxHealth(GameManager.healthBonus);
             CurrentHost = Helper.GameManager.currentHost;
-            GameManager.LoadHostScript(CurrentHost);
+            GameManager.LoadHostScript();
             CurrentHealth = MaxHealth;
         }
     }
@@ -71,20 +71,17 @@ public class Health : MonoBehaviour
 
     public void SwapHost(GameObject newHost) // This probably needs to be moved out of Health into it's own script
     {
-
-        GameManager.currentHost = newHost.tag;
-
         //Remove the old host script
         switch (CurrentHost)
         {
             default: throw new System.Exception("failed to remove current host script, unknown host");
-            case "Human":
+            case HostType.Human:
                 Destroy(gameObject.GetComponent<Human>());
                 Destroy(GameObject.Find("SwordAim"));
                 Destroy(GameObject.Find("BowAim"));
                 break;
-            case "Ghost": Destroy(gameObject.GetComponent<Ghost>()); break;
-            case "Worm": Destroy(gameObject.GetComponent<Worm>()); break;
+            case HostType.Ghost: Destroy(gameObject.GetComponent<Ghost>()); break;
+            case HostType.Worm: Destroy(gameObject.GetComponent<Worm>()); break;
         }
 
         //Add the new host script
@@ -92,18 +89,21 @@ public class Health : MonoBehaviour
         {
             default: throw new System.Exception("Swap to new host failed, attacker host type unknown");
             case "Human":
+                GameManager.currentHost = CurrentHost = HostType.Human;
                 gameObject.AddComponent<Human>();
                 gameObject.GetComponent<Animator>().Play(gameObject.GetComponent<Human>().idleDown);
                 gameObject.GetComponent<PlayAnimations>().human = GetComponent<Human>();
                 break;
 
             case "Ghost":
+                GameManager.currentHost = CurrentHost = HostType.Ghost;
                 gameObject.AddComponent<Ghost>();
                 gameObject.GetComponent<Animator>().Play(gameObject.GetComponent<Ghost>().idleDown);
                 gameObject.GetComponent<PlayAnimations>().ghost = GetComponent<Ghost>();
                 break;
 
             case "Worm":
+                GameManager.currentHost = CurrentHost = HostType.Worm;
                 gameObject.AddComponent<Worm>();
                 gameObject.GetComponent<Animator>().Play(gameObject.GetComponent<Worm>().idleDown);
                 gameObject.GetComponent<PlayAnimations>().worm = GetComponent<Worm>();
@@ -113,9 +113,6 @@ public class Health : MonoBehaviour
         // Transfer health stats
         MaxHealth = newHost.GetComponent<Health>().MaxHealth;
         CurrentHealth = newHost.GetComponent<Health>().CurrentHealth;
-
-        //Update the current host variable
-        CurrentHost = newHost.tag;
 
         //Remove attacker from the game and move to their location
         transform.position = newHost.transform.position;
@@ -269,6 +266,10 @@ public class Health : MonoBehaviour
 
     void Update()
     {
+        if (!Player)
+        {
+            Player = Helper.Player;
+        }
         if (CurrentHealth <= 0 && !IsDead)
         {
             if (Player.CompareTag(gameObject.tag))

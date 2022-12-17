@@ -21,7 +21,6 @@ public class DoorController : MonoBehaviour
     void Awake()
     {
         helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
-        helper.CameraBox.transform.position = camAnchor.transform.position;
     }
 
     // Do not delete, called below by Invoke
@@ -58,7 +57,8 @@ public class DoorController : MonoBehaviour
 
         if (playerInRoom)
         {
-            helper.CameraBox.transform.position = camAnchor.transform.position;
+            if (roomComplete) Invoke("openThisRoomsDoors", 1f);
+
             helper.Camera.transform.position = camAnchor.transform.position;
             helper.Player.transform.parent = transform.parent;
 
@@ -75,10 +75,7 @@ public class DoorController : MonoBehaviour
             }
         }
 
-        if (!playerInRoom && !roomComplete)
-        {
-            Invoke("openThisRoomsDoors", 1f);
-        }
+        if (!playerInRoom && !roomComplete) Invoke("openThisRoomsDoors", 1f);
 
         if (openCondition == OpenCondition.MobDeath && enemiesInRoom.Length <= 0 && playerInRoom)
         {

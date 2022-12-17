@@ -93,7 +93,6 @@ public class GoldBowPickup : MonoBehaviour
             player.AddComponent<GoldBowPickup>();
             player.GetComponent<GoldBowPickup>().arrow = Resources.Load("goldarrow") as GameObject;
             player.GetComponent<PlayerCombat>().SetRangedWeaponEquipped(true);
-            player.GetComponent<PlayerCombat>().rangedWeaponName = "Gold Bow";
             player.GetComponent<PlayerCombat>().SetRangedAttack(speed, damage, attackDelay);
 
             Destroy(this.gameObject);
