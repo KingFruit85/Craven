@@ -5,7 +5,7 @@ public class BowPickup : MonoBehaviour
     public Helper Helper;
     public GameObject Player;
     public PlayerCombat PlayerCombat;
-    public Human PlayerIsHuman;
+    public Human Human;
     public GameObject ShortBow;
     public GameManager GameManager;
 
@@ -23,10 +23,10 @@ public class BowPickup : MonoBehaviour
         {
             Player = Helper.Player;
         }
-        if (!PlayerCombat || !PlayerIsHuman)
+        if (!PlayerCombat || !Human)
         {
             PlayerCombat = Player.GetComponent<PlayerCombat>();
-            PlayerIsHuman = Player.GetComponent<Human>();
+            Human = Player.GetComponent<Human>();
         }
     }
 
@@ -42,17 +42,17 @@ public class BowPickup : MonoBehaviour
             transform);
 
         bow.name = "BowAim";
-        PlayerIsHuman.BowController = bow;
-        PlayerIsHuman.Bow = bow.transform.Find("Bow").gameObject;
-        PlayerIsHuman.BowController.SetActive(false);
+        Human.BowController = bow;
+        Human.Bow = bow.transform.Find("Bow").gameObject;
+        Human.BowController.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && PlayerCombat.RangedWeaponEquipped == false && GameManager.currentHost == HostType.Human)
+        if (!Human.HasPickedUpRangedWeapon && GameManager.currentHost == HostType.Human)
         {
             GameManager.AddArrows(5);
-            PlayerCombat.SetRangedWeaponEquipped(true);
+            Human.HasPickedUpRangedWeapon = true;
 
             // add shortbow game object to player game object
             GameObject a = Instantiate(
@@ -62,14 +62,12 @@ public class BowPickup : MonoBehaviour
                 Player.transform);
 
             a.name = "BowAim";
-            PlayerIsHuman.BowController = a;
-            PlayerIsHuman.Bow = a.transform.Find("Bow").gameObject;
-            PlayerIsHuman.SetRangedAsActiveWeapon();
+            Human.BowController = a;
+            Human.Bow = a.transform.Find("Bow").gameObject;
+            Human.SetRangedAsActiveWeapon();
             Destroy(this.gameObject);
-
-
         }
-        else if (other.tag == "Player" && PlayerCombat.RangedWeaponEquipped == true && GameManager.currentHost == HostType.Human)
+        else if (other.tag == "Player" && Human.HasPickedUpRangedWeapon == true && GameManager.currentHost == HostType.Human)
         {
             GameManager.AddArrows(5);
             Destroy(this.gameObject);

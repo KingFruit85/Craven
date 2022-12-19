@@ -56,6 +56,7 @@ public class Human : MonoBehaviour
     public float DashDelay = .5f;
     private bool CanDash = true;
     private bool IsDashing = false;
+    public bool HasPickedUpRangedWeapon { get; set; } = false;
 
     void Awake()
     {
@@ -222,35 +223,36 @@ public class Human : MonoBehaviour
 
     public void SetMeleeAsActiveWeapon()
     {
-        SwordEquipped = true;
-        SwordController.SetActive(true);
-        Sword.SetActive(true);
-        Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Sword");
-
         //Deactivate bow if it currently is held by the player
-        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
+        if (BowEquipped)
         {
             BowController.SetActive(false);
             Bow.SetActive(false);
             BowEquipped = false;
             GameManager.rangedWeaponEquipped = false;
         }
+
+        SwordEquipped = true;
+        SwordController.SetActive(true);
+        Sword.SetActive(true);
+        Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Sword");
     }
 
     public void SetRangedAsActiveWeapon()
     {
-        SwordEquipped = false;
-        SwordController.SetActive(false);
-        Sword.SetActive(false);
-
-        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
+        if (SwordEquipped)
         {
-            BowEquipped = true;
-            GameManager.rangedWeaponEquipped = true;
-            BowController.SetActive(true);
-            Bow.SetActive(true);
-            Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Bow");
+            SwordEquipped = false;
+            SwordController.SetActive(false);
+            Sword.SetActive(false);
         }
+
+        BowEquipped = true;
+        GameManager.rangedWeaponEquipped = true;
+        BowController.SetActive(true);
+        Bow.SetActive(true);
+        Player.GetComponent<PlayerCombat>().SetEquippedWeaponName("Short Bow");
+
     }
 
     // This update function if really chonky, probably needs a look over
@@ -327,7 +329,7 @@ public class Human : MonoBehaviour
             SetMeleeAsActiveWeapon();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && BowEquipped == false)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && BowEquipped == false && HasPickedUpRangedWeapon)
         {
             SetRangedAsActiveWeapon();
         }
@@ -343,7 +345,7 @@ public class Human : MonoBehaviour
             SwordController.transform.eulerAngles = new Vector3(0, 0, angle);
         }
 
-        if (GetComponent<PlayerCombat>().RangedWeaponEquipped)
+        if (BowEquipped)
         {
             BowController.transform.eulerAngles = new Vector3(0, 0, angle);
         }

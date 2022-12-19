@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GhostBolt : MonoBehaviour, IProjectile
+public class GhostBolt : MonoBehaviour
 {
     private Rigidbody2D Rigidbody2d;
 
@@ -18,9 +18,6 @@ public class GhostBolt : MonoBehaviour, IProjectile
     public bool Deflected;
     public float speed = 0.001f;
     public int damage = 10;
-
-    float IProjectile.speed { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    int IProjectile.damage { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     void Awake()
     {
@@ -48,11 +45,8 @@ public class GhostBolt : MonoBehaviour, IProjectile
 
     void Update()
     {
-        switch (Shooter)
-        {
-            case "Ghost": ShootAtPlayer(); break;
-            case "Player": ShootAtEnemy(); break;
-        }
+        if (Shooter == "Player") ShootAtEnemy();
+        if (Shooter != "Player") ShootAtPlayer();
 
         if (Time.time >= Born + LifeTime)
         {

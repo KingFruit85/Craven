@@ -5,8 +5,12 @@ public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader instance;
 
+    public Helper Helper { get; private set; }
+
     void Awake()
     {
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+
         if (instance == null)
         {
             instance = this;
@@ -15,6 +19,11 @@ public class LevelLoader : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+
+        if (SceneManager.GetActiveScene().name == "shop")
+        {
+            Helper.Camera.transform.position = Vector3.zero;
         }
     }
 
