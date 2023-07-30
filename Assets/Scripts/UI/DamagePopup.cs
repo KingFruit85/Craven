@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class DamagePopup : MonoBehaviour
-{   
+{
     private TextMeshPro textMesh;
     private float disappearTimer;
     private Color textColor;
@@ -22,6 +22,19 @@ public class DamagePopup : MonoBehaviour
         return damagePopup;
     }
 
+    public static DamagePopup CreatePickupMessage(Vector3 position, string msg)
+    {
+        Vector3 newPOS = new Vector3(position.x + .4f, position.y + .5f);
+
+        Transform damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup,
+                                                     newPOS,
+                                                     Quaternion.identity);
+
+        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
+        damagePopup.Setup(msg);
+        return damagePopup;
+    }
+
     void Awake()
     {
         textMesh = transform.GetComponent<TextMeshPro>();
@@ -31,8 +44,8 @@ public class DamagePopup : MonoBehaviour
     {
         if (isCrit)
         {
-            textMesh.color = Color.red; 
-        textMesh.SetText(damageAmount.ToString() + " (critical!)");
+            textMesh.color = Color.red;
+            textMesh.SetText(damageAmount.ToString() + " (critical!)");
 
             isCrit = false;
         }
@@ -46,13 +59,21 @@ public class DamagePopup : MonoBehaviour
         disappearTimer = 1f;
     }
 
+    public void Setup(string msg)
+    {
+        textColor = textMesh.color;
+        textMesh.SetText(msg);
+
+        disappearTimer = 1f;
+    }
+
     private void Update()
     {
         float moveYSpeed = 2.0f;
-        transform.position += new Vector3(0,moveYSpeed) * Time.deltaTime;
+        transform.position += new Vector3(0, moveYSpeed) * Time.deltaTime;
 
         disappearTimer -= Time.deltaTime;
-        if(disappearTimer < 0)
+        if (disappearTimer < 0)
         {
             // Start disappearing
             float disappearSpeed = 2f;

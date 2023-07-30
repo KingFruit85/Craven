@@ -9,46 +9,26 @@ public class BowPickup : MonoBehaviour
     public GameObject ShortBow;
     public GameManager GameManager;
 
-    void Awake()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
-        Player = Helper.Player;
-        ShortBow = Resources.Load("BowAim") as GameObject;
-        GameManager = Helper.GameManager;
-    }
 
-    void Update()
-    {
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+
         if (!Player)
         {
             Player = Helper.Player;
-        }
-        if (!PlayerCombat || !Human)
-        {
             PlayerCombat = Player.GetComponent<PlayerCombat>();
             Human = Player.GetComponent<Human>();
+
         }
-    }
 
-    public void AddBowToPlayer()
-    {
-        PlayerCombat.SetRangedWeaponEquipped(true);
+        ShortBow = Resources.Load("BowAim") as GameObject;
 
-        // add shortbow game object to player game object
-        GameObject bow = Instantiate(
-            ShortBow,
-            Player.transform.position,
-            Quaternion.identity,
-            transform);
+        if (!GameManager)
+        {
+            GameManager = Helper.GameManager;
+        }
 
-        bow.name = "BowAim";
-        Human.BowController = bow;
-        Human.Bow = bow.transform.Find("Bow").gameObject;
-        Human.BowController.SetActive(false);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
         if (!Human.HasPickedUpRangedWeapon && GameManager.currentHost == HostType.Human)
         {
             GameManager.AddArrows(5);
@@ -72,6 +52,8 @@ public class BowPickup : MonoBehaviour
             GameManager.AddArrows(5);
             Destroy(this.gameObject);
         }
+
+        DamagePopup.CreatePickupMessage(transform.position, "Picked up bow!");
 
     }
 }

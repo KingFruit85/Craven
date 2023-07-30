@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class SimpleRoom : MonoBehaviour
@@ -58,6 +59,11 @@ public class SimpleRoom : MonoBehaviour
     public string RoomType;
     public char[,] RoomContents = new char[10, 10];
     public int EnemyCount;
+
+    public void RemoveSpawnableTile(Vector3 tilepos)
+    {
+        SpawnableFloorTiles = SpawnableFloorTiles.Where(t => t.transform.localPosition != tilepos).ToArray();
+    }
 
     /// <summary> 0 = floor, 1 = wall </summary>
     public void SetRoomContents()

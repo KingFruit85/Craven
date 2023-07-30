@@ -24,7 +24,7 @@ public class RoomTemplates : MonoBehaviour
 
     public int GetRoomSpawnerIndex()
     {
-        roomSpawnerCount ++;
+        roomSpawnerCount++;
         return roomSpawnerCount;
     }
 
@@ -43,25 +43,27 @@ public class RoomTemplates : MonoBehaviour
         {
             var startRoomVar = Instantiate(startRoom, transform.position, Quaternion.identity);
 
-            var playerVar = Instantiate(Resources.Load("Player Variant 1"), 
+            var playerVar = Instantiate(Resources.Load("Player Variant 1"),
                         startRoomVar.GetComponent<AddRoom>().playerSpawnPoint.transform.position,
                         Quaternion.identity);
-                playerVar.name = "Player";
+            playerVar.name = "Player";
 
             // GameObject.Find("Main Camera").GetComponent<FollowPlayer>().target = GameObject.FindGameObjectWithTag("Player").transform;  
         }
         else if (SceneManager.GetActiveScene().name == "Lab")
         {
-            
+
             // var startRoomVar = Instantiate(lab, transform.position, Quaternion.identity);
             var Lab = GameObject.Find("Lab");
-            var playerVar = Instantiate(Resources.Load("Player Variant 1"), 
+            var playerVar = Instantiate(Resources.Load("Player Variant 1"),
                         Lab.GetComponent<AddRoom>().playerSpawnPoint.transform.position,
                         Quaternion.identity);
-                playerVar.name = "Player";
+            playerVar.name = "Player";
 
             // GameObject.Find("Main Camera").GetComponent<FollowPlayer>().target = GameObject.FindGameObjectWithTag("Player").transform;  
         }
+
+        DamagePopup.CreatePickupMessage(transform.position, "Where am i...");
 
     }
 
@@ -74,7 +76,7 @@ public class RoomTemplates : MonoBehaviour
     {
         currentRoomCount = GameObject.FindGameObjectsWithTag("Room");
 
-        if (currentRoomCount.Length >=15) 
+        if (currentRoomCount.Length >= 15)
         {
             spawnMiniBossRoom = true;
         }
@@ -84,7 +86,7 @@ public class RoomTemplates : MonoBehaviour
             var bossSpriteRenderer = GameObject.Find("MiniBoss").GetComponent<SpriteRenderer>();
 
             bossSpriteRenderer.color = new Color(249.0f / 255.0f,
-                                                 13.0f/ 255.0f,
+                                                 13.0f / 255.0f,
                                                  2.0f / 255.0f);
         }
     }

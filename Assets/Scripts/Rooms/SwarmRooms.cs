@@ -16,7 +16,7 @@ public class SwarmRooms : MonoBehaviour
     private int playerLayer;
     public GameObject topLeft;
     public GameObject bottomRight;
-
+    private bool PlayerHasReacted = false;
     public int enemyLimit = 25;
     public int MaxActiveEnemies = 6;
     public int tracker = 0;
@@ -29,6 +29,7 @@ public class SwarmRooms : MonoBehaviour
         enemySpawner = GetComponent<EnemySpawner>();
         doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
         cameraShaker = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Shaker>();
+        cameraShaker.DeactivateShake();
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
 
 
@@ -106,6 +107,12 @@ public class SwarmRooms : MonoBehaviour
         {
             audioManager.ReverseGameMusic(true);
             cameraShaker.ActivateShake();
+            if (!PlayerHasReacted)
+            {
+                var player = GameObject.FindGameObjectWithTag("Player");
+                DamagePopup.CreatePickupMessage(player.transform.position, "Oh shit!");
+                PlayerHasReacted = true;
+            }
         }
 
         if (playerInRoom && enemiesInRoom.Length == 0)

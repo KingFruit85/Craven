@@ -4,36 +4,31 @@ using UnityEngine;
 
 public class PuzzleRooms : MonoBehaviour
 {
-    private Helper helper;
-    public SimpleRoom room;
-    public DoorController doorController;
-    public EnemySpawner enemySpawner;
-    public List<string> tileColours = new List<string>() { "Red", "Green", "Blue", "Teal" };
-    public List<string> randomisedUnlockCode;
-    public List<string> submittedCode = new List<string>();
+    private Helper Helper;
+    public SimpleRoom Room;
+    public DoorController DoorController;
+    public EnemySpawner EnemySpawner;
+    public List<string> TileColours = new List<string>() { "Red", "Green", "Blue", "Teal" };
+    public List<string> RandomisedUnlockCode;
+    public List<string> SubmittedCode = new List<string>();
 
-    public Rune redRune;
-    public Rune blueRune;
-    public Rune greenRune;
-    public Rune tealRune;
-
+    public Rune RedRune;
+    public Rune BlueRune;
+    public Rune GreenRune;
+    public Rune TealRune;
 
     void Start()
     {
-        helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
+        Helper = GameObject.FindGameObjectWithTag("Helper").GetComponent<Helper>();
         var rnd = new System.Random();
-        randomisedUnlockCode = tileColours.OrderBy(item => rnd.Next()).ToList();
+        RandomisedUnlockCode = TileColours.OrderBy(item => rnd.Next()).ToList();
 
-        gameObject.AddComponent<EnemySpawner>();
-        enemySpawner = GetComponent<EnemySpawner>();
-        enemySpawner.SetEnemyCount(UnityEngine.Random.Range(0, 3));
+        Room = GetComponent<SimpleRoom>();
 
-        room = GetComponent<SimpleRoom>();
+        DoorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
+        DoorController.openCondition = DoorController.OpenCondition.PuzzleComplete;
 
-        doorController = gameObject.transform.Find("DoorController").GetComponent<DoorController>();
-        doorController.openCondition = DoorController.OpenCondition.PuzzleComplete;
-
-        var roomCenter = room.transform.Find("RoomCenter").transform.position;
+        var roomCenter = Room.transform.Find("RoomCenter").transform.position;
         var tilesObject = transform.Find("Tiles");
 
         // -Chest
@@ -49,18 +44,20 @@ public class PuzzleRooms : MonoBehaviour
         barrier.transform.parent = tilesObject;
 
         // Pillars
-        foreach (var tile in room.pillarTiles)
+        foreach (var tile in Room.pillarTiles)
         {
+
             GameObject wall = Instantiate<GameObject>(
-                helper.Wall,
+                Helper.Wall,
                 tile.transform.position,
                 Quaternion.identity);
 
             wall.transform.parent = tilesObject;
+            Room.RemoveSpawnableTile(wall.transform.localPosition);
 
             // Flame bowls and arrow traps
             GameObject flameBowl = Instantiate(
-                helper.Flamebowl,
+                Helper.Flamebowl,
                 tile.transform.position,
                 Quaternion.identity);
 
@@ -71,7 +68,7 @@ public class PuzzleRooms : MonoBehaviour
                 flameBowl.name = "flameBowl1";
 
                 GameObject arrowTrap = Instantiate(
-                    helper.ArrowTrap,
+                    Helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap1Position.transform.position,
                     Quaternion.identity);
 
@@ -88,7 +85,7 @@ public class PuzzleRooms : MonoBehaviour
                 flameBowl.name = "flameBowl2";
 
                 GameObject arrowTrap = Instantiate(
-                    helper.ArrowTrap,
+                    Helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap2Position.transform.position,
                     Quaternion.identity);
 
@@ -104,7 +101,7 @@ public class PuzzleRooms : MonoBehaviour
             {
                 flameBowl.name = "flameBowl3";
                 GameObject arrowTrap = Instantiate(
-                    helper.ArrowTrap,
+                    Helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap3Position.transform.position,
                     Quaternion.identity);
 
@@ -121,7 +118,7 @@ public class PuzzleRooms : MonoBehaviour
             {
                 flameBowl.name = "flameBowl4";
                 GameObject arrowTrap = Instantiate(
-                    helper.ArrowTrap,
+                    Helper.ArrowTrap,
                     GetComponent<SimpleRoom>().arrowTrap4Position.transform.position,
                     Quaternion.identity);
 
@@ -132,8 +129,12 @@ public class PuzzleRooms : MonoBehaviour
                 arrowTrap.transform.rotation *= Quaternion.AngleAxis(-90, transform.forward);
                 arrowTrap.transform.position += new Vector3(-0.4f, 0f, 0f);
             }
-            room.AddItemToRoomContents(tile.transform.localPosition, 'P');
+            Room.AddItemToRoomContents(tile.transform.localPosition, 'P');
         }
+
+        gameObject.AddComponent<EnemySpawner>();
+        EnemySpawner = GetComponent<EnemySpawner>();
+        EnemySpawner.SetEnemyCount(UnityEngine.Random.Range(0, 3));
 
         // -Runes - randomised placement
         List<GameObject> runes = new List<GameObject>()
@@ -144,7 +145,7 @@ public class PuzzleRooms : MonoBehaviour
                 Resources.Load<GameObject>("TealTile")
             };
 
-        foreach (var rune in room.runeTiles)
+        foreach (var rune in Room.runeTiles)
         {
             var r = UnityEngine.Random.Range(0, runes.Count);
             var randomRune = runes[r];
@@ -183,27 +184,27 @@ public class PuzzleRooms : MonoBehaviour
 
         }
 
-        redRune = tilesObject.Find("RedTile(Clone)").gameObject.GetComponent<Rune>();
-        blueRune = tilesObject.Find("BlueTile(Clone)").gameObject.GetComponent<Rune>(); ;
-        greenRune = tilesObject.Find("GreenTile(Clone)").gameObject.GetComponent<Rune>(); ;
-        tealRune = tilesObject.Find("TealTile(Clone)").gameObject.GetComponent<Rune>(); ;
+        RedRune = tilesObject.Find("RedTile(Clone)").gameObject.GetComponent<Rune>();
+        BlueRune = tilesObject.Find("BlueTile(Clone)").gameObject.GetComponent<Rune>(); ;
+        GreenRune = tilesObject.Find("GreenTile(Clone)").gameObject.GetComponent<Rune>(); ;
+        TealRune = tilesObject.Find("TealTile(Clone)").gameObject.GetComponent<Rune>(); ;
     }
 
     public void SubmitCode(string code)
     {
         // gate to stop same rune being submitted twice
-        if (!submittedCode.Contains(code))
+        if (!SubmittedCode.Contains(code))
         {
-            submittedCode.Add(code);
+            SubmittedCode.Add(code);
 
-            if (randomisedUnlockCode[submittedCode.Count - 1] == code)
+            if (RandomisedUnlockCode[SubmittedCode.Count - 1] == code)
             {
-                helper.AudioManager.PlayAudioClip("RuneSuccess");
+                Helper.AudioManager.PlayAudioClip("RuneSuccess");
                 Debug.Log("correct"); // For Debug, perhaps add some graphical effect instead?
             }
             else
             {
-                helper.AudioManager.PlayAudioClip("RuneFailure");
+                Helper.AudioManager.PlayAudioClip("RuneFailure");
                 Debug.Log("false"); // For Debug, perhaps add some graphical effect instead?
             }
         }
@@ -212,42 +213,42 @@ public class PuzzleRooms : MonoBehaviour
     void Update()
     {
         // Code is right
-        if (submittedCode.Count == randomisedUnlockCode.Count() && randomisedUnlockCode.SequenceEqual(submittedCode))
+        if (SubmittedCode.Count == RandomisedUnlockCode.Count() && RandomisedUnlockCode.SequenceEqual(SubmittedCode))
         {
-            doorController.roomComplete = true;
+            DoorController.roomComplete = true;
         }
 
         // Code is wrong
-        if (submittedCode.Count == randomisedUnlockCode.Count() && !randomisedUnlockCode.SequenceEqual(submittedCode))
+        if (SubmittedCode.Count == RandomisedUnlockCode.Count() && !RandomisedUnlockCode.SequenceEqual(SubmittedCode))
         {
-            switch (submittedCode[submittedCode.Count - 1])
+            switch (SubmittedCode[SubmittedCode.Count - 1])
             {
                 case "Red":
-                    redRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
+                    RedRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
                     break;
 
                 case "Green":
-                    greenRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
+                    GreenRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
                     break;
 
                 case "Blue":
-                    blueRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
+                    BlueRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
                     break;
 
                 case "Teal":
-                    tealRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
+                    TealRune.myTrap.GetComponent<ArrowTrap>().ActivateOnce();
                     break;
             }
 
-            redRune.ResetRune();
-            redRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
-            greenRune.ResetRune();
-            greenRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
-            blueRune.ResetRune();
-            blueRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
-            tealRune.ResetRune();
-            tealRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
-            submittedCode = new List<string>();
+            RedRune.ResetRune();
+            RedRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
+            GreenRune.ResetRune();
+            GreenRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
+            BlueRune.ResetRune();
+            BlueRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
+            TealRune.ResetRune();
+            TealRune.flameBowl.GetComponent<FlameBowl>().Extinguish();
+            SubmittedCode = new List<string>();
         }
     }
 }

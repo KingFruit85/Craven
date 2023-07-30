@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StandardRoom : MonoBehaviour
@@ -11,7 +12,7 @@ public class StandardRoom : MonoBehaviour
     void Start()
     {
         Room = GetComponent<SimpleRoom>();
-        
+
         gameObject.AddComponent<EnemySpawner>();
         EnemySpawner = GetComponent<EnemySpawner>();
         EnemySpawner.SetEnemyCount(Random.Range(0, 3));
@@ -31,6 +32,7 @@ public class StandardRoom : MonoBehaviour
             GameObject wall = Instantiate(Resources.Load("Wall"), floorTiles[i].transform.position, Quaternion.identity) as GameObject;
             wall.transform.parent = gameObject.transform.Find("Tiles");
             Room.spawnedWallTiles.Add(wall);
+            Room.RemoveSpawnableTile(wall.transform.localPosition);
             //Add to room contents array
             Room.AddItemToRoomContents(wall.transform.localPosition, '#');
 
