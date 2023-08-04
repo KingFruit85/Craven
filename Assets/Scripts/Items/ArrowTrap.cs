@@ -58,7 +58,7 @@ public class ArrowTrap : MonoBehaviour
         var rb = a.GetComponent<Rigidbody2D>();
 
         var aim = (tilePOS - transform.position).normalized;
-        rb.AddForce(aim * 0.1f);
+        rb.AddForce(aim * 0.01f);
     }
 
     public string GetDirection()

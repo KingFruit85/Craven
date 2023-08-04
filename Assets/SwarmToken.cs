@@ -15,14 +15,14 @@ public class SwarmToken : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            // GameObject.Find("GameManager").GetComponent<GameManager>().AddArrows(arrowCount);
             flameBowls = myRoom.GetComponentsInChildren<FlameBowl>();
 
             foreach (var fb in flameBowls)
             {
                 fb.Extinguish();
             }
-
+            var player = GameObject.FindGameObjectWithTag("Player");
+            DamagePopup.CreatePickupMessage(player.transform.position, "Picked up SWARM TOKEN!");
             Destroy(gameObject);
         }
     }

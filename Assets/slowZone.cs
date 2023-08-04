@@ -22,9 +22,21 @@ public class slowZone : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         var projectile = other.GetComponents<IProjectile>();
-        if (projectile.Length > 0)
+        var ghostBolt = other.TryGetComponent(out GhostBolt bolt);
+
+        if (ghostBolt)
         {
             sr.material.SetColor("_GlowColour", new Color(1f, 0f, 0f, 1f));
+            bolt.transform.TryGetComponent(out SpriteRenderer bsr);
+            if (bsr)
+            {
+                bsr.color = new Color(0f, 0f, 0f, 255f);
+            }
+            bolt.speed = bolt.speed / 12;
+        }
+
+        if (projectile.Length > 0)
+        {
             projectile[0].speed = projectile[0].speed / 6;
         };
     }

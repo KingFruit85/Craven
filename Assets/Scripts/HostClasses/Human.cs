@@ -4,14 +4,14 @@ using static PlayerMovement;
 
 public class Human : MonoBehaviour
 {
-    public string idleLeft = "Human_Idle_Left";
-    public string idleRight = "Human_Idle_Right";
-    public string walkLeft = "Human_Walk_Left";
-    public string walkRight = "Human_Walk_Right";
-    public string walkUp = "Human_Move_Up";
-    public string walkDown = "Human_Move_Down";
-    public string walkLeftNonBloodied = "Human_Walk_Left";
-    public string walkRightNonBloodied = "Human_Walk_Right";
+    public string idleLeft = "idleLeft";
+    public string idleRight = "idleright";
+    public string walkLeft = "newWalkLeft";
+    public string walkRight = "newWalkRight";
+    public string walkUp = "walkUp";
+    public string walkDown = "walkDown";
+    public string walkLeftNonBloodied = "walkLeftSword";
+    public string walkRightNonBloodied = "walkRightSword";
     public string walkUpNonBloodied = "Human_Move_Up";
     public string walkDownNonBloodied = "Human_Move_Down";
 
@@ -20,11 +20,11 @@ public class Human : MonoBehaviour
     public string walkLeftBloodied = "Human_Move_Left_Bloodied";
     public string walkRightBloodied = "Human_Move_Right_Bloodied";
 
-    public string idleUp = "Human_Idle_Up";
-    public string idleDown = "Human_Idle_Down";
+    public string idleUp = "idleUp";
+    public string idleDown = "idleDown";
     public string death = "Human_Death";
-    public string attackLeft = "Sword_Stab_Left";
-    public string attackRight = "Sword_Stab_Right";
+    public string attackLeft = "swordAttackLeft";
+    public string attackRight = "attackRightSword";
     public string attackUp = "Human_Attack_Up";
     public string attackDown = "Human_Attack_Down";
 
@@ -105,34 +105,101 @@ public class Human : MonoBehaviour
             {
                 default: throw new System.Exception("invalid dash direction provided");
                 case Looking.Up:
-                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x, Rigidbody2D.velocity.y + DashSpeed);
-                    PlayerAnimator.Play("Human_Dash_Up");
-                    Shaker.CombatShaker("Up");
+                    Roll("up", 2f);
+                    PlayerAnimator.Play("walkUp");
                     DashCoolDown = Time.time;
                     break;
 
                 case Looking.Down:
-                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x, Rigidbody2D.velocity.y - DashSpeed);
-                    PlayerAnimator.Play("Human_Dash_Down");
-                    Shaker.CombatShaker("Down");
+                    Roll("down", 2f);
+                    PlayerAnimator.Play("walkDown");
                     DashCoolDown = Time.time;
                     break;
 
                 case Looking.Left:
-                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x - DashSpeed, Rigidbody2D.velocity.y);
-                    PlayerAnimator.Play("Human_Dash_Left");
-                    Shaker.CombatShaker("Left");
+                    Roll("left", 2f);
+                    PlayerAnimator.Play("leftRoll");
                     DashCoolDown = Time.time;
                     break;
 
                 case Looking.Right:
-                    Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x + DashSpeed, Rigidbody2D.velocity.y);
-                    PlayerAnimator.Play("Human_Dash_Right");
-                    Shaker.CombatShaker("Right");
+                    Roll("right", 2f);
+                    PlayerAnimator.Play("rightRoll");
                     DashCoolDown = Time.time;
                     break;
             }
         }
+    }
+
+    public float rollDuration = 0.5f; // Adjust this duration to control the speed of the roll
+
+
+    private bool isRolling = false;
+
+    public void Roll(string direction, float distanceMultiplier = 1f)
+    {
+        if (!isRolling)
+        {
+            isRolling = true;
+            var rollDirection = new Vector2();
+            var rollDistance = new Vector2();
+            switch (direction)
+            {
+                case "up":
+                    rollDirection = new Vector2(0, 1);
+                    rollDistance = new Vector2(0, 2);
+                    break;
+                case "down":
+                    rollDirection = new Vector2(0, -1);
+                    rollDistance = new Vector2(0, 2);
+                    break;
+                case "left":
+                    rollDirection = new Vector2(-1, 0);
+                    rollDistance = new Vector2(2, 0);
+                    break;
+                case "right":
+                    rollDirection = new Vector2(1, 0);
+                    rollDistance = new Vector2(2, 0);
+                    break;
+            }
+            Vector2 targetPosition = (Vector2)transform.position + (rollDistance * rollDirection);
+            StartCoroutine(PerformRoll(targetPosition));
+        }
+    }
+
+    private IEnumerator PerformRoll(Vector2 targetPosition)
+    {
+        Vector2 initialPosition = transform.position;
+        float elapsedTime = 0f;
+        Player.GetComponent<Health>().IsImmuneToAllDamage = true;
+
+        while (elapsedTime < rollDuration)
+        {
+            float t = Mathf.SmoothStep(0f, 1f, elapsedTime / rollDuration);
+            Vector2 newPosition = Vector2.Lerp(initialPosition, targetPosition, t);
+
+            // Check for collisions before updating the position
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(newPosition, 0.1f);
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider != null && collider.gameObject != gameObject && collider.isTrigger == false && (collider.gameObject.tag == "Wall" || collider.gameObject.tag == "Door"))
+                {
+                    // There is an obstacle in the path; don't update the position
+                    isRolling = false;
+                    Player.GetComponent<Health>().IsImmuneToAllDamage = false;
+
+                    yield break;
+                }
+            }
+            transform.position = newPosition;
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        isRolling = false;
+        Player.GetComponent<Health>().IsImmuneToAllDamage = false;
     }
 
     private IEnumerator ToggleIsDashingBool()
@@ -147,15 +214,23 @@ public class Human : MonoBehaviour
         return IsDashing;
     }
 
+    public bool isPlayerRolling()
+    {
+        return isRolling;
+    }
+
     public void SwordAttack()
     {
         switch (playerIsLooking)
         {
             default: throw new System.Exception("PlayerMovement.Looking state not valid");
             case PlayerMovement.Looking.Left:
+                PlayerAnimator.Play("swordAttackLeft");
                 break;
 
             case PlayerMovement.Looking.Right:
+                PlayerAnimator.Play("swordAttackRight");
+
                 break;
 
             case PlayerMovement.Looking.Up:

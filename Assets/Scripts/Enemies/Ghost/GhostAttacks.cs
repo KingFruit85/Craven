@@ -11,9 +11,12 @@ public class GhostAttacks : MonoBehaviour
     private GameObject Player;
 
     [SerializeField]
-    private float AttackDelay = 1.0f;
+    private float AttackDelay = 2.0f;
     private float LastAttacked = -9999;
-    private bool CanAttack = true;
+    private bool CanAttackIsThisNeeded = true;
+
+    private float attackCooldown = 2.5f; // The time between attacks
+    private float lastAttackTime = 0f;
 
     public void Start()
     {
@@ -23,24 +26,33 @@ public class GhostAttacks : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    private bool CanAttack()
+    {
+        return Time.time - lastAttackTime >= attackCooldown;
+    }
+
     public void FireGhostBolt()
     {
+        if (CanAttack())
+        {
+            lastAttackTime = Time.time;
 
-        string[] ghostBolts = new string[]{"GhostBolt1","GhostBolt2","GhostBolt3","GhostBolt4",
-                                             "GhostBolt5","GhostBolt6","GhostBolt7"};
+            string[] ghostBolts = new string[]{"GhostBolt1","GhostBolt2","GhostBolt3","GhostBolt4",
+                                                "GhostBolt5","GhostBolt6","GhostBolt7"};
 
-        AudioManager.PlayAudioClip(ghostBolts[Random.Range(0, ghostBolts.Length)]);
+            AudioManager.PlayAudioClip(ghostBolts[Random.Range(0, ghostBolts.Length)]);
 
-        // Visual warning for the player that attack is incoming
+            // Visual warning for the player that attack is incoming
 
-        StartCoroutine(FlashColor(Color.red));
-        _ = Instantiate
-                                (
-                                    GhostBolt,
-                                    transform.position,
-                                    transform.rotation,
-                                    transform
-                                );
+            StartCoroutine(FlashColor(Color.red));
+            _ = Instantiate
+                                    (
+                                        GhostBolt,
+                                        transform.position,
+                                        transform.rotation,
+                                        transform
+                                    );
+        }
     }
 
     private IEnumerator FlashColor(Color color)
@@ -60,7 +72,7 @@ public class GhostAttacks : MonoBehaviour
         // Check for player in agro range
         if (Vector3.Distance(transform.position, Player.transform.position) <= 2.5f)
         {
-            if (Time.time > LastAttacked + AttackDelay && CanAttack)
+            if (Time.time > LastAttacked + AttackDelay && CanAttackIsThisNeeded)
             {
                 FireGhostBolt();
                 LastAttacked = Time.time;
@@ -70,6 +82,6 @@ public class GhostAttacks : MonoBehaviour
 
     public void SetCanAttack(bool newCanAttack)
     {
-        CanAttack = newCanAttack;
+        CanAttackIsThisNeeded = newCanAttack;
     }
 }

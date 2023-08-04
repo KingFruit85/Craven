@@ -154,7 +154,7 @@ public class Health : MonoBehaviour
     {
         LastHitBy = attacker;
         if (TryGetComponent(out Ghost ghost)) IsImmuneToProjectileDamage = ghost.Phasing();
-        if (TryGetComponent(out Human human)) IsImmuneToAllDamage = human.isPlayerDashing();
+        if (TryGetComponent(out Human human)) IsImmuneToAllDamage = human.isPlayerRolling();
 
         if (IsImmuneToMeleeDamage && damageType == Helper.DamageTypes.Melee) return;
         if (IsImmuneToAllDamage) return;

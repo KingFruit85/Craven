@@ -148,6 +148,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2042707837}
     m_Modifications:
+    - target: {fileID: 1139680889632612080, guid: a2893ebd6b57f164295ff162a2a12fa3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1824525466573331433, guid: a2893ebd6b57f164295ff162a2a12fa3,
         type: 3}
       propertyPath: m_RootOrder
@@ -207,6 +212,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SwordController
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824525466573331434, guid: a2893ebd6b57f164295ff162a2a12fa3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192287586408207095, guid: a2893ebd6b57f164295ff162a2a12fa3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2893ebd6b57f164295ff162a2a12fa3, type: 3}
@@ -563,6 +578,31 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887740, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887740, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887740, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887740, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887740, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 3995450992181887742, guid: 947f63dba3b3b7948ba457c5c2f54774,
         type: 3}
       propertyPath: m_RootOrder
@@ -618,6 +658,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3995450992181887743, guid: 947f63dba3b3b7948ba457c5c2f54774,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: feff58a705a692846b1e66b0a71b0ab5,
+        type: 3}
     - target: {fileID: 6897486114521256621, guid: 947f63dba3b3b7948ba457c5c2f54774,
         type: 3}
       propertyPath: MaxHealth
@@ -690,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec21c8fced5cc54ba60ebf23037fc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameSeed: boobs
+  GameSeed: sophia
   CurrentSeed: 0
 --- !u!1 &1441469709
 GameObject:

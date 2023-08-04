@@ -67,6 +67,7 @@ public class FloorTile : MonoBehaviour
     public void CriticalFlash()
     {
         StartCoroutine(CritFlash(.1f));
+        gameManager.playerHit = false;
     }
 
     void Update()

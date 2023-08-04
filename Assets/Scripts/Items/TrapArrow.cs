@@ -6,11 +6,11 @@ public class TrapArrow : MonoBehaviour
     private Rigidbody2D RigidBody2D;
 
     private Vector3 LastVelocity;
-    public float Speed = 0.05f;
-    private Vector3 Left = new Vector3(-1,0,0);
-    private Vector3 Right = new Vector3(1,0,0);
-    private Vector3 Up = new Vector3(0,1,0);
-    private Vector3 Down = new Vector3(0,-1,0);
+    public float Speed = 0.0005f;
+    private Vector3 Left = new Vector3(-1, 0, 0);
+    private Vector3 Right = new Vector3(1, 0, 0);
+    private Vector3 Up = new Vector3(0, 1, 0);
+    private Vector3 Down = new Vector3(0, -1, 0);
     public string Direction;
     public int Damage = 10;
     public bool Deflected = false;
@@ -33,15 +33,15 @@ public class TrapArrow : MonoBehaviour
             if (Direction == "up") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
             if (Direction == "down") transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
             if (Direction == "left") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-            if (Direction == "right") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0)); 
+            if (Direction == "right") transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
 
         if (gameObject.transform.parent.CompareTag("ArrowTurret"))
         {
-            if (Direction == "up") 
+            if (Direction == "up")
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-                Up = new Vector3(0,0,0);
+                Up = new Vector3(0, 0, 0);
             }
         }
         Fire();
@@ -51,19 +51,19 @@ public class TrapArrow : MonoBehaviour
     {
         if (Direction == "left")
         {
-            RigidBody2D.AddForce(Left * Speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Left * Speed, ForceMode2D.Force);
         }
         if (Direction == "right")
         {
-            RigidBody2D.AddForce(Right * Speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Right * Speed, ForceMode2D.Force);
         }
         if (Direction == "up")
         {
-            RigidBody2D.AddForce(Up * Speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Up * Speed, ForceMode2D.Force);
         }
         if (Direction == "down")
         {
-            RigidBody2D.AddForce(Down * Speed ,ForceMode2D.Force);
+            RigidBody2D.AddForce(Down * Speed, ForceMode2D.Force);
         }
     }
 
@@ -73,16 +73,16 @@ public class TrapArrow : MonoBehaviour
         LastVelocity = RigidBody2D.velocity;
 
         // Removes any deflected arrows that are laying about doing nothing
-        if (Deflected && RigidBody2D.velocity.x > -5f && RigidBody2D.velocity.y > - 5f) Destroy(gameObject, .5f);
+        if (Deflected && RigidBody2D.velocity.x > -5f && RigidBody2D.velocity.y > -5f) Destroy(gameObject, .5f);
 
         if (Helper.Player.TryGetComponent(out Ghost ghost))
         {
             if (ghost.Phasing() == true)
             {
-                Physics2D.IgnoreCollision(Helper.Player.GetComponent<CapsuleCollider2D>(),gameObject.GetComponent<BoxCollider2D>());
+                Physics2D.IgnoreCollision(Helper.Player.GetComponent<CapsuleCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
             }
         }
-    }   
+    }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -120,9 +120,9 @@ public class TrapArrow : MonoBehaviour
 
             // Deflect the arrow away from the sword
             float speed = LastVelocity.magnitude;
-            Vector3 direction = Vector3.Reflect(LastVelocity.normalized,coll.contacts[0].normal);
+            Vector3 direction = Vector3.Reflect(LastVelocity.normalized, coll.contacts[0].normal);
             RigidBody2D.velocity = direction * speed / 2;
-            
+
             // tag the arrow as having been deflected
             Deflected = true;
         }
@@ -130,7 +130,7 @@ public class TrapArrow : MonoBehaviour
         else if (coll.collider.gameObject.CompareTag("PlayerArrow"))
         {
             var speed = LastVelocity.magnitude;
-            var direction = Vector3.Reflect(LastVelocity.normalized,coll.contacts[0].normal);
+            var direction = Vector3.Reflect(LastVelocity.normalized, coll.contacts[0].normal);
             RigidBody2D.velocity = direction * speed * 2;
         }
 

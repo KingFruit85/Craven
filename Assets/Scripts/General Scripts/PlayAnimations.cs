@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayAnimations : MonoBehaviour
 {
-    public string idleLeft, idleRight, walkLeft, walkRight, 
+    public string idleLeft, idleRight, walkLeft, walkRight,
                    death, currentState, lastFacingDirection,
-                   walkDown,walkUp,idleDown,idleUp,attackLeft,attackRight,
-                   attackUp,attackDown;
+                   walkDown, walkUp, idleDown, idleUp, attackLeft, attackRight,
+                   attackUp, attackDown;
 
     public Animator animator;
     public Vector2 direction;
@@ -15,12 +15,12 @@ public class PlayAnimations : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private AIMovement AIMovement;
-    private GameManager gameManager;  
+    private GameManager gameManager;
     public Human human;
     public Ghost ghost;
     // public GhostBossAttacks ghostBoss;
     public Worm worm;
-        public Vector3 previousPosition;
+    public Vector3 previousPosition;
     public Vector3 currentMovementDirection;
     public int signX;
     public int signY;
@@ -39,14 +39,14 @@ public class PlayAnimations : MonoBehaviour
             AIMovement = GetComponent<AIMovement>();
         }
     }
-  
+
 
 
     public void Update()
     {
 
         //Get AI movement direction
-        if(previousPosition != transform.position && gameObject.tag != "Player") 
+        if (previousPosition != transform.position && gameObject.tag != "Player")
         {
             currentMovementDirection = (previousPosition - transform.position);
             signX = Math.Sign(currentMovementDirection.x);
@@ -54,7 +54,7 @@ public class PlayAnimations : MonoBehaviour
             previousPosition = transform.position;
         }
 
-        
+
         direction = transform.position;
 
         if (gameObject.tag != "Player")
@@ -106,8 +106,18 @@ public class PlayAnimations : MonoBehaviour
                 ChangeAnimationState(walkDown);
                 lastFacingDirection = "down";
             }
+            else
+            {
+                switch (lastFacingDirection)
+                {
+                    case "up": ChangeAnimationState(idleUp); break;
+                    case "down": ChangeAnimationState(idleDown); break;
+                    case "left": ChangeAnimationState(idleLeft); break;
+                    case "right": ChangeAnimationState(idleRight); break;
+                }
+            }
         }
-        
+
     }
 
     public void FixedUpdate()
@@ -131,9 +141,9 @@ public class PlayAnimations : MonoBehaviour
 
     public IEnumerator Death()
     {
-            ChangeAnimationState(death);
+        ChangeAnimationState(death);
 
-            yield return new WaitForSeconds(1.6f);
-            Destroy(this.gameObject);
+        yield return new WaitForSeconds(1.6f);
+        Destroy(this.gameObject);
     }
 }

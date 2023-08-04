@@ -16,7 +16,7 @@ public class GhostBolt : MonoBehaviour
     public string Shooter;
     private Vector3 LastVelocity;
     public bool Deflected;
-    public float speed = 0.001f;
+    public float speed = 0.0001f;
     public int damage = 10;
 
     void Awake()
@@ -66,14 +66,14 @@ public class GhostBolt : MonoBehaviour
     private void ShootAtEnemy()
     {
         damage = Helper.GameManager.rangedAttackBonus + damage;
-        Aim = (PlayerMouseClick - transform.position);
-        Rigidbody2d.AddForce(Aim * (speed * 5));
+        Aim = (PlayerMouseClick - transform.position).normalized;
+        Rigidbody2d.AddForce(Aim * speed, ForceMode2D.Impulse);
     }
 
     private void ShootAtPlayer()
     {
         Aim = (Player.transform.position - transform.position).normalized;
-        Rigidbody2d.AddForce(Aim * speed);
+        Rigidbody2d.AddForce(Aim * speed, ForceMode2D.Impulse);
     }
 
     void OnCollisionEnter2D(Collision2D coll)

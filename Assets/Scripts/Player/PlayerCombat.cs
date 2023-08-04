@@ -19,7 +19,8 @@ public class PlayerCombat : MonoBehaviour
     public GameManager GameManager;
     public Vector3 mouseClickPosition;
 
-
+    private float attackCooldown = 0.5f; // The time between attacks
+    private float lastAttackTime = 0f;
 
     void Start()
     {
@@ -56,6 +57,8 @@ public class PlayerCombat : MonoBehaviour
 
     void Attack()
     {
+        lastAttackTime = Time.time;
+
         if (GameManager.currentHost == HostType.Human)
         {
             if (GameManager.rangedWeaponEquipped) gameObject.transform.GetComponent<Human>().BowAttack(mouseClickPosition);
@@ -71,6 +74,11 @@ public class PlayerCombat : MonoBehaviour
         ArrowSpeed = speed;
         ArrowDamage = damage;
         RangedAttackDelay = attackDelay;
+    }
+
+    private bool CanAttack()
+    {
+        return Time.time - lastAttackTime >= attackCooldown;
     }
 
     public void Update()
@@ -89,7 +97,10 @@ public class PlayerCombat : MonoBehaviour
 
         mouseClickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(0)) Attack();
+        if (Input.GetMouseButtonDown(0) && CanAttack())
+        {
+            Attack();
+        };
     }
 
 
