@@ -13,10 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer sr;
     public bool isSlowed = false;
     public GameObject player;
-    public Vector2 lookDir;
     public Looking looking;
     public bool isMoving;
-
 
     public enum Looking
     {
@@ -26,10 +24,9 @@ public class PlayerMovement : MonoBehaviour
         Right
     }
 
-
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();       
+        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -37,6 +34,28 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            looking = Looking.Left;
+            Debug.Log("Looking Left");
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            looking = Looking.Right;
+            Debug.Log("Looking Right");
+        }
+        else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            looking = Looking.Up;
+            Debug.Log("Looking Up");
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            looking = Looking.Down;
+            Debug.Log("Looking Down");
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -51,24 +70,6 @@ public class PlayerMovement : MonoBehaviour
 
         mousePOS = cam.ScreenToWorldPoint(Input.mousePosition);
 
-        if (lookDir.x > 0f && Mathf.Abs(lookDir.x) > Mathf.Abs(lookDir.y))
-        {
-            looking = Looking.Right;
-        }
-        if (lookDir.x < 0f && Mathf.Abs(lookDir.x) > Mathf.Abs(lookDir.y))
-        {
-            looking = Looking.Left;
-        }
-        if (lookDir.y > 0f && Mathf.Abs(lookDir.x) < Mathf.Abs(lookDir.y))
-        {
-            looking = Looking.Up;
-        }
-        if (lookDir.y < 0f && Mathf.Abs(lookDir.x) < Mathf.Abs(lookDir.y))
-        {
-            looking = Looking.Down;
-        }
-
-        
         // Visual for slowed effect
         if (isSlowed)
         {
@@ -84,34 +85,22 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        lookDir = mousePOS - player.transform.position;
+        // lookDir = mousePOS - player.transform.position;
     }
 
     public void StopPlayerMovement()
     {
-         canMove = false;
+        canMove = false;
     }
 
     public void StartPlayerMovement()
     {
-         canMove = true;
+        canMove = true;
     }
 
     public Looking PlayerIsLooking()
     {
         return looking;
-    }
-
-    public bool PlayerIsLookingLeft()
-    {
-        if (looking == Looking.Left)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     void Move()
@@ -138,11 +127,11 @@ public class PlayerMovement : MonoBehaviour
     public void DazeForSeconds(int seconds)
     {
         isSlowed = true;
-        StartCoroutine(SlowSpeed(seconds));  
+        StartCoroutine(SlowSpeed(seconds));
     }
 
     private IEnumerator SlowSpeed(int seconds)
-    {   
+    {
         // Half player speed for provided seconds
         moveSpeed = moveSpeed / 8;
         yield return new WaitForSeconds(seconds);
@@ -152,5 +141,5 @@ public class PlayerMovement : MonoBehaviour
         isSlowed = false;
     }
 
-    }
+}
 

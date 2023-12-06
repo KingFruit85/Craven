@@ -47,17 +47,21 @@ public class GhostAI : MonoBehaviour
         {
             default:
 
-            case State.Roaming: MoveTo("Patrol"); FindTarget();
-            break; 
+            case State.Roaming:
+                MoveTo("Patrol"); FindTarget();
+                break;
 
-            case State.ChaseTarget: MoveTo("Player");
-            break;
+            case State.ChaseTarget:
+                MoveTo("Player");
+                break;
 
-            case State.GoingBackToStart:MoveTo("Start"); 
-            break;
+            case State.GoingBackToStart:
+                MoveTo("Start");
+                break;
 
-            case State.Attacking:Attack();
-            break;
+            case State.Attacking:
+                Attack();
+                break;
 
         }
 
@@ -71,9 +75,9 @@ public class GhostAI : MonoBehaviour
     private Vector3 GetRoamingPosition()
     {
         // Get random direction
-        var RD = new Vector2(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)).normalized;
+        var RD = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
 
-        return startingPosition + RD * Random.Range(1f,5f);
+        return startingPosition + RD * Random.Range(1f, 5f);
 
     }
 
@@ -81,15 +85,15 @@ public class GhostAI : MonoBehaviour
     {
         if (target == "Patrol")
         {
-            transform.position= Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, roamingPosition, speed * Time.deltaTime);
 
             float reachedPositionDistance = .1f;
             float d = Vector3.Distance(transform.position, roamingPosition);
 
-            if ( d <= reachedPositionDistance)
+            if (d <= reachedPositionDistance)
             {
                 roamingPosition = GetRoamingPosition();
-            }  
+            }
         }
 
         if (target == "Start")
@@ -99,44 +103,44 @@ public class GhostAI : MonoBehaviour
             float reachedPositionDistance = .5f;
             float d = Vector3.Distance(transform.position, startingPosition);
 
-            if ( d <= reachedPositionDistance)
+            if (d <= reachedPositionDistance)
             {
                 state = State.Roaming;
-            }  
+            }
         }
 
         if (target == "Player")
         {
-            var bottomLeftSide = new Vector3(playerPOS.x -1,playerPOS.y -1,0);
-            var bottomRightSide = new Vector3(playerPOS.x +1,playerPOS.y -1,0);
+            var bottomLeftSide = new Vector3(playerPOS.x - 1, playerPOS.y - 1, 0);
+            var bottomRightSide = new Vector3(playerPOS.x + 1, playerPOS.y - 1, 0);
 
 
-            var topLeftSide = new Vector3(playerPOS.x -1,playerPOS.y +1,0);
-            var topRightSide = new Vector3(playerPOS.x +1,playerPOS.y +1,0);
+            var topLeftSide = new Vector3(playerPOS.x - 1, playerPOS.y + 1, 0);
+            var topRightSide = new Vector3(playerPOS.x + 1, playerPOS.y + 1, 0);
 
             var PC = GameObject.FindGameObjectWithTag("Player").GetComponentInParent<PlayerMovement>();
-            
-            facingLeft = PC.PlayerIsLookingLeft();
+
+            // facingLeft = PC.PlayerIsLookingLeft();
 
             if (transform.position.y > playerPOS.y && facingLeft)
             {
                 speed = 2f;
-                transform.position= Vector3.MoveTowards(transform.position, topLeftSide, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, topLeftSide, speed * Time.deltaTime);
             }
             else if (transform.position.y < playerPOS.y && facingLeft)
             {
                 speed = 2f;
-                transform.position= Vector3.MoveTowards(transform.position, bottomLeftSide, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, bottomLeftSide, speed * Time.deltaTime);
             }
             else if (transform.position.y > playerPOS.y && !facingLeft)
             {
                 speed = 2f;
-                transform.position= Vector3.MoveTowards(transform.position, topRightSide, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, topRightSide, speed * Time.deltaTime);
             }
             else if (transform.position.y < playerPOS.y && !facingLeft)
             {
                 speed = 2f;
-                transform.position= Vector3.MoveTowards(transform.position, bottomRightSide, speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, bottomRightSide, speed * Time.deltaTime);
             }
 
             speed = 1f;
@@ -157,7 +161,7 @@ public class GhostAI : MonoBehaviour
         if (distanceApart < targetRange)
         {
             // Player is in target range
-            state = State.ChaseTarget;            
+            state = State.ChaseTarget;
 
         }
         else if (distanceApart > targetRange)
@@ -173,14 +177,14 @@ public class GhostAI : MonoBehaviour
         {
             Debug.Log("I've hit a bloody wall!");
             state = State.GoingBackToStart;
-            
+
         }
 
         if (other.tag == "Player")
         {
             Debug.Log("I've hit a bloody player!");
             // GetComponent<GhostAttacks>().TakeDamage(0, true);
-            
+
         }
 
     }

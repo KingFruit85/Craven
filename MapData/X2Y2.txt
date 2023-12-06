@@ -1,10 +1,10 @@
-XXXX--XXXX
+XXXXXXXXXX
 X░░░░░░░░X
 X░░░░░░░░X
 X░░░░░░░░X
+-░░░░░░░░-
+-░░░░░░░░-
 X░░░░░░░░X
 X░░░░░░░░X
 X░░░░░░░░X
-X░░░░░░░░X
-X░░░░░░░░X
-XXXX--XXXX
+XXXXXXXXXX
